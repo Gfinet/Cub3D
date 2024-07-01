@@ -8,8 +8,4 @@
 */*/*/*.a
 .vscode
 *.dSYM
-Philosophers/philo
-Pipex/pipex
-Fractol/fractol
-Push_Swap/push_swap
-
+cub3D
