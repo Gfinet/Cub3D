@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/01 22:23:37 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/01 23:25:25 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 #include <fcntl.h>
 
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 1280
+#  define WIN_HEIGHT 640 //1280
 # endif
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH 2400
+#  define WIN_WIDTH 1200 //2400
 # endif
 
 typedef struct	s_data {

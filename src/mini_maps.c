@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_maps.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/01 22:50:32 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/02 00:30:29 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,40 +29,110 @@ void get_width_height(t_maps *lvl)
 	lvl->mini.height = lvl->m_height + 2;
 }
 
+int is_border(int x, int y)
+{
+	if (x == 0 || y == 0 || x - 1 == 0 || y - 1 == 0)
+		return (1);
+	else if (x + 1 == WIN_HEIGHT / 5|| y + 1 == WIN_WIDTH / 5)
+		return (1);
+	else if (x + 2 == WIN_HEIGHT / 5|| y + 2 == WIN_WIDTH / 5)
+		return (1);
+	else
+		return (0);
+}
+
 void draw_background(t_cube *cube, t_maps *lvl)
 {
 	int i;
 	int j;
-	int color;
 	t_data *im;
-
-	color = (lvl->floor[0] << 16) + (lvl->floor[1] << 8) + lvl->floor[2];
 
 	i = -1;
 	im = &lvl->mini.m_maps;
 	get_width_height(lvl);
 	printf("%p %p \n", im, &lvl->mini.m_maps);
 	im->img = mlx_new_image(cube->mlx,
-		lvl->mini.witdh * WIN_WIDTH / 10,lvl->mini.height * WIN_HEIGHT / 10);
+		WIN_WIDTH / 5, WIN_HEIGHT / 5);
 	im->addr = mlx_get_data_addr(im->img,
 		&im->bits_per_pixel, &im->line_length, &im->endian);
 	while (++i < WIN_HEIGHT / 5)
 	{
 		j = -1;
-		while (++j < WIN_WIDTH / 5)
-			my_mlx_pixel_put(im, j, i, color);
+		while (++j <  WIN_WIDTH / 5)
+		{
+			if (is_border(i, j))
+				my_mlx_pixel_put(im, j, i, 0x00FFFFFF);
+			else
+				my_mlx_pixel_put(im, j, i, 0x000000FF);
+		}
 	}
 }
 
-void draw_maps(t_cube *cube, t_maps *lvl)
+int *get_ind(int i[2], int w_h[2], t_maps *lvl)
 {
-	
+	int bf;
+	int af;
+	int coef[2];
+
+	coef[0] = WIN_HEIGHT/5/lvl->mini.height;
+	coef[1] = WIN_WIDTH/5/lvl->mini.witdh;
+
+	af = 1;
+	bf = 0;
+	while (!(bf * coef[0] <= i[0] && i[0] < af * coef[0]))
+	{
+		bf++;
+		af++;
+	}
+	w_h[0] = bf;
+	af = 1;
+	bf = 0;
+	while (!(bf * coef[1] <= i[1] && i[1] < af * coef[1]))
+	{
+		bf++;
+		af++;
+	}
+	w_h[1] = bf;
+	return (w_h);
+}
+
+void draw_maps(t_maps *lvl)
+{
+	int i[2];
+	int w_h[2];
+	int len;
+
+	i[0] = -1;
+	while (++i[0] < WIN_HEIGHT / 5)
+	{
+		i[1] = -1;
+		while (++i[1] < WIN_WIDTH / 5)
+		{
+			get_ind(i, w_h, lvl);
+			if (w_h[0] + 1 < lvl->mini.height - 1)
+			{
+				len = (int)ft_strlen(lvl->maps[w_h[0]]);
+				if (w_h[1] < len - 1)
+				{
+					if (lvl->maps[w_h[0]][w_h[1]] == '1')
+						my_mlx_pixel_put(&lvl->mini.m_maps, i[1] + 4 * WIN_WIDTH/5/lvl->mini.witdh,
+							i[0] + WIN_HEIGHT/5/lvl->mini.height, 0x00FFFFFF);
+					if (lvl->maps[w_h[0]][w_h[1]] == '0')
+						my_mlx_pixel_put(&lvl->mini.m_maps, i[1] + 4 * WIN_WIDTH/5/lvl->mini.witdh,
+							i[0] + WIN_HEIGHT/5/lvl->mini.height, 0x5500FF00);
+					if (lvl->maps[w_h[0]][w_h[1]] == 'N')
+						my_mlx_pixel_put(&lvl->mini.m_maps, i[1] + 4 * WIN_WIDTH/5/lvl->mini.witdh,
+							i[0] + WIN_HEIGHT/5/lvl->mini.height, 0x00FF0000);
+				}
+			}
+		}
+	}
 }
 
 int make_mini(t_cube *cube, t_maps *lvl)
 {
 	draw_background(cube, lvl);
-	draw_maps(cube, lvl);
+	draw_maps(lvl);
 	mlx_put_image_to_window(cube->mlx, cube->win, lvl->mini.m_maps.img, 0, 0);
 	return (1);
 }
