@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 18:03:06 by gfinet            #+#    #+#             */
-/*   Updated: 2024/02/06 23:55:56 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/01 20:47:44 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,6 @@ char	*free_all_gnl(char **tmp, char **tmp2)
 		*tmp2 = NULL;
 	}
 	return (NULL);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	len;
-
-	len = 0;
-	if (s == NULL)
-		return (0);
-	while (s[len])
-		len++;
-	return (len);
 }
 
 char	*ft_stradd(char *s1, char const *s2)
@@ -87,23 +75,3 @@ char	*ft_strchr(const char *str, int c)
 	return (0);
 }
 
-char	*ft_strdup(const char *src)
-{
-	char		*p;
-	size_t		len;
-	size_t		i;
-
-	if (!src)
-		return (NULL);
-	len = ft_strlen(src);
-	i = 0;
-	p = (char *)malloc((len + 1) * sizeof(char));
-	if (p == NULL)
-		return (0);
-	while (i < len + 1)
-	{
-		p[i] = src[i];
-		i++;
-	}
-	return (p);
-}

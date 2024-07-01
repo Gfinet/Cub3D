@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/01 18:15:46 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/01 21:24:31 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,27 @@ static int check_format(char *file)
 int	main(int argc, char **argv)
 {
 	t_cube cube;
-	t_img img;
+	// t_img img;
+	t_maps level;
 
-	img.path = ft_strdup("/Users/gfinet/Desktop/Github/Cub3D/minecraft.xpm");
+	// img.path = ft_strdup("/Users/gfinet/Desktop/Cub3D/minecraft.xpm");
 	if (argc != 2 )
 		return (write(2, "Error\nBad Arg\n", 14), 0);
 	if (!check_format(argv[1]))
 		return (write(2, "Error\nBad format\n", 17), 0);
 	cube.mlx = mlx_init();
 	cube.win = mlx_new_window(cube.mlx, WIN_WIDTH, WIN_HEIGHT, "DOOM3D");
-	// mlx_image_to_window(cube.mlx, img.img, 50, 50);
+	if (!get_maps(&level, argv[1]))
+		return (write(2, "Error\nBad maps\n", 15), 0);
+	if (!make_mini(&cube, &level))
+		return (write(2, "Error\nAttempt for mini map failed\n", 34), 0);
+	// img.height = 12;
+	// img.witdh = 12;
+	// img.img = mlx_xpm_file_to_image(cube.mlx, img.path, &img.witdh, &img.height);
+	// if (img.img)
+	// 	mlx_put_image_to_window(cube.mlx, cube.win, img.img, 0, 0);
+	// else
+	// 	printf("%p\n", img.img);
 	// mlx_close_hook(cube.mlx, esc_handle, &cube);
 	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
 	mlx_hook(cube.win, 2, 0, &key_event, &cube);

@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/01 17:57:11 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/01 22:23:37 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,46 @@
 # include "../inc/Printf/ft_printf.h"
 # include "../inc/minilibx/mlx.h"
 
+# include <stdlib.h>
+# include <unistd.h>
+#include <fcntl.h>
+
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 800
+#  define WIN_HEIGHT 1280
 # endif
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH 1200
+#  define WIN_WIDTH 2400
 # endif
 
-// typedef struct s_mouse_type
-// {
-// 	mouse_key_t mcode;
-// 	action_t act;
-// 	modifier_key_t key;
-// 	void *cube;
-// }	t_mouse_type;
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
+
+typedef struct s_mini_maps
+{
+	t_data m_maps;
+	char **maps;
+	int witdh;
+	int height;
+}	t_mini_maps;
+
+typedef struct s_maps
+{
+	t_mini_maps mini;
+	char **maps;
+	char *no_text;
+	char *so_text;
+	char *we_text;
+	char *ea_text;
+	int floor[3];
+	int ceiling[3];
+	int m_height;
+
+}	t_maps;
 
 typedef struct s_cube
 {
@@ -59,4 +85,14 @@ int	mouse_event(int mcode, int x, int y, t_cube *cube);
 int	scroll_event(double xdelta, double ydelta, t_cube *cube);
 int	add_event(t_cube *cube);
 
+//parse_maps.c
+int get_maps(t_maps *lvl, char *file);
+void fill_maps(t_maps *lvl, char *str, int fd[2]);
+void set_floor_ceiling(int fl_ce[3], char *str);
+void set_map(t_maps *lvl, char *str, int fd[2]);
+int check_map(char *file);
+
+int make_mini(t_cube *cube, t_maps *lvl);
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 #endif

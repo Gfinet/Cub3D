@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   mlx_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 18:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/01 20:43:21 by gfinet           ###   ########.fr       */
+/*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
+/*   Updated: 2024/07/01 22:03:36 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
-# include <unistd.h>
-# include <stdlib.h>
+#include "../inc/cub3d.h"
 
-# include <stdio.h>
-# include "../libft.h"
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
 
-char	*get_next_line(int fd);
-char	*ft_strchr(const char *str, int c);
-char	*free_all_gnl(char **tmp, char **tmp2);
-char	*ft_stradd(char *s1, char const *s2);
-
-#endif
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}

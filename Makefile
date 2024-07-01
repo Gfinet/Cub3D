@@ -1,10 +1,13 @@
 CC       = GCC
 NAME = cub3D
-CFLAGS   = -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS   = -Wall -Wextra -Werror -g -fsanitize=address
 
 
 SRCS     = src/main_cub3d.c \
-			src/handle_event.c
+			src/handle_event.c \
+			src/mini_maps.c \
+			src/parse_maps.c \
+			src/mlx_img.c
 OBJ      = $(SRCS:.c=.o)
 
 # BON_SRCS = bonus/main_cub3d_bonus.c
@@ -45,13 +48,13 @@ libftprintf.a:
 clean:
 	@rm -rf $(OBJ)
 	@rm -rf $(BON_OBJ)
-	@make -C $(MINI) clean
+#@make -C $(MINI) clean
 	@make -C $(LIBFT) clean
 	@echo "clean done"
 
 fclean: clean
 	@rm -rf libftprintf.a
-	@make -C $(MINI) clean
+#@make -C $(MINI) clean
 	@make -C $(LIBFT) fclean
 	@rm -rf $(NAME)
 	@echo "fclean done"
