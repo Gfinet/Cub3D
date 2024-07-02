@@ -7,6 +7,7 @@ SRCS     = src/main_cub3d.c \
 			src/handle_event.c \
 			src/mini_maps.c \
 			src/parse_maps.c \
+			src/check_maps.c \
 			src/mlx_img.c
 OBJ      = $(SRCS:.c=.o)
 
@@ -33,6 +34,9 @@ $(NAME): $(OBJ) libftprintf.a $(LIBX)
 
 %.o : %.c
 	@$(CC) $(CFLAGS) -Imlx -c $< -o $@
+
+add:
+	git add src/ inc/ maps/ Makefile .gitignore
 
 $(LIBX):
 	@make -C $(MINI)

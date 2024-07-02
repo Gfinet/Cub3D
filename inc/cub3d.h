@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/01 23:25:25 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/02 15:40:30 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ typedef struct	s_data {
 
 typedef struct s_mini_maps
 {
-	t_data m_maps;
-	char **maps;
+	t_data maps;
 	int witdh;
 	int height;
 }	t_mini_maps;
@@ -47,11 +46,12 @@ typedef struct s_mini_maps
 typedef struct s_maps
 {
 	t_mini_maps mini;
-	char **maps;
+	char **c_maps;
 	char *no_text;
 	char *so_text;
 	char *we_text;
 	char *ea_text;
+	int max_len;
 	int floor[3];
 	int ceiling[3];
 	int m_height;
@@ -90,9 +90,12 @@ int get_maps(t_maps *lvl, char *file);
 void fill_maps(t_maps *lvl, char *str, int fd[2]);
 void set_floor_ceiling(int fl_ce[3], char *str);
 void set_map(t_maps *lvl, char *str, int fd[2]);
+
+//check_maps.c
 int check_map(char *file);
 
 int make_mini(t_cube *cube, t_maps *lvl);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
 #endif
