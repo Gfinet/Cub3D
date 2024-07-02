@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:40:39 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 22:59:12 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 01:01:36 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	check_color(char *file)
 	ft_memset(f_c, 0, sizeof(int) * 2);
 	f_c[2] = open(file, O_RDONLY);
 	str = get_next_line(f_c[2]);
-	while (str)
+	while (str && f_c[2] > 2)
 	{
 		while (str && str[0] != 'F' && str[0] != 'C')
 		{
