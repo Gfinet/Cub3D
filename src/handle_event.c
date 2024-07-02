@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/01 18:20:00 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/02 20:15:03 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,8 @@ int	key_event(int keycode, t_cube *cube)
 	return (1);
 }
 
-int mouse_event(int mcode, int x, int y, t_cube *cube)
+int	mouse_event(int mcode, int x, int y, t_cube *cube)
 {
-	// button : L 0, R 1, MID 2
-	//action rien 0, press, 1
-	// mods :
-	// MLX_SHIFT		= 0x0001,
-	// MLX_CONTROL		= 0x0002,
-	// MLX_ALT			= 0x0004,
 	printf("%d %d %d %p\n", mcode, x, y, cube);
 	return (0);
 }

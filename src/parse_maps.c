@@ -6,27 +6,26 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 17:59:24 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/02 20:22:20 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static int cpy_line(t_maps *lvl, char *str, int ind)
+static int	cpy_line(t_maps *lvl, char *str, int ind)
 {
-	//lvl->c_maps[ind] = ft_calloc(sizeof(char), (size_t)lvl->max_len);
 	lvl->c_maps[ind] = malloc(sizeof(char) * lvl->max_len + 2);
-	ft_memset((void*)lvl->c_maps[ind], '.', (size_t)lvl->max_len + 2);
+	ft_memset((void *)lvl->c_maps[ind], '.', (size_t)lvl->max_len + 2);
 	if (!lvl->c_maps[ind])
 		return (0); //free_all
 	ft_strlcpy(lvl->c_maps[ind], str, (size_t)lvl->max_len + 1);
 	return (1);
 }
 
-void set_map(t_maps *lvl, char *str, int fd[2])
+void	set_map(t_maps *lvl, char *str, int fd[2])
 {
-	int i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	i = 1;
 	tmp = ft_strdup(str);
@@ -37,8 +36,7 @@ void set_map(t_maps *lvl, char *str, int fd[2])
 			lvl->max_len = (int)ft_strlen(str);
 		i++;
 	}
-	lvl->c_maps = malloc(sizeof(char*) * i);
-	printf("%d\n", lvl->max_len);
+	lvl->c_maps = malloc(sizeof(char *) * i);
 	cpy_line(lvl, tmp, 0);
 	free(tmp);
 	str = get_next_line(fd[1]);
@@ -52,13 +50,13 @@ void set_map(t_maps *lvl, char *str, int fd[2])
 	lvl->m_height = i;
 }
 
-void set_floor_ceiling(int fl_ce[3], char *str)
+void	set_floor_ceiling(int fl_ce[3], char *str)
 {
-	int i;
-	int j;
-	int k;
-	char *nb;
-	
+	int		i;
+	int		j;
+	int		k;
+	char	*nb;
+
 	i = 0;
 	k = 0;
 	j = 0;
@@ -75,9 +73,9 @@ void set_floor_ceiling(int fl_ce[3], char *str)
 	}
 }
 
-void fill_maps(t_maps *lvl, char *str, int fd[2])
+void	fill_maps(t_maps *lvl, char *str, int fd[2])
 {
-	size_t len;
+	size_t	len;
 
 	len = ft_strlen(str);
 	if (!str)
@@ -98,30 +96,31 @@ void fill_maps(t_maps *lvl, char *str, int fd[2])
 		return ;
 	else
 		set_map(lvl, str, fd);
-
 }
-int get_maps(t_maps *lvl, char *file)
+
+int	get_maps(t_cube *cube, char *file)
 {
-	int fd[2];
-	char *str;
-	if (!check_map(file))
+	int		fd[2];
+	char	*str;
+
+	if (!check_map(cube, file))
 		return (0);
-	lvl->max_len = 0;
+	cube->lvl->max_len = 0;
 	fd[0] = open(file, O_RDONLY);
 	fd[1] = open(file, O_RDONLY);
 	str = get_next_line(fd[0]);
 	get_next_line(fd[1]);
 	while (str)
 	{
-		fill_maps(lvl, str, fd);
+		fill_maps(cube->lvl, str, fd);
 		free(str);
 		str = get_next_line(fd[0]);
 		get_next_line(fd[1]);
 	}
-	int i = 0;
-	while (i < lvl->m_height)
-		printf("%s", lvl->c_maps[i++]);
-	printf("\n");
+	// int i = 0;
+	// while (i < cube->lvl->m_height)
+	// 	printf("%s", cube->lvl->c_maps[i++]);
+	// printf("\n");
 	close(fd[0]);
 	close(fd[1]);
 	return (1);

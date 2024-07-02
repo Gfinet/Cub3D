@@ -3,12 +3,13 @@ NAME = cub3D
 CFLAGS   = -Wall -Wextra -Werror -g -fsanitize=address
 
 
-SRCS     = src/main_cub3d.c \
-			src/handle_event.c \
-			src/mini_maps.c \
-			src/parse_maps.c \
-			src/check_maps.c \
-			src/raycasting.c \
+SRCS     = src/main_cub3d.c		\
+			src/handle_event.c	\
+			src/mini_maps.c 	\
+			src/parse_maps.c 	\
+			src/check_maps.c 	\
+			src/check_arg.c 	\
+			src/raycasting.c 	\
 			src/mlx_img.c
 OBJ      = $(SRCS:.c=.o)
 

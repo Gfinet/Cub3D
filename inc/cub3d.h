@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 18:00:35 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/02 20:23:48 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_cube
 	//mlx_t		*mlx_w;
 	void		*mlx;
 	void		*win;
+	t_maps		*lvl;
 	//mlx_image_t	***all_img;
 	t_data	*texture;
 
@@ -93,6 +94,8 @@ typedef struct s_player
 	t_point	dir;
 }	t_player;
 
+t_data*	rcdda(t_cube *cube, char **map, t_player player);
+
 //handle_event.c
 int	esc_handle(t_cube *cube);
 int	key_event(int keycode, t_cube *cube);
@@ -101,13 +104,13 @@ int	scroll_event(double xdelta, double ydelta, t_cube *cube);
 int	add_event(t_cube *cube);
 
 //parse_maps.c
-int get_maps(t_maps *lvl, char *file);
+int get_maps(t_cube *cube, char *file);
 void fill_maps(t_maps *lvl, char *str, int fd[2]);
 void set_floor_ceiling(int fl_ce[3], char *str);
 void set_map(t_maps *lvl, char *str, int fd[2]);
 
 //check_maps.c
-int check_map(char *file);
+int check_map(t_cube *cube, char *file);
 
 int make_mini(t_cube *cube, t_maps *lvl);
 

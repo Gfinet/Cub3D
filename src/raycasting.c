@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/02 18:18:08 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/02 18:37:37 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ t_data*	rcdda(t_cube *cube, char **map, t_player player)
 	while (++x < WIN_WIDTH)
 	{
 		cameraX = 2 * x / ((double)WIN_WIDTH) - 1; //x-coordinate in camera space
-    	printf("CX >>>>> %f\n", cameraX);
+    	//printf("CX >>>>> %f\n", cameraX);
 		ray_dir.x = player.dir.x + plane.x * (cameraX);
     	ray_dir.y = player.dir.y + plane.y * (cameraX);
-		printf("ray y >> %f, ray x >> %f\n", ray_dir.y, ray_dir.x);
+		//printf("ray y >> %f, ray x >> %f\n", ray_dir.y, ray_dir.x);
 		if (ray_dir.x)
 			delta_dist.x = fabs(1 / ray_dir.x);
 		else
@@ -97,11 +97,11 @@ t_data*	rcdda(t_cube *cube, char **map, t_player player)
 				dest.y += step.y;
 				side = 1;
 			}
-			printf("y %d x %d\n", (int)dest.y, (int)dest.x);
+			//printf("y %d x %d\n", (int)dest.y, (int)dest.x);
 			if(map[(int)dest.y][(int)dest.x] == '1')
 				hit = 1;
 		}
-		printf("hit y >> %i, hit x >> %i\n", (int)dest.y, (int)dest.x);
+		//printf("hit y >> %i, hit x >> %i\n", (int)dest.y, (int)dest.x);
 		if(side == 0)
 			perp_wall_dist = (side_dist.x - delta_dist.x);
 		else
