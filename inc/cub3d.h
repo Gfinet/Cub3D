@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 20:23:48 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/02 23:23:12 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_cube
 	t_maps		*lvl;
 	//mlx_image_t	***all_img;
 	t_data	*texture;
+	t_data	*screen;
 
 }	t_cube;
 
@@ -75,7 +76,6 @@ typedef struct s_cube
 typedef struct s_img
 {
 	void *img;
-	//xpm_t *texture;
 	char *path;
 	int witdh;
 	int height;
@@ -110,7 +110,11 @@ void set_floor_ceiling(int fl_ce[3], char *str);
 void set_map(t_maps *lvl, char *str, int fd[2]);
 
 //check_maps.c
-int check_map(t_cube *cube, char *file);
+int check_arg(t_cube *cube, char *file);
+int check_map(t_cube *cube);
+
+int	get_dir(char *str);
+char	*get_text_dir(char *str);
 
 int make_mini(t_cube *cube, t_maps *lvl);
 

@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 20:22:20 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/02 23:41:01 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 static int	cpy_line(t_maps *lvl, char *str, int ind)
 {
+	size_t len;
 	lvl->c_maps[ind] = malloc(sizeof(char) * lvl->max_len + 2);
 	ft_memset((void *)lvl->c_maps[ind], '.', (size_t)lvl->max_len + 2);
 	if (!lvl->c_maps[ind])
 		return (0); //free_all
-	ft_strlcpy(lvl->c_maps[ind], str, (size_t)lvl->max_len + 1);
+	len = ft_strlen(str);
+	ft_strlcpy(lvl->c_maps[ind], str, len);
 	return (1);
 }
 
@@ -59,6 +61,8 @@ void	set_floor_ceiling(int fl_ce[3], char *str)
 
 	i = 0;
 	k = 0;
+	while (str[k] == ' ')
+		k++;
 	j = 0;
 	while (i < 3)
 	{
@@ -75,23 +79,20 @@ void	set_floor_ceiling(int fl_ce[3], char *str)
 
 void	fill_maps(t_maps *lvl, char *str, int fd[2])
 {
-	size_t	len;
-
-	len = ft_strlen(str);
 	if (!str)
 		return ;
-	if (str[0] == 'N')
-		lvl->no_text = ft_substr(str, 3, len - 4);
-	else if (str[0] == 'S')
-		lvl->so_text = ft_substr(str, 3, len - 4);
-	else if (str[0] == 'W')
-		lvl->we_text = ft_substr(str, 3, len - 4);
-	else if (str[0] == 'E')
-		lvl->ea_text = ft_substr(str, 3, len - 4);
+	if (!ft_strncmp("NO", str, 2))
+		lvl->no_text = get_text_dir(&str[2]);
+	else if (!ft_strncmp("SO", str, 2))
+		lvl->so_text = get_text_dir(&str[2]);
+	else if (!ft_strncmp("WE", str, 2))
+		lvl->we_text = get_text_dir(&str[2]);
+	else if (!ft_strncmp("EA", str, 2))
+		lvl->ea_text = get_text_dir(&str[2]);
 	else if (str[0] == 'F')
-		set_floor_ceiling(lvl->floor, &str[2]);
+		set_floor_ceiling(lvl->floor, &str[1]);
 	else if (str[0] == 'C')
-		set_floor_ceiling(lvl->ceiling, &str[2]);
+		set_floor_ceiling(lvl->ceiling, &str[1]);
 	else if (str[0] == '\n')
 		return ;
 	else
@@ -103,7 +104,7 @@ int	get_maps(t_cube *cube, char *file)
 	int		fd[2];
 	char	*str;
 
-	if (!check_map(cube, file))
+	if (!check_arg(cube, file))
 		return (0);
 	cube->lvl->max_len = 0;
 	fd[0] = open(file, O_RDONLY);
@@ -117,10 +118,8 @@ int	get_maps(t_cube *cube, char *file)
 		str = get_next_line(fd[0]);
 		get_next_line(fd[1]);
 	}
-	// int i = 0;
-	// while (i < cube->lvl->m_height)
-	// 	printf("%s", cube->lvl->c_maps[i++]);
-	// printf("\n");
+	if (!check_map(cube))
+		return (0);
 	close(fd[0]);
 	close(fd[1]);
 	return (1);

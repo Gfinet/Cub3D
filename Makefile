@@ -9,6 +9,7 @@ SRCS     = src/main_cub3d.c		\
 			src/parse_maps.c 	\
 			src/check_maps.c 	\
 			src/check_arg.c 	\
+			src/check_arg2.c 	\
 			src/raycasting.c 	\
 			src/mlx_img.c
 OBJ      = $(SRCS:.c=.o)

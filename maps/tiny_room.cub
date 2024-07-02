@@ -1,11 +1,11 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./minecraft.xpm
+SO ./minecraft2.xpm
+WE ./minecraft3.xpm
+EA ./minecraft4.xpm
 
 F 220,100,0
 C 225,30,0
 
-11111
-11N11
-11111
+111
+1N1
+111

@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 20:25:20 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/02 21:31:54 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	main(int argc, char **argv)
 	t_maps	level;
 	int		x = 0;
 	int		y = 0;
-	t_data		*screen;
-	t_player	player = {(t_point){6., 9.}, (t_point){0., 1.}};
+	//t_data		*screen;
+	//t_player	player = {(t_point){6., 2.}, (t_point){0., 1.}};
 
 	cube.lvl = &level;
 	if (argc != 2)
@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 		return (printf("urrrrgh\n"));
 	cube.texture->addr = mlx_get_data_addr(cube.texture->img, &cube.texture->bits_per_pixel, &cube.texture->line_length, &cube.texture->endian);
 	//printf("%s\n", cube.texture->addr);
-	screen = rcdda(&cube, level.c_maps, player);
+	//screen = rcdda(&cube, level.c_maps, player);
 	mlx_put_image_to_window(cube.mlx, cube.win, level.mini.maps.img, 4 * WIN_WIDTH / 5, 0);
 	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
 	mlx_hook(cube.win, 2, 0, &key_event, &cube);
