@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 17:28:15 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/02 17:59:24 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int get_maps(t_maps *lvl, char *file)
 	int i = 0;
 	while (i < lvl->m_height)
 		printf("%s", lvl->c_maps[i++]);
+	printf("\n");
 	close(fd[0]);
 	close(fd[1]);
 	return (1);

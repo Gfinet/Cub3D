@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 17:04:48 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/02 17:56:28 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,5 @@ int make_mini(t_cube *cube, t_maps *lvl)
 	lvl->mini.height = lvl->m_height + 2;
 	draw_background(cube, lvl);
 	draw_maps(lvl);
-	mlx_put_image_to_window(cube->mlx, cube->win, lvl->mini.maps.img,
-		 4 * WIN_WIDTH / 5, 0);
 	return (1);
 }

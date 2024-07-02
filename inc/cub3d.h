@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 15:40:30 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/02 18:00:35 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@
 # include "keycode.h"
 # include "../inc/Printf/ft_printf.h"
 # include "../inc/minilibx/mlx.h"
+# include <math.h>
 
 # include <stdlib.h>
 # include <unistd.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 640 //1280
+#  define WIN_HEIGHT 1280 //1280
 # endif
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH 1200 //2400
+#  define WIN_WIDTH 2400 //2400
 # endif
 
 typedef struct	s_data {
@@ -39,6 +40,7 @@ typedef struct	s_data {
 typedef struct s_mini_maps
 {
 	t_data maps;
+	t_data screen;
 	int witdh;
 	int height;
 }	t_mini_maps;
@@ -64,6 +66,7 @@ typedef struct s_cube
 	void		*mlx;
 	void		*win;
 	//mlx_image_t	***all_img;
+	t_data	*texture;
 
 }	t_cube;
 
@@ -77,6 +80,18 @@ typedef struct s_img
 	int height;
 	
 }	t_img;
+
+typedef struct s_point
+{
+	double	x;
+	double	y;
+}	t_point;
+
+typedef struct s_player
+{
+	t_point	pos;
+	t_point	dir;
+}	t_player;
 
 //handle_event.c
 int	esc_handle(t_cube *cube);
