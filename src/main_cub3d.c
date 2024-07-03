@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 23:28:35 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 23:41:33 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,6 @@ static int init_cube(t_cube *cube)
 	cube->screen = malloc(sizeof(t_data));
 	if (!cube->screen)
 		return (free(cube->bg), 0);
-	cube->texture = malloc(sizeof(t_data));
-	if (!cube->texture)
-		return (free(cube->bg), free(cube->screen), 0);
-	cube->texture->img = mlx_xpm_file_to_image(cube->mlx, "./minecraft.xpm",
-		&cube->texture->width, &cube->texture->height);
-	if (!cube->texture->img)
-		return (free(cube->bg), free(cube->screen), free(cube->texture), 0);
 	cube->bg = malloc(sizeof(t_data));
 	if (!cube->bg)
 		return (free(cube->bg), free(cube->screen), free(cube->texture), 0);
@@ -55,8 +48,7 @@ int	main(int argc, char **argv)
 {
 	t_cube cube;
 	t_maps level;
-	t_data		*screen;
-	t_player	player = {(t_point){6., 9.}, (t_point){0., 1.}};
+	t_player	player = {(t_point){11., 11.}, (t_point){0., -1.}};
 
 	cube.lvl = &level;
 	if (argc != 2)
@@ -71,22 +63,24 @@ int	main(int argc, char **argv)
 	if (!make_mini(&cube, &level))
 		return (write(2, "Error\nAttempt for mini map failed\n", 34), 0);
 	cube.texture = malloc(sizeof(t_data) * 4);
-	cube.texture[0].img = mlx_xpm_file_to_image(cube.mlx, "./nounours(1).xpm", &cube.texture[0].width, &cube.texture[0].height);
-	cube.texture[1].img = mlx_xpm_file_to_image(cube.mlx, "./nicpimp.xpm", &cube.texture[1].width, &cube.texture[1].height);
-	cube.texture[2].img = mlx_xpm_file_to_image(cube.mlx, "./eagle.xpm", &cube.texture[2].width, &cube.texture[2].height);
-	cube.texture[3].img = mlx_xpm_file_to_image(cube.mlx, "./minecraft(1).xpm", &cube.texture[3].width, &cube.texture[3].height);
-	if (!cube.texture[0].img || !cube.texture[3].img || !cube.texture[2].img || !cube.texture[1].img)
-		return (printf("urrrrgh\n"));
+	cube.texture[0].img = mlx_xpm_file_to_image(cube.mlx, "./texture/nounours(1).xpm", &cube.texture[0].width, &cube.texture[0].height);
+	cube.texture[1].img = mlx_xpm_file_to_image(cube.mlx, "./texture/nicpimp.xpm", &cube.texture[1].width, &cube.texture[1].height);
+	cube.texture[2].img = mlx_xpm_file_to_image(cube.mlx, "./texture/eagle.xpm", &cube.texture[2].width, &cube.texture[2].height);
+	cube.texture[3].img = mlx_xpm_file_to_image(cube.mlx, "./texture/minecraft(1).xpm", &cube.texture[3].width, &cube.texture[3].height);
 	cube.texture[0].addr = mlx_get_data_addr(cube.texture[0].img, &cube.texture[0].bits_per_pixel, &cube.texture[0].line_length, &cube.texture[0].endian);
 	cube.texture[1].addr = mlx_get_data_addr(cube.texture[1].img, &cube.texture[1].bits_per_pixel, &cube.texture[1].line_length, &cube.texture[1].endian);
 	cube.texture[2].addr = mlx_get_data_addr(cube.texture[2].img, &cube.texture[2].bits_per_pixel, &cube.texture[2].line_length, &cube.texture[2].endian);
 	cube.texture[3].addr = mlx_get_data_addr(cube.texture[3].img, &cube.texture[3].bits_per_pixel, &cube.texture[3].line_length, &cube.texture[3].endian);
 	printf("%s\n", cube.texture->addr);
-	screen = rcdda(&cube, level.c_maps, player);
+	cube.screen = NULL;
+	cube.maps = &level;
+	cube.player = &player;
+	rcdda(&cube, cube.maps->c_maps, player);
 	mlx_put_image_to_window(cube.mlx, cube.win, level.mini.maps.img, 4 * WIN_WIDTH / 5, 0);
 	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
 	mlx_hook(cube.win, 2, 0, &key_event, &cube);
-	mlx_mouse_hook(cube.win, &mouse_event, &cube);
+	// mlx_loop_hook(cube.mlx, &key_event, &cube);
+	// mlx_mouse_hook(cube.win, &mouse_event, &cube);
 	//mlx_scroll_hook(cube.mlx, scroll_event, &cube);
 	//mlx_loop_hook(cube.mlx, add_event, &cube);
 	mlx_loop(cube.mlx);

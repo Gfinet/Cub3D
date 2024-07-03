@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 20:15:03 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 23:34:28 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,52 @@ int	esc_handle(t_cube *cube)
 	return (0);
 }
 
+void	move_up(t_cube *cube)
+{
+		printf("pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
+	cube->player->pos.y += (cube->player->dir.y / 4);
+	cube->player->pos.x += (cube->player->dir.x / 4);
+	printf("new >>> pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
+}
+void	move_down(t_cube *cube)
+{
+	printf("pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
+	cube->player->pos.y -= (cube->player->dir.y / 4);
+	cube->player->pos.x -= (cube->player->dir.x / 4);
+	printf("new >>> pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
+}
+
+void	turn(t_cube *cube, int angle)
+{
+	double	n_x;
+	double	n_y;
+	double rad = angle * (M_PI / 180.0);
+
+	printf("dir.y = %f; dir.x = %f\n", cube->player->dir.y, cube->player->dir.x);
+	n_x = (cube->player->dir.x * cos(-rad)) - (cube->player->dir.y) * sin(-rad);
+	n_y = cube->player->dir.x * sin(-rad) + (cube->player->dir.y) * cos(-rad);
+	cube->player->dir.y = n_y;
+	cube->player->dir.x = n_x;
+	printf("new >>> dir.y = %f; dir.x = %f\n", cube->player->dir.y, cube->player->dir.x);
+}
+
 int	key_event(int keycode, t_cube *cube)
 {
 	if (keycode == ESC)
 		esc_handle(cube);
-	printf("key = %d\n", keycode);
+	else if ((keycode >= 0 && keycode <= 2) || keycode == 13)
+	{
+		if (keycode == W)
+			move_up(cube);
+		if (keycode == S)
+			move_down(cube);
+		if (keycode == A)
+			turn(cube, -45);
+		if (keycode == D)
+			turn(cube, 45);
+		printf("key = %d\n", keycode);
+		rcdda(cube, cube->maps->c_maps, *(cube->player));
+	}
 	return (1);
 }
 

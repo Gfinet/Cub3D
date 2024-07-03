@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 23:24:44 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 23:33:20 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 # ifndef WIN_WIDTH
 #  define WIN_WIDTH 2400 //2400
 # endif
+
+typedef struct s_point
+{
+	double	x;
+	double	y;
+}	t_point;
 
 typedef struct	s_data {
 	void	*img;
@@ -62,6 +68,12 @@ typedef struct s_maps
 
 }	t_maps;
 
+typedef struct s_player
+{
+	t_point	pos;
+	t_point	dir;
+}	t_player;
+
 typedef struct s_cube
 {
 	//mlx_t		*mlx_w;
@@ -69,9 +81,11 @@ typedef struct s_cube
 	void		*win;
 	t_maps		*lvl;
 	//mlx_image_t	***all_img;
-	t_data	*texture;
-	t_data	*screen;
-	t_data	*bg;
+	t_data		*texture;
+	t_player	*player;
+	t_maps		*maps;
+	t_data		*screen;
+	t_data		*bg;
 
 }	t_cube;
 
@@ -85,19 +99,32 @@ typedef struct s_img
 	
 }	t_img;
 
-typedef struct s_point
+typedef struct s_rcdata
 {
-	double	x;
-	double	y;
-}	t_point;
+	t_point			delta_dist;
+	t_point			side_dist;
+	t_point			ray_dir;
+	t_point			step;
+	t_point			plane;
+	t_point			dest;
+	int				side;
+	int				hit;
+	double			cameraX;
+	double			perp_wall_dist;
+}	t_rcdata;
 
-typedef struct s_player
+typedef struct s_drawdata
 {
-	t_point	pos;
-	t_point	dir;
-}	t_player;
+	t_point			tex;
+	int				line_height;
+	int				pitch;
+	int				draw_start;
+	int				draw_end;
+	int				tex_num;
+	double			wall_x;
+	double			step_f;
+}	t_drawdata;
 
-t_data*	rcdda(t_cube *cube, char **map, t_player player);
 
 //handle_event.c
 int	esc_handle(t_cube *cube);
@@ -129,4 +156,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
 void	fill_map_char(t_maps *lvl, char c);
 void	free_and_gnl(char **str, int fd);
+void	rcdda(t_cube *cube, char **map, t_player player);
+
 #endif

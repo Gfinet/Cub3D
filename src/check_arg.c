@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:40:39 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 21:54:22 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 23:43:49 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static int	check_all_text(t_cube *cube, char *file)
 	fd = open(file, O_RDONLY);
 	ft_memset(dir, 0, sizeof(int)*4);
 	str = get_next_line(fd);
+	printf("start all text\n");
 	while (str)
 	{
 		if (str && ((!ft_strncmp(str, "NO", 2))
@@ -51,12 +52,13 @@ static int	check_all_text(t_cube *cube, char *file)
 				|| (!ft_strncmp(str, "EA", 2))))
 		{
 			if (!check_texture(cube, &str[2]))
-				return (close(fd), 0);
+				return (printf("bad text : %s\n", str), close(fd), 0);
 			dir[get_dir(str)]++;
 		}
 		free(str);
 		str = get_next_line(fd);
 	}
+	printf("%d %d %d %d\n", !dir[0], !dir[1], !dir[2], !dir[3]);
 	if (!dir[0] || !dir[1] || !dir[2] || !dir[3])
 		return (close(fd), 0);
 	return (close(fd), (dir[0] + dir[1] + dir[2] + dir[3]) == 4);
@@ -106,6 +108,7 @@ int	check_arg(t_cube *cube, char *file)
 {
 	//check if 4 text are there
 	//check if rgb val is ok
+	printf("check_arg\n");
 	if (!check_all_text(cube, file))
 		return (0);
 	printf("arg ok\n");
