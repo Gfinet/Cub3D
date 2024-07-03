@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 23:23:12 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 16:26:37 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 # include <fcntl.h>
 
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 1280 //1280
+#  define WIN_HEIGHT 640 //1280
 # endif
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH 2400 //2400
+#  define WIN_WIDTH 1200 //2400
 # endif
 
 typedef struct	s_data {
@@ -120,4 +120,5 @@ int make_mini(t_cube *cube, t_maps *lvl);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
+void	fill_map_char(t_maps *lvl, char c);
 #endif

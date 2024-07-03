@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_maps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 23:41:01 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 16:42:04 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ static int	cpy_line(t_maps *lvl, char *str, int ind)
 {
 	size_t len;
 	lvl->c_maps[ind] = malloc(sizeof(char) * lvl->max_len + 2);
-	ft_memset((void *)lvl->c_maps[ind], '.', (size_t)lvl->max_len + 2);
+	// ft_memset((void *)lvl->c_maps[ind], 0, (size_t)lvl->max_len + 2);
 	if (!lvl->c_maps[ind])
 		return (0); //free_all
 	len = ft_strlen(str);
-	ft_strlcpy(lvl->c_maps[ind], str, len);
+	len -= str[len - 1] == '\n';
+	printf("%zu\n",len);
+	ft_strlcpy(lvl->c_maps[ind], str, len + 1);
 	return (1);
 }
 
@@ -35,7 +37,10 @@ void	set_map(t_maps *lvl, char *str, int fd[2])
 	{
 		str = get_next_line(fd[0]);
 		if ((int)ft_strlen(str) > lvl->max_len)
-			lvl->max_len = (int)ft_strlen(str);
+		{
+			lvl->max_len = (int)ft_strlen(str) - (str[ft_strlen(str)] == '\n');
+			//lvl->max_len -= str[lvl->max_len] == '\n';
+		}
 		i++;
 	}
 	lvl->c_maps = malloc(sizeof(char *) * i);
@@ -50,6 +55,7 @@ void	set_map(t_maps *lvl, char *str, int fd[2])
 		str = get_next_line(fd[1]);
 	}
 	lvl->m_height = i;
+	fill_map_char(lvl, '.');
 }
 
 void	set_floor_ceiling(int fl_ce[3], char *str)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_maps.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 20:18:07 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 16:18:03 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,18 +99,7 @@ void	draw_maps(t_maps *lvl)
 
 int	make_mini(t_cube *cube, t_maps *lvl)
 {
-	int	i;
-	int	max;
-
-	i = 0;
-	max = 0;
-	while (i < lvl->m_height)
-	{
-		if (ft_strlen(lvl->c_maps[i]) > (size_t)max)
-			max = ft_strlen(lvl->c_maps[i]);
-		i++;
-	}
-	lvl->mini.witdh = max + 2;
+	lvl->mini.witdh = lvl->max_len + 1;
 	lvl->mini.height = lvl->m_height + 2;
 	draw_background(cube, lvl);
 	draw_maps(lvl);

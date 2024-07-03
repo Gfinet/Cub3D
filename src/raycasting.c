@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/02 21:30:41 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 15:21:01 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_data*	rcdda(t_cube *cube, char **map, t_player player)
 	int				pitch = 0;
 	int				draw_start = 0;
 	int				draw_end = 0;
-	int				tex_num = 0;
+	//int				tex_num = 0;
 	double			wall_x = 0;
 	int				tex_x = 0;
 	int				tex_y = 0;
@@ -119,7 +119,7 @@ t_data*	rcdda(t_cube *cube, char **map, t_player player)
 			draw_end = WIN_HEIGHT - 1;
 
 		//texturing calculations
-		tex_num = map[(int)dest.y][(int)dest.x] - 1; //1 subtracted from it so that texture 0 can be used!
+		//tex_num = map[(int)dest.y][(int)dest.x] - 1; //1 subtracted from it so that texture 0 can be used!
 
 		//calculate value of wall_x
 		if(side == 0)
@@ -147,7 +147,7 @@ t_data*	rcdda(t_cube *cube, char **map, t_player player)
 		  // Cast the texture coordinate to integer, and mask with (tex_weight - 1) in case of overflow
 		  tex_y = (int)tex_pos & (int)(tex_weight - 1);
 		  tex_pos += step_f;
-		  color = (unsigned int)cube->texture->addr+(((int)tex_weight * tex_y + tex_x));
+		  color = *(unsigned int*)cube->texture->addr+(((int)tex_weight * tex_y + tex_x));
 		  //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 		  if(side == 1)
 		  	color = (color >> 1) & 8355711;
