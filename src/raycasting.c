@@ -6,149 +6,170 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/02 23:58:31 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/03 19:36:24 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-t_data*	rcdda(t_cube *cube, char **map, t_player player)
+void	set_base_rcdda(t_cube *cube, t_data *screen, t_rcdata *data,
+	t_player player)
 {
-	t_data			*screen = 0;
-	t_point			delta_dist;
-	t_point			side_dist;
-	t_point			ray_dir;
-	t_point			step;
-	t_point			plane;
-	t_point			dest;
-	double			cameraX;
-	double			perp_wall_dist;
-	int				x;
-	int				y;
-	int				hit = 0;
-	int				side = 0;
-	int				line_height = 0;
-	int				pitch = 0;
-	int				draw_start = 0;
-	int				draw_end = 0;
-	double			wall_x = 0;
-	double			step_f = 0;
-	int				tex_num = 0;
-	int				tex_x = 0;
-	int				tex_y = 0;
-	double			tex_pos = 0;
-	double			tex_width;
-	double			tex_height;
-	unsigned int	color = 0;
+	(*screen).img = mlx_new_image(cube->mlx, WIN_WIDTH, WIN_HEIGHT);
+	(*screen).addr = mlx_get_data_addr((*screen).img, &(*screen).bits_per_pixel,
+			&(*screen).line_length, &(*screen).endian);
+	(*data).plane.x = -0.66 * player.dir.y;
+	(*data).plane.y = -0.66 * player.dir.x;
+}
 
-	screen = malloc(sizeof(t_data));
-	screen->img = mlx_new_image(cube->mlx, WIN_WIDTH, WIN_HEIGHT);
-	screen->addr = mlx_get_data_addr(screen->img, &screen->bits_per_pixel, &screen->line_length, &screen->endian);
-	plane.x = -0.66 * player.dir.y;
-	plane.y = -0.66 * player.dir.x;
+void	set_dda_ray_delta(t_rcdata *data, t_player player, int x)
+{
+	(*data).cameraX = 2 * x / ((double)WIN_WIDTH) - 1;
+	(*data).ray_dir.x = player.dir.x + data->plane.x * (data->cameraX);
+	(*data).ray_dir.y = player.dir.y + data->plane.y * (data->cameraX);
+	if (data->ray_dir.x)
+		(*data).delta_dist.x = fabs(1 / data->ray_dir.x);
+	else
+		(*data).delta_dist.x = 1e30;
+	if (data->ray_dir.y)
+		(*data).delta_dist.y = fabs(1 / data->ray_dir.y);
+	else
+		(*data).delta_dist.x = 1e30;
+	(*data).dest = (t_point){(int)player.pos.x, (int)player.pos.y};
+}
+
+void	set_side_dist_and_step(t_player p, t_rcdata *dt)
+{
+	if (dt->ray_dir.x < 0)
+	{
+		(*dt).step.x = -1;
+		(*dt).side_dist.x = (p.pos.x - dt->dest.x) * dt->delta_dist.x;
+	}
+	else
+	{
+		(*dt).step.x = 1;
+		(*dt).side_dist.x = (dt->dest.x + 1.0 - p.pos.x) * dt->delta_dist.x;
+	}
+	if (dt->ray_dir.y < 0)
+	{
+		(*dt).step.y = -1;
+		(*dt).side_dist.y = (p.pos.y - dt->dest.y) * dt->delta_dist.y;
+	}
+	else
+	{
+		(*dt).step.y = 1;
+		(*dt).side_dist.y = (dt->dest.y + 1.0 - p.pos.y) * dt->delta_dist.y;
+	}
+	(*dt).hit = 0;
+}
+
+void	calculate_wall_dist(t_rcdata *data, char **map)
+{
+	while (data->hit == 0)
+	{
+		if (data->side_dist.x < data->side_dist.y)
+		{
+			(*data).side_dist.x += data->delta_dist.x;
+			(*data).dest.x += data->step.x;
+			if (data->step.x > 0)
+				(*data).side = 2;
+			else
+				(*data).side = 0;
+		}
+		else
+		{
+			(*data).side_dist.y += data->delta_dist.y;
+			(*data).dest.y += data->step.y;
+			if (data->step.y > 0)
+				(*data).side = 3;
+			else
+				(*data).side = 1;
+		}
+		if (map[(int)data->dest.y][(int)data->dest.x] == '1')
+			(*data).hit = 1;
+	}
+}
+
+void	calculate_perp_wall_dist(t_rcdata *data)
+{
+	if (data->side == 0)
+		(*data).perp_wall_dist = (data->side_dist.x - data->delta_dist.x);
+	else if (data->side == 2)
+		(*data).perp_wall_dist = (data->side_dist.x - data->delta_dist.x);
+	else if (data->side == 1)
+		(*data).perp_wall_dist = (data->side_dist.y - data->delta_dist.y);
+	else if (data->side == 3)
+		(*data).perp_wall_dist = (data->side_dist.y - data->delta_dist.y);
+}
+
+void	get_base_info_draw(t_drawdata *drw, t_rcdata dt, t_player player,
+		t_cube *cube)
+{
+	(*drw).line_height = (int)(WIN_HEIGHT / dt.perp_wall_dist);
+	(*drw).pitch = 100;
+	(*drw).draw_start = -drw->line_height / 2 + WIN_HEIGHT / 2 + drw->pitch;
+	if (drw->draw_start < 0)
+		(*drw).draw_start = 0;
+	(*drw).draw_end = drw->line_height / 2 + WIN_HEIGHT / 2 + drw->pitch;
+	if (drw->draw_end >= WIN_HEIGHT)
+		(*drw).draw_end = WIN_HEIGHT - 1;
+	(*drw).tex_num = dt.side;
+	if (dt.side == 0)
+		(*drw).wall_x = player.pos.x + dt.perp_wall_dist * dt.ray_dir.y;
+	else if (dt.side == 2)
+		(*drw).wall_x = player.pos.x + dt.perp_wall_dist * dt.ray_dir.y;
+	else if (dt.side == 1)
+		(*drw).wall_x = player.pos.y + dt.perp_wall_dist * dt.ray_dir.x;
+	else if (dt.side == 3)
+		(*drw).wall_x = player.pos.y + dt.perp_wall_dist * dt.ray_dir.x;
+	(*drw).wall_x -= floor((drw->wall_x));
+	(*drw).tex.x = (int)(drw->wall_x * (double)(cube->texture[dt.side].width));
+	if (dt.side == 0 && dt.ray_dir.x > 0)
+		(*drw).tex.x = cube->texture[dt.side].width - drw->tex.x - 1;
+	if (dt.side == 1 && dt.ray_dir.y < 0)
+		(*drw).tex.x = cube->texture[dt.side].width - drw->tex.x - 1;
+	(*drw).step_f = 1.0 * cube->texture[dt.side].height / drw->line_height;
+}
+
+void	draw_xwall(t_data *screen, t_drawdata *dt, t_cube *c, int x)
+{
+	int				y;
+	unsigned int	color;
+	double			tex_pos;
+
+	tex_pos = (dt->draw_start - dt->pitch - WIN_HEIGHT / 2 + dt->line_height
+			/ 2) * dt->step_f;
+	y = dt->draw_start - 1;
+	while (++y < dt->draw_end)
+	{
+		(*dt).tex.y = (int)tex_pos & (int)(c->texture[dt->tex_num].height
+				- 1);
+		tex_pos += dt->step_f;
+		color = *((unsigned int *)c->texture[dt->tex_num].addr +(int)
+				((c->texture[dt->tex_num].height * dt->tex.y + dt->tex.x)));
+		my_mlx_pixel_put(screen, x, y, color);
+	}
+}
+
+t_data	rcdda(t_cube *cube, char **map, t_player player)
+{
+	t_data		screen;
+	t_rcdata	data;
+	t_drawdata	drawdata;
+	int			x;
+
+	set_base_rcdda(cube, &screen, &data, player);
 	x = -1;
-	tex_height = 128;
-	tex_width = 128;
 	while (++x < WIN_WIDTH)
 	{
-		cameraX = 2 * x / ((double)WIN_WIDTH) - 1;
-		ray_dir.x = player.dir.x + plane.x * (cameraX);
-    	ray_dir.y = player.dir.y + plane.y * (cameraX);
-		if (ray_dir.x)
-			delta_dist.x = fabs(1 / ray_dir.x);
-		else
-			delta_dist.x = 1e30;
-		if (ray_dir.y)
-			delta_dist.y = fabs(1 / ray_dir.y);
-		else
-			delta_dist.x = 1e30;
-		dest = (t_point){(int)player.pos.x, (int)player.pos.y};
-		if(ray_dir.x < 0)
-		{
-			step.x = -1;
-			side_dist.x = (player.pos.x - dest.x) * delta_dist.x;
-		}
-		else
-		{
-			step.x = 1;
-			side_dist.x = (dest.x + 1.0 - player.pos.x) * delta_dist.x;
-		}
-		if(ray_dir.y < 0)
-		{
-			step.y = -1;
-			side_dist.y = (player.pos.y - dest.y) * delta_dist.y;
-		}
-		else
-		{
-			step.y = 1;
-			side_dist.y = (dest.y + 1.0 - player.pos.y) * delta_dist.y;
-		}
-		hit = 0;
-		while (hit == 0)
-		{
-			if(side_dist.x < side_dist.y)
-			{
-				side_dist.x += delta_dist.x;
-				dest.x += step.x;
-				if (step.x > 0)
-					side = 2;
-				else
-					side = 0;
-			}
-			else
-			{
-				side_dist.y += delta_dist.y;
-				dest.y += step.y;
-				if (step.y > 0)
-					side = 3;
-				else
-					side = 1;
-			}
-			if(map[(int)dest.y][(int)dest.x] == '1')
-				hit = 1;
-		}
-		if(side == 0 || side == 2)
-			perp_wall_dist = (side_dist.x - delta_dist.x);
-		else
-			perp_wall_dist = (side_dist.y - delta_dist.y);
-		line_height = (int)(WIN_HEIGHT / perp_wall_dist);
-		pitch = 100;
-		draw_start = -line_height / 2 + WIN_HEIGHT / 2 + pitch;
-		if(draw_start < 0)
-			draw_start = 0;
-		draw_end = line_height / 2 + WIN_HEIGHT / 2 + pitch;
-		if(draw_end >= WIN_HEIGHT)
-			draw_end = WIN_HEIGHT - 1;
-		tex_num = side;
-		if(side == 0 || side == 2)
-			wall_x = player.pos.x + perp_wall_dist * ray_dir.y;
-		else
-			wall_x = player.pos.y + perp_wall_dist * ray_dir.x;
-		// else if (side == 2)
-		// 	wall_x = player.pos.x - perp_wall_dist * ray_dir.y;
-		// else if (side == 3)
-		// 	wall_x = player.pos.y - perp_wall_dist * ray_dir.x;
-		wall_x -= floor((wall_x));
-		tex_x = (int)(wall_x * (cube->texture[side].width));
-		if((side == 0 || side == 2) && ray_dir.x > 0)
-			tex_x = cube->texture[side].width - tex_x - 1;
-		if((side == 1 || side == 3) && ray_dir.y < 0)
-			tex_x = cube->texture[side].width - tex_x - 1;
-		step_f = 1 * cube->texture[side].height / line_height;
-		tex_pos = (draw_start - pitch - WIN_HEIGHT / 2 + line_height / 2) * (step_f);
-		y = draw_start - 1;
-		while(++y < draw_end)
-		{
-			tex_y = (int)tex_pos & (int)(cube->texture[side].height - 1);
-			tex_pos += step_f;
-			//printf("tex pos == %f; stepf == %f\n", tex_pos, step_f);
-			color = *((unsigned int*)cube->texture[side].addr+(int)((((cube->texture[side].height) * tex_y + tex_x))));
-			// if(side == 0)
-			// 	color = *((unsigned int*)cube->texture[side].addr+(int)((((tex_height) * tex_y + tex_x))));
-			my_mlx_pixel_put(screen, x, y, color);
-		}
+		set_dda_ray_delta(&data, player, x);
+		set_side_dist_and_step(player, &data);
+		calculate_wall_dist(&data, map);
+		calculate_perp_wall_dist(&data);
+		get_base_info_draw(&drawdata, data, player, cube);
+		drawdata.tex_num = data.side;
+		draw_xwall(&screen, &drawdata, cube, x);
 	}
-	mlx_put_image_to_window(cube->mlx, cube->win, screen->img, 0, 0);
-	return screen;
+	mlx_put_image_to_window(cube->mlx, cube->win, screen.img, 0, 0);
+	return (screen);
 }
-// par side ne fonctionne pas, il n'y a pas de reperes lorsqu'on mets les textures pour changer de texture au bon moments

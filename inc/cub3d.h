@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/02 23:25:24 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/03 19:35:39 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,32 @@ typedef struct s_player
 	t_point	pos;
 	t_point	dir;
 }	t_player;
+
+typedef struct s_rcdata
+{
+	t_point			delta_dist;
+	t_point			side_dist;
+	t_point			ray_dir;
+	t_point			step;
+	t_point			plane;
+	t_point			dest;
+	int				side;
+	int				hit;
+	double			cameraX;
+	double			perp_wall_dist;
+}	t_rcdata;
+
+typedef struct s_drawdata
+{
+	t_point			tex;
+	int				line_height;
+	int				pitch;
+	int				draw_start;
+	int				draw_end;
+	int				tex_num;
+	double			wall_x;
+	double			step_f;
+}	t_drawdata;
 
 //handle_event.c
 int	esc_handle(t_cube *cube);
