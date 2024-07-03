@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 23:20:35 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/03 23:43:15 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	move_down(t_cube *cube)
 	printf("new >>> pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
 }
 
-void	turn(t_cube *cube, int angle)
+void	turn(t_cube *cube, double angle)
 {
 	double	n_x;
 	double	n_y;
@@ -63,9 +63,9 @@ int	key_event(int keycode, t_cube *cube)
 		if (keycode == S)
 			move_down(cube);
 		if (keycode == A)
-			turn(cube, -45);
+			turn(cube, 11.25);
 		if (keycode == D)
-			turn(cube, 45);
+			turn(cube, -11.25);
 		printf("key = %d\n", keycode);
 		rcdda(cube, cube->maps->c_maps, *(cube->player));
 	}
