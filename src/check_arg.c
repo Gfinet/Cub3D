@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:40:39 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 01:01:36 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 21:54:22 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	check_all_text(t_cube *cube, char *file)
 				|| (!ft_strncmp(str, "EA", 2))))
 		{
 			if (!check_texture(cube, &str[2]))
-				return (0);
+				return (close(fd), 0);
 			dir[get_dir(str)]++;
 		}
 		free(str);
@@ -88,21 +88,17 @@ static int	check_color(char *file)
 	while (str && f_c[2] > 2)
 	{
 		while (str && str[0] != 'F' && str[0] != 'C')
-		{
-			free(str);
-			str = get_next_line(f_c[2]);
-		}
+			free_and_gnl(&str, f_c[2]);
 		if (str && (str[0] == 'F' || str[0] == 'C'))
 		{
 			if (!check_rgb(&str[1]))
-				return (free(str), 0);
+				return (close(f_c[2]), free(str), 0);
 			f_c[str[0] == 'C']++;
 		}
-		free(str);
-		str = get_next_line(f_c[2]);
+		free_and_gnl(&str, f_c[2]);
 	}
 	if (!f_c[0] || !f_c[1])
-		return (0);
+		return (close(f_c[2]), free(str), 0);
 	return (close(f_c[2]), free(str), f_c[0] + f_c[1] == 2);
 }
 
@@ -116,5 +112,8 @@ int	check_arg(t_cube *cube, char *file)
 	if (!check_color(file))
 		return (0);
 	printf("color ok\n");
+	if (!check_elem(file))
+		return (0);
+	printf("elem ok\n");
 	return (1);
 }

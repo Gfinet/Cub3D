@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_maps.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 16:18:03 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 20:13:47 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	is_border(int x, int y)
 		return (0);
 }
 
-void	draw_background(t_cube *cube, t_maps *lvl)
+void	draw_mini_background(t_cube *cube, t_maps *lvl)
 {
 	int		i;
 	int		j;
@@ -101,7 +101,9 @@ int	make_mini(t_cube *cube, t_maps *lvl)
 {
 	lvl->mini.witdh = lvl->max_len + 1;
 	lvl->mini.height = lvl->m_height + 2;
-	draw_background(cube, lvl);
+	draw_mini_background(cube, lvl);
 	draw_maps(lvl);
+	mlx_put_image_to_window(cube->mlx, cube->win,
+		lvl->mini.maps.img, 4 * WIN_WIDTH / 5, 0);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 16:47:08 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 20:39:37 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,10 @@ void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2])
 		my_mlx_pixel_put(&lvl->mini.maps, x, y, 0x5500FF00);
 	if (lvl->c_maps[w_h[0]][w_h[1]] == 'N')
 		my_mlx_pixel_put(&lvl->mini.maps, x, y, 0x00FF0000);
+}
+
+void free_and_gnl(char **str, int fd)
+{
+	free(*str);
+	*str = get_next_line(fd);
 }
