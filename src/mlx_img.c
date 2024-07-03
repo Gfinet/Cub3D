@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/04 00:38:07 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/04 00:54:01 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void draw_player(t_cube *cube)
 	y = -1;
 	sum[0] = WIN_WIDTH / 5 / (cube->lvl->mini.witdh);
 	sum[1] = WIN_HEIGHT / 5 / (cube->lvl->mini.height);
+	printf("bonjour\n");
 	while (++y < WIN_HEIGHT / 5)
 	{
 		x = -1;
@@ -80,5 +81,7 @@ void draw_doom(t_cube *cube)
 	mlx_clear_window(cube->mlx, cube->win);
 	draw_background(cube, cube->lvl->floor, cube->lvl->ceiling);
 	rcdda(cube, cube->maps->c_maps, *(cube->player));
-	make_mini(cube, cube->lvl);
+	draw_maps(cube);
 }
+/*
+*/

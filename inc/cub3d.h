@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/04 00:19:11 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/04 00:49:06 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct	s_data {
 typedef struct s_mini_maps
 {
 	t_data maps;
-	t_data screen;
 	int witdh;
 	int height;
 }	t_mini_maps;
@@ -154,6 +153,7 @@ int		make_mini(t_cube *cube, t_maps *lvl);
 void	draw_background(t_cube *cube, int floor[3], int ceiling[3]);
 void	draw_doom(t_cube *cube);
 void	draw_player(t_cube *cube);
+void	draw_maps(t_cube *cube);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
