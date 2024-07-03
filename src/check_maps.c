@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:40:39 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 16:54:52 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 16:56:03 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	check_surrounding(t_cube *cube, int x, int y, char c)
 
 	maps = cube->lvl->c_maps;
 	len = ft_strlen(maps[x]);
-	//printf("len %zu\n", len);
 	if (x == 0 || y == 0 || x == cube->lvl->m_height - 1)
 		return (0);
 	if (y > 0 && (maps[x][y - 1] == c || maps[x][y - 1] == 0))
@@ -30,7 +29,6 @@ static int	check_surrounding(t_cube *cube, int x, int y, char c)
 		return (0);
 	if (x < cube->lvl->m_height && (maps[x + 1][y] == c || maps[x + 1][y] == 0))
 		return (0);
-	// printf("%c", maps[x][y]);
 	return (1);
 }
 
