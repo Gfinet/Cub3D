@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 23:41:33 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/04 00:21:14 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	main(int argc, char **argv)
 	t_player	player = {(t_point){11., 11.}, (t_point){0., -1.}};
 
 	cube.lvl = &level;
+	cube.player = &player;
 	if (argc != 2)
 		return (write(2, "Error\nBad Arg\n", 14), 0);
 	if (!check_format(argv[1]))

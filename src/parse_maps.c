@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 23:38:54 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/04 00:37:48 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	cpy_line(t_maps *lvl, char *str, int ind)
 		return (0); //free_all
 	len = ft_strlen(str);
 	len -= str[len - 1] == '\n';
-	ft_strlcpy(lvl->c_maps[ind], str, len + 1);
+	ft_strlcpy(lvl->c_maps[ind], str, len + 2);
 	return (1);
 }
 

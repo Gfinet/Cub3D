@@ -12,6 +12,7 @@ SRCS     = src/main_cub3d.c		\
 			src/check_arg2.c 	\
 			src/raycasting.c 	\
 			src/mlx_img.c 		\
+			src/utils.c 		\
 			src/background.c 	
 OBJ      = $(SRCS:.c=.o)
 
@@ -50,7 +51,6 @@ libftprintf.a:
 	@make -C $(LIBFT)
 	@cp $(LIB) .
 	@mv $(LIB) $(NAME)
-	@echo "library libftprintf made"
 
 
 clean:

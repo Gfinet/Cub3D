@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/03 23:34:13 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/03 23:46:09 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	set_base_rcdda(t_cube *cube, t_data *screen, t_rcdata *data,
 	(*screen).img = mlx_new_image(cube->mlx, WIN_WIDTH, WIN_HEIGHT);
 	(*screen).addr = mlx_get_data_addr((*screen).img, &(*screen).bits_per_pixel,
 			&(*screen).line_length, &(*screen).endian);
-	(*data).plane.x = -0.66 * player.dir.y;
-	(*data).plane.y = -0.66 * player.dir.x;
+	(*data).plane.x = -(float)(0.66 * player.dir.y);
+	(*data).plane.y = (float)(0.66 * player.dir.x);
 }
 
 void	set_dda_ray_delta(t_rcdata *data, t_player player, int x)
@@ -115,13 +115,13 @@ void	get_base_info_draw(t_drawdata *drw, t_rcdata dt, t_player player,
 		(*drw).draw_end = WIN_HEIGHT - 1;
 	(*drw).tex_num = dt.side;
 	if (dt.side == 0)
-		(*drw).wall_x = player.pos.x + dt.perp_wall_dist * dt.ray_dir.y;
+		(*drw).wall_x = (int)player.pos.x + dt.perp_wall_dist * dt.ray_dir.y;
 	else if (dt.side == 2)
-		(*drw).wall_x = player.pos.x + dt.perp_wall_dist * dt.ray_dir.y;
+		(*drw).wall_x = (int)player.pos.x + dt.perp_wall_dist * dt.ray_dir.y;
 	else if (dt.side == 1)
-		(*drw).wall_x = player.pos.y + dt.perp_wall_dist * dt.ray_dir.x;
+		(*drw).wall_x = (int)player.pos.y + dt.perp_wall_dist * dt.ray_dir.x;
 	else if (dt.side == 3)
-		(*drw).wall_x = player.pos.y + dt.perp_wall_dist * dt.ray_dir.x;
+		(*drw).wall_x = (int)player.pos.y + dt.perp_wall_dist * dt.ray_dir.x;
 	(*drw).wall_x -= floor((drw->wall_x));
 	(*drw).tex.x = (int)(drw->wall_x * (double)(cube->texture[dt.side].width));
 	if (dt.side == 0 && dt.ray_dir.x > 0)

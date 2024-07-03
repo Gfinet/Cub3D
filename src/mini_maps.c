@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 20:13:47 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/04 00:19:34 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,14 @@ int	*get_ind(int i[2], int w_h[2], t_maps *lvl)
 	return (w_h);
 }
 
-void	draw_maps(t_maps *lvl)
+void	draw_maps(t_cube *cube)
 {
 	int	i[2];
 	int	w_h[2];
+	t_maps *lvl;
 
 	i[0] = -1;
+	lvl = cube->lvl;
 	while (++i[0] < WIN_HEIGHT / 5)
 	{
 		i[1] = -1;
@@ -95,6 +97,7 @@ void	draw_maps(t_maps *lvl)
 			}
 		}
 	}
+	draw_player(cube);
 }
 
 int	make_mini(t_cube *cube, t_maps *lvl)
@@ -102,8 +105,6 @@ int	make_mini(t_cube *cube, t_maps *lvl)
 	lvl->mini.witdh = lvl->max_len + 1;
 	lvl->mini.height = lvl->m_height + 2;
 	draw_mini_background(cube, lvl);
-	draw_maps(lvl);
-	mlx_put_image_to_window(cube->mlx, cube->win,
-		lvl->mini.maps.img, 4 * WIN_WIDTH / 5, 0);
+	draw_maps(cube);
 	return (1);
 }

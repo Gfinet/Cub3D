@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 20:39:37 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/04 00:38:07 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,16 @@ void fill_map_char(t_maps *lvl, char c)
 	while (++i < lvl->m_height)
 	{
 		j = -1;
-		while (++j < lvl->max_len - 1)
+		while (++j < lvl->max_len)
 		{
 			ch = lvl->c_maps[i][j];
 			if (ch != '0' && ch != '1'
 				&& ch != 'N' && ch != 'S' && ch != 'E' && ch != 'W')
 				lvl->c_maps[i][j] = c;
-			printf("%c", lvl->c_maps[i][j]);
+			if (j == lvl->max_len - 1)
+				lvl->c_maps[i][j] = 0;
 		}
-		printf("\n");
 	}
-}
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
 }
 
 void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2])
@@ -50,15 +42,43 @@ void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2])
 	x = i[1] + WIN_WIDTH / 5 / (lvl->mini.witdh);
 	y = i[0] + WIN_HEIGHT / 5 / (lvl->mini.height);
 	if (lvl->c_maps[w_h[0]][w_h[1]] == '1')
-		my_mlx_pixel_put(&lvl->mini.maps, x, y, 0x00FFFFFF);
-	if (lvl->c_maps[w_h[0]][w_h[1]] == '0')
-		my_mlx_pixel_put(&lvl->mini.maps, x, y, 0x5500FF00);
-	if (lvl->c_maps[w_h[0]][w_h[1]] == 'N')
-		my_mlx_pixel_put(&lvl->mini.maps, x, y, 0x00FF0000);
+		my_mlx_pixel_put(&lvl->mini.maps, x, y, WHITE);
+	else if (lvl->c_maps[w_h[0]][w_h[1]] == '0')
+		my_mlx_pixel_put(&lvl->mini.maps, x, y, GREEN);
+	else if (lvl->c_maps[w_h[0]][w_h[1]] == '.'
+		|| lvl->c_maps[w_h[0]][w_h[1]] == 0)
+		my_mlx_pixel_put(&lvl->mini.maps, x, y, BLUE);
+	else
+		my_mlx_pixel_put(&lvl->mini.maps, x, y, GREEN);
 }
 
-void free_and_gnl(char **str, int fd)
+void draw_player(t_cube *cube)
 {
-	free(*str);
-	*str = get_next_line(fd);
+	int x;
+	int y;
+	int pos[2];
+	int sum[2];
+
+	pos[0] = cube->player->pos.x;
+	pos[1] = cube->player->pos.y;
+	y = -1;
+	sum[0] = WIN_WIDTH / 5 / (cube->lvl->mini.witdh);
+	sum[1] = WIN_HEIGHT / 5 / (cube->lvl->mini.height);
+	while (++y < WIN_HEIGHT / 5)
+	{
+		x = -1;
+		while (++x < WIN_WIDTH / 5)
+			if (x + sum[0] > pos[0] && x + sum[0] < pos[0] + 1
+				&& y + sum[1] > pos[1] && y + sum[1] < pos[1] + 1)
+				my_mlx_pixel_put(&cube->lvl->mini.maps, x, y, RED);
+	}
+	printf("bonjour\n");
+}
+
+void draw_doom(t_cube *cube)
+{
+	mlx_clear_window(cube->mlx, cube->win);
+	draw_background(cube, cube->lvl->floor, cube->lvl->ceiling);
+	rcdda(cube, cube->maps->c_maps, *(cube->player));
+	make_mini(cube, cube->lvl);
 }

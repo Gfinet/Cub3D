@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 23:33:20 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/04 00:19:11 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,9 @@ int		get_dir(char *str);
 char	*get_text_dir(char *str);
 
 int		make_mini(t_cube *cube, t_maps *lvl);
+void	draw_background(t_cube *cube, int floor[3], int ceiling[3]);
+void	draw_doom(t_cube *cube);
+void	draw_player(t_cube *cube);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
