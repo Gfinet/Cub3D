@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/03 19:36:24 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/03 23:18:44 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void	draw_xwall(t_data *screen, t_drawdata *dt, t_cube *c, int x)
 	}
 }
 
-t_data	rcdda(t_cube *cube, char **map, t_player player)
+void	rcdda(t_cube *cube, char **map, t_player player)
 {
 	t_data		screen;
 	t_rcdata	data;
@@ -170,6 +170,9 @@ t_data	rcdda(t_cube *cube, char **map, t_player player)
 		drawdata.tex_num = data.side;
 		draw_xwall(&screen, &drawdata, cube, x);
 	}
+	screen.addr = mlx_get_data_addr(screen.img, &screen.bits_per_pixel, &screen.line_length, &screen.endian);
 	mlx_put_image_to_window(cube->mlx, cube->win, screen.img, 0, 0);
-	return (screen);
+	// if (cube->screen)
+	// 	mlx_destroy_image(cube->mlx, cube->screen->img);
+	(*cube).screen = &screen;
 }

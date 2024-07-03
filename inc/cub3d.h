@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 19:35:39 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/03 20:24:58 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 # ifndef WIN_WIDTH
 #  define WIN_WIDTH 2400 //2400
 # endif
+
+typedef struct s_point
+{
+	double	x;
+	double	y;
+}	t_point;
 
 typedef struct	s_data {
 	void	*img;
@@ -62,13 +68,22 @@ typedef struct s_maps
 
 }	t_maps;
 
+typedef struct s_player
+{
+	t_point	pos;
+	t_point	dir;
+}	t_player;
+
 typedef struct s_cube
 {
 	//mlx_t		*mlx_w;
 	void		*mlx;
 	void		*win;
 	//mlx_image_t	***all_img;
-	t_data	*texture;
+	t_data		*texture;
+	t_player	*player;
+	t_maps		*maps;
+	t_data		*screen;
 
 }	t_cube;
 
@@ -82,18 +97,6 @@ typedef struct s_img
 	int height;
 	
 }	t_img;
-
-typedef struct s_point
-{
-	double	x;
-	double	y;
-}	t_point;
-
-typedef struct s_player
-{
-	t_point	pos;
-	t_point	dir;
-}	t_player;
 
 typedef struct s_rcdata
 {
@@ -141,4 +144,6 @@ int make_mini(t_cube *cube, t_maps *lvl);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
+void	rcdda(t_cube *cube, char **map, t_player player);
+
 #endif
