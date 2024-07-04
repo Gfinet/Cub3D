@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_maps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/04 00:37:48 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/05 00:00:13 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,8 @@ int	get_maps(t_cube *cube, char *file)
 	int		fd[2];
 	char	*str;
 
-	printf("hello\n");
 	if (!check_arg(cube, file))
 		return (0);
-	printf("bad map_arg\n");
 	cube->lvl->max_len = 0;
 	fd[0] = open(file, O_RDONLY);
 	fd[1] = open(file, O_RDONLY);

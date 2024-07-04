@@ -1,11 +1,13 @@
-NO ./minecraft.xpm
-SO ./minecraft2.xpm
-WE ./minecraft3.xpm
-EA ./minecraft4.xpm
+NO ./texture/minecraft(1).xpm
+SO ./texture/nicpimp.xpm
+WE ./texture/eagle.xpm
+EA ./texture/nounours(1).xpm
 
 F 220,100,0
 C 225,30,0
 
-111
-1N1
-111
+11111
+11111
+11N11
+11111
+11111

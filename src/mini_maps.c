@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/04 04:12:14 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/05 00:17:10 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,15 @@ int	*get_ind(int i[2], int w_h[2], t_maps *lvl)
 	return (w_h);
 }
 
-void	draw_maps(t_cube *cube, t_maps *lvl)
+void	draw_maps(t_cube *cube)
 {
 	int	i[2];
 	int	w_h[2];
-	t_data	*im;
-	//t_maps *lvl;
-
-	//lvl = cube->lvl;
-	im = &lvl->mini.maps;
-	im->img = mlx_new_image(cube->mlx,
-			WIN_WIDTH / 5, WIN_HEIGHT / 5);
-	im->addr = mlx_get_data_addr(im->img,
-			&im->bits_per_pixel, &im->line_length, &im->endian);
+	t_maps *lvl;
 
 	i[0] = -1;
-	//lvl = cube->lvl;
+	lvl = cube->lvl;
+	draw_mini_background(lvl);
 	while (++i[0] < WIN_HEIGHT / 5)
 	{
 		i[1] = -1;
@@ -101,14 +94,20 @@ void	draw_maps(t_cube *cube, t_maps *lvl)
 			}
 		}
 	}
+	draw_player(cube);
+	mlx_put_image_to_window(cube->mlx, cube->win,
+		cube->lvl->mini.maps.img, 4 * WIN_WIDTH / 5, 0);
 }
 
 int	make_mini(t_cube *cube, t_maps *lvl)
 {
-	
+	lvl->mini.maps.img = mlx_new_image(cube->mlx,
+			WIN_WIDTH / 5, WIN_HEIGHT / 5);
+	lvl->mini.maps.addr = mlx_get_data_addr(lvl->mini.maps.img,
+			&lvl->mini.maps.bits_per_pixel, &lvl->mini.maps.line_length,
+			&lvl->mini.maps.endian);
 	lvl->mini.witdh = lvl->max_len + 1;
 	lvl->mini.height = lvl->m_height + 2;
-	draw_mini_background(lvl);
-	draw_maps(cube, lvl);//cube);
+	draw_maps(cube);
 	return (1);
 }

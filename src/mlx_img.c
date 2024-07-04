@@ -6,12 +6,38 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/04 04:13:37 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/05 01:07:34 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
+void get_player_pos(t_cube *cube)
+{
+	int i[2];
+	char c;
+	char **m;
+
+	m = cube->lvl->c_maps;
+	i[0] = -1;
+	c = 0;
+	while (++i[0] < cube->lvl->m_height && !c)
+	{
+		i[1] = -1;
+		while (i[1]++ < cube->lvl->max_len)
+		{
+			if (m[i[0]][i[1]] == 'N' || m[i[0]][i[1]] == 'S'
+			|| m[i[0]][i[1]] == 'E' || m[i[0]][i[1]] == 'W')
+			{
+				c = m[i[0]][i[1]];
+				cube->player->pos = (t_point){i[1], i[0]};
+				break;
+			}
+		}
+	}
+	cube->player->dir = (t_point){(c == 'E') - (c == 'W'),
+		(c == 'S') - (c == 'N')};
+}
 void fill_map_char(t_maps *lvl, char c)
 {
 	int i;
@@ -59,21 +85,19 @@ void draw_player(t_cube *cube)
 	int pos[2];
 	int sum[2];
 
-	pos[0] = cube->player->pos.x;
-	pos[1] = cube->player->pos.y;
-	y = -1;
+	pos[0] = cube->player->pos.x + 1;
+	pos[1] = cube->player->pos.y + 1;
 	sum[0] = WIN_WIDTH / 5 / (cube->lvl->mini.witdh);
 	sum[1] = WIN_HEIGHT / 5 / (cube->lvl->mini.height);
-	printf("bonjour\n");
+	y = -1;
 	while (++y < WIN_HEIGHT / 5)
 	{
 		x = -1;
 		while (++x < WIN_WIDTH / 5)
-			if (x + sum[0] > pos[0] && x + sum[0] < pos[0] + 1
-				&& y + sum[1] > pos[1] && y + sum[1] < pos[1] + 1)
+			if (x / sum[0] >= pos[0] && x / sum[0] < pos[0] + 1
+				&& y / sum[1] >= pos[1] && y / sum[1] < pos[1] + 1)
 				my_mlx_pixel_put(&cube->lvl->mini.maps, x, y, RED);
 	}
-	printf("bonjour\n");
 }
 
 void draw_doom(t_cube *cube)
@@ -81,7 +105,9 @@ void draw_doom(t_cube *cube)
 	mlx_clear_window(cube->mlx, cube->win);
 	draw_background(cube, cube->lvl->floor, cube->lvl->ceiling);
 	rcdda(cube, cube->maps->c_maps, *(cube->player));
-	draw_maps(cube, cube->lvl);
+	draw_mini_background(cube->lvl);
+	draw_maps(cube);
+	draw_player(cube);
 }
 /*
 */

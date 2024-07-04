@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/04 00:21:14 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/05 01:08:37 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 {
 	t_cube cube;
 	t_maps level;
-	t_player	player = {(t_point){11., 11.}, (t_point){0., -1.}};
+	t_player	player ;//= {(t_point){11., 11.}, (t_point){1., -1.}};
 
 	cube.lvl = &level;
 	cube.player = &player;
@@ -60,6 +60,7 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\nmalloc error\n", 19), 0);
 	if (!get_maps(&cube, argv[1]))
 		return (write(2, "Error\nBad maps\n", 15), 0);
+	get_player_pos(&cube);
 	make_background(&cube);
 	if (!make_mini(&cube, &level))
 		return (write(2, "Error\nAttempt for mini map failed\n", 34), 0);
@@ -76,8 +77,8 @@ int	main(int argc, char **argv)
 	cube.screen = NULL;
 	cube.maps = &level;
 	cube.player = &player;
-	rcdda(&cube, cube.maps->c_maps, player);
-	mlx_put_image_to_window(cube.mlx, cube.win, level.mini.maps.img, 4 * WIN_WIDTH / 5, 0);
+	//rcdda(&cube, cube.maps->c_maps, player);
+	draw_doom(&cube);
 	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
 	mlx_hook(cube.win, 2, 0, &key_event, &cube);
 	// mlx_loop_hook(cube.mlx, &key_event, &cube);
