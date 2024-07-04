@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/04 00:49:06 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/04 04:13:09 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 # include <fcntl.h>
 
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 1280 //1280
+#  define WIN_HEIGHT 640 //1280
 # endif
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH 2400 //2400
+#  define WIN_WIDTH 1200 //2400
 # endif
 
 typedef struct s_point
@@ -153,7 +153,7 @@ int		make_mini(t_cube *cube, t_maps *lvl);
 void	draw_background(t_cube *cube, int floor[3], int ceiling[3]);
 void	draw_doom(t_cube *cube);
 void	draw_player(t_cube *cube);
-void	draw_maps(t_cube *cube);
+void	draw_maps(t_cube *cube,t_maps *lvl); //t_cube *cube);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);

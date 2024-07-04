@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_maps.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/04 00:56:34 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/04 04:12:14 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,22 @@ int	*get_ind(int i[2], int w_h[2], t_maps *lvl)
 	return (w_h);
 }
 
-void	draw_maps(t_cube *cube)
+void	draw_maps(t_cube *cube, t_maps *lvl)
 {
 	int	i[2];
 	int	w_h[2];
-	t_maps *lvl;
+	t_data	*im;
+	//t_maps *lvl;
+
+	//lvl = cube->lvl;
+	im = &lvl->mini.maps;
+	im->img = mlx_new_image(cube->mlx,
+			WIN_WIDTH / 5, WIN_HEIGHT / 5);
+	im->addr = mlx_get_data_addr(im->img,
+			&im->bits_per_pixel, &im->line_length, &im->endian);
 
 	i[0] = -1;
-	lvl = cube->lvl;
+	//lvl = cube->lvl;
 	while (++i[0] < WIN_HEIGHT / 5)
 	{
 		i[1] = -1;
@@ -97,16 +105,10 @@ void	draw_maps(t_cube *cube)
 
 int	make_mini(t_cube *cube, t_maps *lvl)
 {
-	t_data	*im;
-
-	im = &lvl->mini.maps;
-	lvl->mini.maps.img = mlx_new_image(cube->mlx,
-			WIN_WIDTH / 5, WIN_HEIGHT / 5);
-	lvl->mini.maps.addr = mlx_get_data_addr(im->img,
-			&im->bits_per_pixel, &im->line_length, &im->endian);
+	
 	lvl->mini.witdh = lvl->max_len + 1;
 	lvl->mini.height = lvl->m_height + 2;
 	draw_mini_background(lvl);
-	draw_maps(cube);
+	draw_maps(cube, lvl);//cube);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/04 00:54:01 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/04 04:13:37 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void draw_doom(t_cube *cube)
 	mlx_clear_window(cube->mlx, cube->win);
 	draw_background(cube, cube->lvl->floor, cube->lvl->ceiling);
 	rcdda(cube, cube->maps->c_maps, *(cube->player));
-	draw_maps(cube);
+	draw_maps(cube, cube->lvl);
 }
 /*
 */
