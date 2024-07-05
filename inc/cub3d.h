@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/05 15:15:51 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/05 21:52:44 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_player
 {
 	t_point	pos;
 	t_point	dir;
+	t_point prev_pos;
 }	t_player;
 
 typedef struct s_cube
