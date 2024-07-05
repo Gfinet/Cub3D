@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/04 00:16:40 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/05 15:17:45 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	turn(t_cube *cube, double angle)
 
 int	key_event(int keycode, t_cube *cube)
 {
+	printf("key = %d\n", keycode);
 	if (keycode == ESC)
 		esc_handle(cube);
 	else 
@@ -84,20 +85,13 @@ int	key_event(int keycode, t_cube *cube)
 			turn(cube, 11.25);
 		if (keycode == D)
 			turn(cube, -11.25);
-		printf("key = %d\n", keycode);
-		rcdda(cube, cube->maps->c_maps, *(cube->player));
 	}
+	draw_doom(cube);
 	return (1);
 }
 
-int mouse_event(int mcode, int x, int y, t_cube *cube)
+int	mouse_event(int mcode, int x, int y, t_cube *cube)
 {
-	// button : L 0, R 1, MID 2
-	//action rien 0, press, 1
-	// mods :
-	// MLX_SHIFT		= 0x0001,
-	// MLX_CONTROL		= 0x0002,
-	// MLX_ALT			= 0x0004,
 	printf("%d %d %d %p\n", mcode, x, y, cube);
 	return (0);
 }

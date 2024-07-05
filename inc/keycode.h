@@ -6,12 +6,17 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 16:47:34 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/01 18:19:29 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/04 00:28:49 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYCODE_H
 # define KEYCODE_H
+
+#define BLUE 0x000000FF
+#define GREEN  0x5500FF00
+#define WHITE 0x00FFFFFF
+#define RED 0x00FF0000
 
 # define ESC 53
 # define W 13

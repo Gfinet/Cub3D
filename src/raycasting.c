@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/04 00:57:37 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/05 18:19:48 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,12 @@ void	calculate_perp_wall_dist(t_rcdata *data)
 void	get_base_info_draw(t_drawdata *drw, t_rcdata dt, t_player player,
 		t_cube *cube)
 {
-	// double fix_x = dt.dest.x - (int)dt.dest.x;
+	double fix_x = 0;;
+	if ((int)player.pos.x != player.pos.x && fabs(player.dir.x) >= fabs(player.dir.y))
+		fix_x = fabs(player.pos.x - (int)player.pos.x);
+	else if ((int)player.pos.y != player.pos.y && fabs(player.dir.x) <= fabs(player.dir.y))
+		fix_x = fabs(player.pos.y - (int)player.pos.y);
+	printf("fix == %f\n", fix_x);
 	// double fix_y = dt.dest.y - (int)dt.dest.y;
 	(*drw).line_height = (int)(WIN_HEIGHT / dt.perp_wall_dist);
 	(*drw).pitch = 100;
@@ -120,8 +125,10 @@ void	get_base_info_draw(t_drawdata *drw, t_rcdata dt, t_player player,
 		(*drw).wall_x = (int)player.pos.x + dt.perp_wall_dist * dt.ray_dir.y;
 	else if (dt.side == 1 || dt.side == 3)
 		(*drw).wall_x = (int)player.pos.y + dt.perp_wall_dist * dt.ray_dir.x;
+	if (((dt.side == 0 || dt.side == 2) && fabs(player.dir.x) <= fabs(player.dir.y)) || ((dt.side == 1 || dt.side == 3) && fabs(player.dir.x) >= fabs(player.dir.y)))
+	(*drw).wall_x += fix_x;
 	(*drw).wall_x -= floor((drw->wall_x));
-	(*drw).tex_x = (int)(drw->wall_x * (double)(cube->texture[dt.side].width))
+	(*drw).tex_x = (int)((drw->wall_x) * (double)(cube->texture[dt.side].width));
 	// 	+ (cube->texture[dt.side].width - (fix_x * (double)(cube->texture[dt.side].width)));
 	// if ((*drw).tex_x > cube->texture[dt.side].width)
 	// 	(*drw).tex_x -= cube->texture[dt.side].width;

@@ -5,11 +5,15 @@ CFLAGS   = -Wall -Wextra -Werror -g -fsanitize=address
 
 SRCS     = src/main_cub3d.c		\
 			src/handle_event.c	\
-			src/mini_maps.c		\
-			src/parse_maps.c	\
-			src/check_maps.c	\
-			src/raycasting.c	\
-			src/mlx_img.c
+			src/mini_maps.c 	\
+			src/parse_maps.c 	\
+			src/check_maps.c 	\
+			src/check_arg.c 	\
+			src/check_arg2.c 	\
+			src/raycasting.c 	\
+			src/mlx_img.c 		\
+			src/utils.c 		\
+			src/background.c 	
 OBJ      = $(SRCS:.c=.o)
 
 # BON_SRCS = bonus/main_cub3d_bonus.c
@@ -37,7 +41,7 @@ $(NAME): $(OBJ) libftprintf.a $(LIBX)
 	@$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 add:
-	git add src/ inc/ maps/ Makefile .gitignore
+	git add src/ inc/ maps/ texture/ Makefile .gitignore
 
 $(LIBX):
 	@make -C $(MINI)
@@ -47,7 +51,6 @@ libftprintf.a:
 	@make -C $(LIBFT)
 	@cp $(LIB) .
 	@mv $(LIB) $(NAME)
-	@echo "library libftprintf made"
 
 
 clean:

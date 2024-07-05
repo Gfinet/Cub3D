@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/04 00:01:44 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/05 15:15:51 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 # include <fcntl.h>
 
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 1280 //1280
+#  define WIN_HEIGHT 640 //1280
 # endif
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH 2400 //2400
+#  define WIN_WIDTH 1200 //2400
 # endif
 
 typedef struct s_point
@@ -48,7 +48,6 @@ typedef struct	s_data {
 typedef struct s_mini_maps
 {
 	t_data maps;
-	t_data screen;
 	int witdh;
 	int height;
 }	t_mini_maps;
@@ -79,11 +78,13 @@ typedef struct s_cube
 	//mlx_t		*mlx_w;
 	void		*mlx;
 	void		*win;
+	t_maps		*lvl;
 	//mlx_image_t	***all_img;
 	t_data		*texture;
 	t_player	*player;
 	t_maps		*maps;
 	t_data		*screen;
+	t_data		*bg;
 
 }	t_cube;
 
@@ -91,7 +92,6 @@ typedef struct s_cube
 typedef struct s_img
 {
 	void *img;
-	//xpm_t *texture;
 	char *path;
 	int witdh;
 	int height;
@@ -125,6 +125,7 @@ typedef struct s_drawdata
 	double			step_f;
 }	t_drawdata;
 
+
 //handle_event.c
 int	esc_handle(t_cube *cube);
 int	key_event(int keycode, t_cube *cube);
@@ -133,18 +134,36 @@ int	scroll_event(double xdelta, double ydelta, t_cube *cube);
 int	add_event(t_cube *cube);
 
 //parse_maps.c
-int get_maps(t_maps *lvl, char *file);
+int get_maps(t_cube *cube, char *file);
 void fill_maps(t_maps *lvl, char *str, int fd[2]);
 void set_floor_ceiling(int fl_ce[3], char *str);
 void set_map(t_maps *lvl, char *str, int fd[2]);
 
 //check_maps.c
-int check_map(char *file);
+int check_arg(t_cube *cube, char *file);
+int check_map(t_cube *cube);
+int	check_elem(char *file);
 
-int make_mini(t_cube *cube, t_maps *lvl);
+//background.c
+void	make_background(t_cube *cube);
+
+int		get_dir(char *str);
+char	*get_text_dir(char *str);
+
+int		make_mini(t_cube *cube, t_maps *lvl);
+void	draw_background(t_cube *cube, int floor[3], int ceiling[3]);
+void	draw_mini_background(t_maps *lvl);
+void	draw_doom(t_cube *cube);
+void	draw_player(t_cube *cube);
+void	draw_maps(t_cube *cube);
+void	draw_player(t_cube *cube);
+
+void get_player_pos(t_cube *cube);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
+void	fill_map_char(t_maps *lvl, char c);
+void	free_and_gnl(char **str, int fd);
 void	rcdda(t_cube *cube, char **map, t_player player);
 
 #endif
