@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 23:43:15 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/04 00:16:40 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@ void	move_up(t_cube *cube)
 		printf("pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
 	cube->player->pos.y += (cube->player->dir.y / 4);
 	cube->player->pos.x += (cube->player->dir.x / 4);
+	printf("new >>> pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
+}
+void	move_left(t_cube *cube)
+{
+		printf("pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
+	cube->player->pos.y -= (cube->player->dir.x / 4);
+	cube->player->pos.x -= (cube->player->dir.y / 4);
+	printf("new >>> pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
+}
+void	move_right(t_cube *cube)
+{
+		printf("pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
+	cube->player->pos.y += (cube->player->dir.x / 4);
+	cube->player->pos.x += (cube->player->dir.y / 4);
 	printf("new >>> pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
 }
 void	move_down(t_cube *cube)
@@ -56,12 +70,16 @@ int	key_event(int keycode, t_cube *cube)
 {
 	if (keycode == ESC)
 		esc_handle(cube);
-	else if ((keycode >= 0 && keycode <= 2) || keycode == 13)
+	else 
 	{
 		if (keycode == W)
 			move_up(cube);
 		if (keycode == S)
 			move_down(cube);
+		if (keycode == LEFT)
+			move_left(cube);
+		if (keycode == RIGHT)
+			move_right(cube);
 		if (keycode == A)
 			turn(cube, 11.25);
 		if (keycode == D)

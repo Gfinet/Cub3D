@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 20:24:58 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/04 00:01:44 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ typedef struct s_rcdata
 
 typedef struct s_drawdata
 {
-	t_point			tex;
+	int				tex_x;
+	int				tex_y;
 	int				line_height;
 	int				pitch;
 	int				draw_start;

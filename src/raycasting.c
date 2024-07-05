@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/03 23:41:58 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/04 00:57:37 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ void	calculate_perp_wall_dist(t_rcdata *data)
 void	get_base_info_draw(t_drawdata *drw, t_rcdata dt, t_player player,
 		t_cube *cube)
 {
+	// double fix_x = dt.dest.x - (int)dt.dest.x;
+	// double fix_y = dt.dest.y - (int)dt.dest.y;
 	(*drw).line_height = (int)(WIN_HEIGHT / dt.perp_wall_dist);
 	(*drw).pitch = 100;
 	(*drw).draw_start = -drw->line_height / 2 + WIN_HEIGHT / 2 + drw->pitch;
@@ -114,20 +116,19 @@ void	get_base_info_draw(t_drawdata *drw, t_rcdata dt, t_player player,
 	if (drw->draw_end >= WIN_HEIGHT)
 		(*drw).draw_end = WIN_HEIGHT - 1;
 	(*drw).tex_num = dt.side;
-	if (dt.side == 0)
+	if (dt.side == 0 || dt.side == 2)
 		(*drw).wall_x = (int)player.pos.x + dt.perp_wall_dist * dt.ray_dir.y;
-	else if (dt.side == 2)
-		(*drw).wall_x = (int)player.pos.x + dt.perp_wall_dist * dt.ray_dir.y;
-	else if (dt.side == 1)
-		(*drw).wall_x = (int)player.pos.y + dt.perp_wall_dist * dt.ray_dir.x;
-	else if (dt.side == 3)
+	else if (dt.side == 1 || dt.side == 3)
 		(*drw).wall_x = (int)player.pos.y + dt.perp_wall_dist * dt.ray_dir.x;
 	(*drw).wall_x -= floor((drw->wall_x));
-	(*drw).tex.x = (int)(drw->wall_x * (double)(cube->texture[dt.side].width));
-	if (dt.side == 0 && dt.ray_dir.x > 0)
-		(*drw).tex.x = cube->texture[dt.side].width - drw->tex.x - 1;
-	if (dt.side == 1 && dt.ray_dir.y < 0)
-		(*drw).tex.x = cube->texture[dt.side].width - drw->tex.x - 1;
+	(*drw).tex_x = (int)(drw->wall_x * (double)(cube->texture[dt.side].width))
+	// 	+ (cube->texture[dt.side].width - (fix_x * (double)(cube->texture[dt.side].width)));
+	// if ((*drw).tex_x > cube->texture[dt.side].width)
+	// 	(*drw).tex_x -= cube->texture[dt.side].width;
+	if ((dt.side == 0 || dt.side == 2) && dt.ray_dir.x > 0)
+		(*drw).tex_x = cube->texture[dt.side].width - drw->tex_x - 1;
+	if ((dt.side == 1 || dt.side == 3) && dt.ray_dir.y < 0)
+		(*drw).tex_x = cube->texture[dt.side].width - drw->tex_x - 1;
 	(*drw).step_f = 1.0 * cube->texture[dt.side].height / drw->line_height;
 }
 
@@ -142,11 +143,10 @@ void	draw_xwall(t_data *screen, t_drawdata *dt, t_cube *c, int x)
 	y = dt->draw_start - 1;
 	while (++y < dt->draw_end)
 	{
-		(*dt).tex.y = (int)tex_pos & (int)(c->texture[dt->tex_num].height
-				- 1);
+		(*dt).tex_y = (int)tex_pos & (c->texture[dt->tex_num].height - 1);
 		tex_pos += dt->step_f;
 		color = *((unsigned int *)c->texture[dt->tex_num].addr +(int)
-				((c->texture[dt->tex_num].height * dt->tex.y + dt->tex.x)));
+				((c->texture[dt->tex_num].height * dt->tex_y + dt->tex_x)));
 		my_mlx_pixel_put(screen, x, y, color);
 	}
 }
