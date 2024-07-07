@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/05 22:31:18 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/07 20:05:20 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,32 @@ int	esc_handle(t_cube *cube)
 	return (0);
 }
 
-void	move_up(t_cube *cube)
+void	move_up(t_cube *cube, double angle, int frame)
 {
+	(void)angle;
 	cube->player->prev_pos = (t_point){cube->player->pos.x, cube->player->pos.y};
-		printf("pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
-	cube->player->pos.y += (cube->player->dir.y / 4);
-	cube->player->pos.x += (cube->player->dir.x / 4);
-	printf("new >>> pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
+	cube->player->pos.y += (cube->player->dir.y / (4 * frame));
+	cube->player->pos.x += (cube->player->dir.x / (4 * frame));
+	// draw_doom(cube);
+	// usleep(100000);
+	// cube->player->pos.y += (cube->player->dir.y / 8);
+	// cube->player->pos.x += (cube->player->dir.x / 8);
+}
+void	move_down(t_cube *cube, double angle, int frame)
+{
+	(void)angle;
+	cube->player->prev_pos = (t_point){cube->player->pos.x, cube->player->pos.y};
+	cube->player->pos.y -= (cube->player->dir.y / (4 * frame));
+	cube->player->pos.x -= (cube->player->dir.x / (4 * frame));
+	// draw_doom(cube);
+	// usleep(100000);
+	// cube->player->pos.y -= (cube->player->dir.y / 8);
+	// cube->player->pos.x -= (cube->player->dir.x / 8);
 }
 void	move_left(t_cube *cube)
 {
 	cube->player->prev_pos = (t_point){cube->player->pos.x, cube->player->pos.y};
-		printf("pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
+		// printf("pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
 	if (cube->player->dir.x < cube->player->dir.y)
 	{
 		cube->player->pos.y -= (cube->player->dir.x / 4);
@@ -55,12 +69,12 @@ void	move_left(t_cube *cube)
 		cube->player->pos.y += (cube->player->dir.x / 4);
 		cube->player->pos.x += (cube->player->dir.y / 4);
 	}
-	printf("new >>> pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
+	// printf("new >>> pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
 }
 void	move_right(t_cube *cube)
 {
 	cube->player->prev_pos = (t_point){cube->player->pos.x, cube->player->pos.y};
-		printf("pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
+		// printf("pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
 	if (cube->player->dir.x < cube->player->dir.y)
 	{
 		cube->player->pos.y += (cube->player->dir.x / 4);
@@ -81,51 +95,72 @@ void	move_right(t_cube *cube)
 		cube->player->pos.y -= (cube->player->dir.x / 4);
 		cube->player->pos.x -= (cube->player->dir.y / 4);
 	}
-	printf("new >>> pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
-}
-void	move_down(t_cube *cube)
-{
-	cube->player->prev_pos = (t_point){cube->player->pos.x, cube->player->pos.y};
-	printf("pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
-	cube->player->pos.y -= (cube->player->dir.y / 4);
-	cube->player->pos.x -= (cube->player->dir.x / 4);
-	printf("new >>> pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
+	// printf("new >>> pos.y = %f; pos.x = %f\n", cube->player->pos.y, cube->player->pos.x);
 }
 
-void	turn(t_cube *cube, double angle)
+void	turn(t_cube *cube, double angle, int frame)
 {
 	double	n_x;
 	double	n_y;
-	double rad = angle * (M_PI / 180.0);
+	double rad = (angle / frame) * (M_PI / 180.0);
 
-	printf("dir.y = %f; dir.x = %f\n", cube->player->dir.y, cube->player->dir.x);
+	// printf("dir.y = %f; dir.x = %f\n", cube->player->dir.y, cube->player->dir.x);
 	n_x = (cube->player->dir.x * cos(-rad)) - (cube->player->dir.y) * sin(-rad);
 	n_y = cube->player->dir.x * sin(-rad) + (cube->player->dir.y) * cos(-rad);
 	cube->player->dir.y = n_y;
 	cube->player->dir.x = n_x;
-	printf("new >>> dir.y = %f; dir.x = %f\n", cube->player->dir.y, cube->player->dir.x);
+	// printf("new >>> dir.y = %f; dir.x = %f\n", cube->player->dir.y, cube->player->dir.x);
+}
+
+void fps(t_cube	*cube, double angle, int fps, void (*f)(t_cube *, double, int))
+{
+	int	i;
+
+	i = 0;
+	while (i < fps)
+	{
+		f(cube, angle, fps);
+		draw_doom(cube);
+		mlx_do_sync(cube->mlx);
+		// usleep(10000 / fps);
+		i++;
+	}
+}
+
+int key_maj(int keycode, t_cube *cube)
+{
+	if (keycode == L_SH)
+		cube->frame = FRAME / 2;
+	else
+		cube->frame = FRAME;
+	// if (keycode == SPACE)
+	// 	jump(cube);
+	return (1);
 }
 
 int	key_event(int keycode, t_cube *cube)
 {
-	printf("key = %d\n", keycode);
+	int pressed;
+
+	pressed = 0;
+	// printf("key = %d\n", keycode);
 	if (keycode == ESC)
 		esc_handle(cube);
-	else 
-	{
-		if (keycode == W)
-			move_up(cube);
-		if (keycode == S)
-			move_down(cube);
-		if (keycode == LEFT)
-			move_left(cube);
-		if (keycode == RIGHT)
-			move_right(cube);
-		if (keycode == A)
-			turn(cube, 11.25);
-		if (keycode == D)
-			turn(cube, -11.25);
-	}
+
+	if (keycode == W)
+		fps(cube, 11.25, cube->frame, &move_up);
+	if (keycode == S)
+		fps(cube, 11.25, cube->frame, &move_down);
+	if (keycode == LEFT)
+		move_left(cube);
+	if (keycode == RIGHT)
+		move_right(cube);
+	if (keycode == A)
+		fps(cube, 11.25, cube->frame, &turn);
+	if (keycode == D)
+		fps(cube, -11.25, cube->frame, &turn);
+	// printf("cube->frame = %i\n", cube->frame);
+	
 	draw_doom(cube);
 	return (1);
 }

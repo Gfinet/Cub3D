@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/05 21:52:44 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/07 18:41:51 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# define MLX_SYNC_IMAGE_WRITABLE	1
+# define MLX_SYNC_WIN_FLUSH_CMD		2
+# define MLX_SYNC_WIN_CMD_COMPLETED	3
 
 # ifndef WIN_HEIGHT
 #  define WIN_HEIGHT 640 //1280
@@ -28,6 +31,8 @@
 # ifndef WIN_WIDTH
 #  define WIN_WIDTH 1200 //2400
 # endif
+
+# define FRAME 8
 
 typedef struct s_point
 {
@@ -86,6 +91,7 @@ typedef struct s_cube
 	t_maps		*maps;
 	t_data		*screen;
 	t_data		*bg;
+	int			frame;
 
 }	t_cube;
 
@@ -130,6 +136,7 @@ typedef struct s_drawdata
 //handle_event.c
 int	esc_handle(t_cube *cube);
 int	key_event(int keycode, t_cube *cube);
+int	key_maj(int keycode, t_cube *cube);
 int	mouse_event(int mcode, int x, int y, t_cube *cube);
 int	scroll_event(double xdelta, double ydelta, t_cube *cube);
 int	add_event(t_cube *cube);

@@ -62,11 +62,12 @@ clean:
 
 fclean: clean
 	@rm -rf libftprintf.a
-#@make -C $(MINI) clean
 	@make -C $(LIBFT) fclean
 	@rm -rf $(NAME)
 	@echo "fclean done"
 	
+fclean_mlx:
+	@make -C $(MINI) clean
 
 bonus : $(BON_OBJ) libftprintf.a libmlx.a
 	@$(CC) $(CFLAGS) $^ -framework OpenGL -framework AppKit -o $(NAME)

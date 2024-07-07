@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/05 23:53:30 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/07 20:02:27 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,15 @@ double	fix_texture_pos(t_rcdata dt, t_player pl)
 	double	fix_x;
 
 	fix_x = 0;
-	if (fabs(pl.dir.x) < fabs(pl.dir.y) && (dt.side == 0 || dt.side == 2))
+	if (fabs(pl.dir.x) > fabs(pl.dir.y) && (dt.side == 0 || dt.side == 2))
 		fix_x = fabs(pl.pos.y - (int)pl.pos.y);
-	else if (fabs(pl.dir.x) < fabs(pl.dir.y) && (dt.side == 1 || dt.side == 3))
+	else if (fabs(pl.dir.x) < fabs(pl.dir.y))
 		fix_x = fabs(pl.pos.x - (int)pl.pos.x);
-	if ((pl.prev_pos.x != pl.pos.x) && (dt.side == 1 || dt.side == 3))
-		fix_x = fabs(pl.pos.x - (int)pl.pos.x);
-	else if ((pl.prev_pos.y != pl.pos.y) && (dt.side == 0 || dt.side == 2))
+	if ((pl.prev_pos.y != pl.pos.y) && (dt.side == 0 || dt.side == 2))
 		fix_x = fabs(pl.pos.y - (int)pl.pos.y);
+	else if ((pl.prev_pos.x != pl.pos.x) && (dt.side == 1 || dt.side == 3))
+		fix_x = fabs(pl.pos.x - (int)pl.pos.x);
+	// printf("%f == fix\n", fix_x);
 	return (fix_x);
 }
 

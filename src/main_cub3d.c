@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/05 01:08:37 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/07 18:58:26 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int argc, char **argv)
 	t_maps level;
 	t_player	player ;//= {(t_point){11., 11.}, (t_point){1., -1.}};
 
+	cube = (t_cube){0};
 	cube.lvl = &level;
 	cube.player = &player;
 	if (argc != 2)
@@ -77,9 +78,11 @@ int	main(int argc, char **argv)
 	cube.screen = NULL;
 	cube.maps = &level;
 	cube.player = &player;
+	cube.frame = FRAME;
 	//rcdda(&cube, cube.maps->c_maps, player);
 	draw_doom(&cube);
 	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
+	mlx_key_hook(cube.win, &key_maj, &cube);
 	mlx_hook(cube.win, 2, 0, &key_event, &cube);
 	// mlx_loop_hook(cube.mlx, &key_event, &cube);
 	// mlx_mouse_hook(cube.win, &mouse_event, &cube);
