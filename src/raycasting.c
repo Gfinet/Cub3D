@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/07 20:02:27 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/07 21:54:46 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,28 @@ double	fix_texture_pos(t_rcdata dt, t_player pl)
 	return (fix_x);
 }
 
+// void jump_update(t_drawdata *drw, t_cube *cube)
+// {
+// 	if (!cube->player->jump)
+// 		return ;
+// 	if (cube->player->jump < 0.5)
+// 	{
+// 		printf("jump == %f\n", fabs(cube->player->jump - 1) * 2 * JUMP_HEIGHT);
+// 		(*drw).draw_start -= fabs(cube->player->jump - 1) * 2 * JUMP_HEIGHT;
+// 		(*drw).draw_end -= fabs(cube->player->jump - 1) * 2 * JUMP_HEIGHT;
+// 	}
+// 	else
+// 	{
+// 		printf("jump == %f\n", fabs(cube->player->jump) * 2 * JUMP_HEIGHT);
+// 		(*drw).draw_start += cube->player->jump * 2 *JUMP_HEIGHT;
+// 		(*drw).draw_end  += cube->player->jump * 2 *JUMP_HEIGHT;
+// 	}
+// 	if (drw->draw_start < 0)
+// 		(*drw).draw_start = 0;
+// 	if (drw->draw_end >= WIN_HEIGHT)
+// 		(*drw).draw_end = WIN_HEIGHT - 1;
+// }
+
 void	get_base_info_draw(t_drawdata *drw, t_rcdata dt, t_player player,
 		t_cube *cube)
 {
@@ -133,6 +155,7 @@ void	get_base_info_draw(t_drawdata *drw, t_rcdata dt, t_player player,
 	(*drw).draw_end = drw->line_height / 2 + WIN_HEIGHT / 2 + drw->pitch;
 	if (drw->draw_end >= WIN_HEIGHT)
 		(*drw).draw_end = WIN_HEIGHT - 1;
+	// jump_update(drw, cube);
 	(*drw).tex_num = dt.side;
 	if (dt.side == 0 || dt.side == 2)
 		(*drw).wall_x = (int)player.pos.x + dt.perp_wall_dist * dt.ray_dir.y;
@@ -191,4 +214,7 @@ void	rcdda(t_cube *cube, char **map, t_player player)
 	// if (cube->screen)
 	// 	mlx_destroy_image(cube->mlx, cube->screen->img);
 	(*cube).screen = &screen;
+	// mlx_do_sync(cube->mlx);
+	if (cube->player->jump)
+		cube->player->jump -= 0.0625;
 }

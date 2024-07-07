@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/07 18:41:51 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/07 21:43:37 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # endif
 
 # define FRAME 8
+# define JUMP_HEIGHT 80
 
 typedef struct s_point
 {
@@ -77,6 +78,7 @@ typedef struct s_player
 	t_point	pos;
 	t_point	dir;
 	t_point prev_pos;
+	double	jump;
 }	t_player;
 
 typedef struct s_cube
