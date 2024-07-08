@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_maps.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/05 00:17:10 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/08 20:05:17 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	draw_mini_background(t_maps *lvl)
 		while (++j < WIN_WIDTH / 5)
 		{
 			if (is_border(i, j))
-				my_mlx_pixel_put(im, j, i, 0x00FFFFFF);
+				my_mlx_pixel_put(im, j, i, 0x55FFFFFF);
 			else
-				my_mlx_pixel_put(im, j, i, 0x000000FF);
+				my_mlx_pixel_put(im, j, i, 0x550000FF);
 		}
 	}
 }

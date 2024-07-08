@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/08 19:45:32 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/08 22:47:32 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,8 @@ void	draw_xwall(t_data *screen, t_drawdata *dt, t_cube *c, int x)
 			/ 2) * dt->step_f;
 	y = -1;
 	color = c->lvl->floor[0] * 65536 + c->lvl->floor[1] * 256 + c->lvl->floor[2];
+	if (dt->draw_start > WIN_HEIGHT)
+		dt->draw_start = 0;
 	while (++y < dt->draw_start)
 		my_mlx_pixel_put(screen, x, y, color);
 	y = dt->draw_start - 1;
