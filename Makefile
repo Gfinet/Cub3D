@@ -1,6 +1,6 @@
 CC       = GCC
 NAME = cub3D
-CFLAGS   = -Wall -Wextra -Werror -fsanitize=address -Imlx -g3 -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3
+CFLAGS   = -Wall -Wextra -Werror -g3 -fsanitize=address -Imlx -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3
 #FLAGS = -Wall -Wextra -Werror -Imlx -g3 -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3
 
 SRCS     = src/main_cub3d.c		\

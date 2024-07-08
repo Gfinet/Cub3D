@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/07 18:59:17 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/08 17:51:29 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ int	get_maps(t_cube *cube, char *file)
 		get_next_line(fd[1]);
 	}
 	printf("got map\n");
-	if (!check_map(cube))
-		return (0);
+	// if (!check_map(cube))
+	// 	return (0);
 	close(fd[0]);
 	close(fd[1]);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/07 23:04:59 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/08 17:49:35 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,37 @@ int	esc_handle(t_cube *cube)
 		mlx_clear_window(cube->mlx, cube->win);
 		mlx_destroy_window(cube->mlx, cube->win);
 	}
+	system("leaks cub3D");
 	exit(0);
 	return (0);
 }
 
+void	move_left(t_cube *cube, double angle, int frame)
+{
+	double	n_x;
+	double	n_y;
+	double rad = (90) * (M_PI / 180.0);
+
+	(void)angle;
+	cube->player->prev_pos = (t_point){cube->player->pos.x, cube->player->pos.y};
+	n_x = (cube->player->dir.x * cos(-rad)) - (cube->player->dir.y) * sin(-rad);
+	n_y = cube->player->dir.x * sin(-rad) + (cube->player->dir.y) * cos(-rad);
+	cube->player->pos.y += (n_y / (4 * frame));
+	cube->player->pos.x += (n_x / (4 * frame));
+}
+void	move_right(t_cube *cube, double angle, int frame)
+{
+	double	n_x;
+	double	n_y;
+	double rad = (90) * (M_PI / 180.0);
+
+	(void)angle;
+	cube->player->prev_pos = (t_point){cube->player->pos.x, cube->player->pos.y};
+	n_x = (cube->player->dir.x * cos(-rad)) - (cube->player->dir.y) * sin(-rad);
+	n_y = cube->player->dir.x * sin(-rad) + (cube->player->dir.y) * cos(-rad);
+	cube->player->pos.y -= (n_y / (4 * frame));
+	cube->player->pos.x -= (n_x / (4 * frame));
+}
 void	move_up(t_cube *cube, double angle, int frame)
 {
 	(void)angle;
@@ -103,6 +130,10 @@ int	key_event(int keycode, t_cube *cube)
 		fps(cube, 11.25, cube->frame, &move_up);
 	if (keycode == S)
 		fps(cube, 11.25, cube->frame, &move_down);
+	if (keycode == Q)
+		fps(cube, 11.25, cube->frame, &move_left);
+	if (keycode == E)
+		fps(cube, 11.25, cube->frame, &move_right);
 	if (keycode == A)
 		fps(cube, 11.25, cube->frame, &turn);
 	if (keycode == D)

@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/07 18:58:26 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/08 19:30:31 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ static int init_cube(t_cube *cube)
 
 int	main(int argc, char **argv)
 {
-	t_cube cube;
-	t_maps level;
+	t_cube		cube;
+	t_maps		level;
+	t_data		screen;
 	t_player	player ;//= {(t_point){11., 11.}, (t_point){1., -1.}};
 
 	cube = (t_cube){0};
@@ -63,6 +64,12 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\nBad maps\n", 15), 0);
 	get_player_pos(&cube);
 	make_background(&cube);
+	printf("ceiling	%i, %i, %i\n", cube.lvl->ceiling[0], cube.lvl->ceiling[1], cube.lvl->ceiling[2]);
+	printf("floor	%i, %i, %i\n", cube.lvl->floor[0], cube.lvl->floor[1], cube.lvl->floor[2] );
+	screen.img = mlx_new_image(cube.mlx, WIN_WIDTH, WIN_HEIGHT);
+	screen.addr = mlx_get_data_addr(screen.img, &screen.bits_per_pixel,
+			&screen.line_length, &screen.endian);
+	cube.screen = &screen;
 	if (!make_mini(&cube, &level))
 		return (write(2, "Error\nAttempt for mini map failed\n", 34), 0);
 	cube.texture = malloc(sizeof(t_data) * 4);
@@ -75,7 +82,6 @@ int	main(int argc, char **argv)
 	cube.texture[2].addr = mlx_get_data_addr(cube.texture[2].img, &cube.texture[2].bits_per_pixel, &cube.texture[2].line_length, &cube.texture[2].endian);
 	cube.texture[3].addr = mlx_get_data_addr(cube.texture[3].img, &cube.texture[3].bits_per_pixel, &cube.texture[3].line_length, &cube.texture[3].endian);
 	printf("%s\n", cube.texture->addr);
-	cube.screen = NULL;
 	cube.maps = &level;
 	cube.player = &player;
 	cube.frame = FRAME;

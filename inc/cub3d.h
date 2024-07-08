@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/07 21:43:37 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/08 18:59:42 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # define MLX_SYNC_IMAGE_WRITABLE	1
-# define MLX_SYNC_WIN_FLUSH_CMD		2
+# define MLX_SYNC_WIN_FLUSH_CMD		1
 # define MLX_SYNC_WIN_CMD_COMPLETED	3
 
 # ifndef WIN_HEIGHT
