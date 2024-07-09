@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_event.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 18:21:07 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/09 22:30:07 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,24 @@ int	esc_handle(t_cube *cube)
 	return (0);
 }
 
-void fps(t_cube	*cube, double angle, int fps, void (*f)(t_cube *, double, int))
+void	fps(t_cube	*cub, double ang, int fps, void (*f)(t_cube *, double, int))
 {
 	int	i;
 
 	i = 0;
 	while (i < fps)
 	{
-		f(cube, angle, fps);
-		draw_doom(cube);
-		mlx_do_sync(cube->mlx);
-		// usleep(10000 / fps);
+		f(cub, ang, fps);
+		draw_doom(cub);
+		mlx_do_sync(cub->mlx);
 		i++;
 	}
 }
 
-int key_maj(int keycode, t_cube *cube)
+int	key_maj(int keycode, t_cube *cube)
 {
-	static int on = 0;
+	static int	on = 0;
+
 	if (keycode == L_SH)
 		on = !on;
 	if (on)
@@ -60,10 +60,9 @@ int key_maj(int keycode, t_cube *cube)
 
 int	key_event(int keycode, t_cube *cube)
 {
-	int pressed;
+	int	pressed;
 
 	pressed = 0;
-	// printf("key = %d\n", keycode);
 	if (keycode == ESC)
 		esc_handle(cube);
 	if (keycode == W && is_not_wall(cube, W))
@@ -78,7 +77,6 @@ int	key_event(int keycode, t_cube *cube)
 		fps(cube, 11.25, cube->frame, &turn);
 	if (keycode == RIGHT || keycode == E)
 		fps(cube, -11.25, cube->frame, &turn);
-	// printf("cube->frame = %i\n", cube->frame);
 	draw_doom(cube);
 	return (1);
 }

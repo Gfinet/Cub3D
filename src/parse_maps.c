@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 21:49:12 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 22:24:33 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	fill_maps(t_maps *lvl, char *str, int fd[2])
 	else if (str[0] == 'F')
 		set_floor_ceiling(lvl->floor, &str[1]);
 	else if (str[0] == 'C')
-		set_floor_ceiling(lvl->ceiling, &str[1]);
+		set_floor_ceiling(lvl->ceil, &str[1]);
 	else if (str[0] == '\n')
 		return ;
 	else

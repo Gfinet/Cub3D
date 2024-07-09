@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 21:47:59 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 22:25:39 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,9 @@ typedef struct s_maps
 	t_mini_maps mini;
 	char **c_maps;
 	char **c_text;
-	//char *no_text;
-	// char *so_text;
-	// char *we_text;
-	// char *ea_text;
 	int max_len;
 	int floor[3];
-	int ceiling[3];
+	int ceil[3];
 	int m_height;
 
 }	t_maps;
@@ -84,11 +80,9 @@ typedef struct s_player
 
 typedef struct s_cube
 {
-	//mlx_t		*mlx_w;
 	void		*mlx;
 	void		*win;
 	t_maps		*lvl;
-	//mlx_image_t	***all_img;
 	t_data		*texture;
 	t_player	*player;
 	t_data		*screen;
@@ -174,7 +168,11 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
 void	fill_map_char(t_maps *lvl, char c);
 void	free_and_gnl(char **str, int fd);
+//raycast
 void	rcdda(t_cube *cube, char **map, t_player player);
+void	set_dda_ray_delta(t_rcdata *data, t_player player, int x);
+void	set_side_dist_and_step(t_player p, t_rcdata *dt);
+void	calculate_wall_dist(t_rcdata *data, char **map);
 
 //movements
 void	move_left(t_cube *cube, double angle, int frame);
@@ -182,10 +180,10 @@ void	move_right(t_cube *cube, double angle, int frame);
 void	move_up(t_cube *cube, double angle, int frame);
 void	move_down(t_cube *cube, double angle, int frame);
 void	turn(t_cube *cube, double angle, int frame);
-int	is_not_wall(t_cube *c, int keycode);
+int		is_not_wall(t_cube *c, int keycode);
 
 
 int new_img(t_cube *cube, t_data *new_img, int width, int height);
-void free_maps(t_cube *cube, int ind);
+void free_maps(char **maps, int ind);
 
 #endif

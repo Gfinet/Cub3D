@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 00:07:51 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 21:49:00 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 22:25:23 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ int	new_img(t_cube *cube, t_data *new_img, int width, int height)
 	return (1);
 }
 
-void	free_maps(t_cube *cube, int ind)
+void	free_maps(char **maps, int ind)
 {
 	int	i;
 
 	i = -1;
 	while (++i <= ind)
-		free(cube->lvl->c_maps[i]);
-	free(cube->lvl->c_maps);
+		free(maps[i]);
+	free(maps);
 }
