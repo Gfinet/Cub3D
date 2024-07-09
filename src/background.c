@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   background.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 19:28:02 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 20:15:19 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 21:38:15 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ void make_background(t_cube *cube)
 	cube->bg->img = mlx_new_image(cube->mlx, WIN_WIDTH, WIN_HEIGHT);
 	cube->bg->addr = mlx_get_data_addr(cube->bg->img, &cube->bg->bits_per_pixel,
 		&cube->bg->line_length, &cube->bg->endian);
-	draw_background(cube, cube->lvl->floor, cube->lvl->ceiling);
+	draw_background(cube, cube->lvl->floor, cube->lvl->ceil);
 }

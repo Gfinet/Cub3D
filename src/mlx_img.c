@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/08 22:48:55 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/09 21:38:15 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void draw_player(t_cube *cube)
 void draw_doom(t_cube *cube)
 {
 	mlx_clear_window(cube->mlx, cube->win);
-	// draw_background(cube, cube->lvl->floor, cube->lvl->ceiling);
+	// draw_background(cube, cube->lvl->floor, cube->lvl->ceil);
 	rcdda(cube, cube->maps->c_maps, *(cube->player));
 	draw_mini_background(cube->lvl);
 	draw_maps(cube);

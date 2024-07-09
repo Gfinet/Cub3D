@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 18:18:50 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/09 21:38:15 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\nBad maps\n", 15), 0);
 	get_player_pos(&cube);
 	make_background(&cube);
-	printf("ceiling	%i, %i, %i\n", cube.lvl->ceiling[0], cube.lvl->ceiling[1], cube.lvl->ceiling[2]);
+	printf("ceiling	%i, %i, %i\n", cube.lvl->ceil[0], cube.lvl->ceil[1], cube.lvl->ceil[2]);
 	printf("floor	%i, %i, %i\n", cube.lvl->floor[0], cube.lvl->floor[1], cube.lvl->floor[2] );
 	screen.img = mlx_new_image(cube.mlx, WIN_WIDTH, WIN_HEIGHT);
 	screen.addr = mlx_get_data_addr(screen.img, &screen.bits_per_pixel,

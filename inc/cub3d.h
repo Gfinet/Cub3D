@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 18:13:27 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/09 21:55:55 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_maps
 	char *ea_text;
 	int max_len;
 	int floor[3];
-	int ceiling[3];
+	int ceil[3];
 	int m_height;
 
 }	t_maps;
@@ -174,7 +174,11 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
 void	fill_map_char(t_maps *lvl, char c);
 void	free_and_gnl(char **str, int fd);
+//raycast
 void	rcdda(t_cube *cube, char **map, t_player player);
+void	set_dda_ray_delta(t_rcdata *data, t_player player, int x);
+void	set_side_dist_and_step(t_player p, t_rcdata *dt);
+void	calculate_wall_dist(t_rcdata *data, char **map);
 
 //movements
 void	move_left(t_cube *cube, double angle, int frame);
@@ -182,7 +186,7 @@ void	move_right(t_cube *cube, double angle, int frame);
 void	move_up(t_cube *cube, double angle, int frame);
 void	move_down(t_cube *cube, double angle, int frame);
 void	turn(t_cube *cube, double angle, int frame);
-int	is_not_wall(t_cube *c, int keycode);
+int		is_not_wall(t_cube *c, int keycode);
 
 
 #endif
