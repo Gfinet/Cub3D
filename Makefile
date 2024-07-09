@@ -13,7 +13,9 @@ SRCS     = src/main_cub3d.c		\
 			src/raycasting.c 	\
 			src/mlx_img.c 		\
 			src/utils.c 		\
-			src/background.c 	
+			src/background.c 	\
+			src/movements.c 	\
+			src/interaction.c 
 OBJ      = $(SRCS:.c=.o)
 
 # BON_SRCS = bonus/main_cub3d_bonus.c

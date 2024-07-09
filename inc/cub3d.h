@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/08 18:59:42 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/09 18:13:27 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,5 +175,14 @@ void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
 void	fill_map_char(t_maps *lvl, char c);
 void	free_and_gnl(char **str, int fd);
 void	rcdda(t_cube *cube, char **map, t_player player);
+
+//movements
+void	move_left(t_cube *cube, double angle, int frame);
+void	move_right(t_cube *cube, double angle, int frame);
+void	move_up(t_cube *cube, double angle, int frame);
+void	move_down(t_cube *cube, double angle, int frame);
+void	turn(t_cube *cube, double angle, int frame);
+int	is_not_wall(t_cube *c, int keycode);
+
 
 #endif

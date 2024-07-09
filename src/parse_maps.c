@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/08 17:51:29 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/09 18:26:12 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	set_map(t_maps *lvl, char *str, int fd[2])
 			lvl->max_len = (int)ft_strlen(str) - (str[ft_strlen(str)] == '\n');
 		i++;
 	}
-	lvl->c_maps = malloc(sizeof(char *) * i);
+	lvl->c_maps = malloc(sizeof(char *) * (i));
 	cpy_line(lvl, tmp, 0);
 	free(tmp);
 	str = get_next_line(fd[1]);
