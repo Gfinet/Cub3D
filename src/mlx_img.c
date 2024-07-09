@@ -6,17 +6,17 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 19:27:56 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 21:52:50 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void get_player_pos(t_cube *cube)
+void	get_player_pos(t_cube *cube)
 {
-	int i[2];
-	char c;
-	char **m;
+	int		i[2];
+	char	c;
+	char	**m;
 
 	m = cube->lvl->c_maps;
 	i[0] = -1;
@@ -31,21 +31,23 @@ void get_player_pos(t_cube *cube)
 			{
 				c = m[i[0]][i[1]];
 				cube->player->pos = (t_point){i[1], i[0]};
-				break;
+				break ;
 			}
 		}
 	}
 	cube->player->dir = (t_point){(c == 'E') - (c == 'W'),
 		(c == 'S') - (c == 'N')};
-	cube->player->prev_pos = (t_point){cube->player->pos.x, cube->player->pos.y};
-	cube->player->jump = 0;
+	cube->player->prev_pos = (t_point){cube->player->pos.x,
+		cube->player->pos.y};
 }
-void fill_map_char(t_maps *lvl, char c)
+
+void	fill_map_char(t_maps *lvl, char c)
 {
-	int i;
-	int j;
-	size_t len;
-	char ch;
+	int		i;
+	int		j;
+	char	ch;
+	size_t	len;
+
 	i = -1;
 	while (++i < lvl->m_height)
 	{
@@ -55,8 +57,8 @@ void fill_map_char(t_maps *lvl, char c)
 		{
 			ch = lvl->c_maps[i][j];
 			if ((ch != '0' && ch != '1'
-				&& ch != 'N' && ch != 'S' && ch != 'E' && ch != 'W')
-				|| ( j > (int)len && j < lvl->max_len - 1))
+					&& ch != 'N' && ch != 'S' && ch != 'E' && ch != 'W')
+				|| (j > (int)len && j < lvl->max_len - 1))
 				lvl->c_maps[i][j] = c;
 			if (j == lvl->max_len - 1)
 				lvl->c_maps[i][j] = 0;
@@ -82,12 +84,12 @@ void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2])
 		my_mlx_pixel_put(&lvl->mini.maps, x, y, GREEN);
 }
 
-void draw_player(t_cube *cube)
+void	draw_player(t_cube *cube)
 {
-	int x;
-	int y;
-	int pos[2];
-	int sum[2];
+	int	x;
+	int	y;
+	int	pos[2];
+	int	sum[2];
 
 	pos[0] = cube->player->pos.x + 1;
 	pos[1] = cube->player->pos.y + 1;
@@ -104,10 +106,10 @@ void draw_player(t_cube *cube)
 	}
 }
 
-void draw_doom(t_cube *cube)
+void	draw_doom(t_cube *cube)
 {
 	mlx_clear_window(cube->mlx, cube->win);
-	rcdda(cube, cube->maps->c_maps, *(cube->player));
+	rcdda(cube, cube->lvl->c_maps, *(cube->player));
 	draw_mini_background(cube->lvl);
 	draw_maps(cube);
 	draw_player(cube);

@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 19:39:02 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 21:49:12 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 static int	cpy_line(t_maps *lvl, char *str, int ind)
 {
-	size_t len;
+	size_t	len;
+
 	lvl->c_maps[ind] = malloc(sizeof(char) * lvl->max_len + 2);
 	if (!lvl->c_maps[ind])
-		return (0); //free_all
+		return (free_maps(lvl->c_maps, ind), 0);
 	len = ft_strlen(str);
 	len -= str[len - 1] == '\n';
 	ft_strlcpy(lvl->c_maps[ind], str, len + 2);
@@ -82,13 +83,13 @@ void	fill_maps(t_maps *lvl, char *str, int fd[2])
 	if (!str)
 		return ;
 	if (!ft_strncmp("NO", str, 2))
-		lvl->no_text = get_text_dir(&str[2]);
+		lvl->c_text[0] = get_text_dir(&str[2]);
 	else if (!ft_strncmp("SO", str, 2))
-		lvl->so_text = get_text_dir(&str[2]);
+		lvl->c_text[1] = get_text_dir(&str[2]);
 	else if (!ft_strncmp("WE", str, 2))
-		lvl->we_text = get_text_dir(&str[2]);
+		lvl->c_text[2] = get_text_dir(&str[2]);
 	else if (!ft_strncmp("EA", str, 2))
-		lvl->ea_text = get_text_dir(&str[2]);
+		lvl->c_text[3] = get_text_dir(&str[2]);
 	else if (str[0] == 'F')
 		set_floor_ceiling(lvl->floor, &str[1]);
 	else if (str[0] == 'C')
@@ -109,6 +110,7 @@ int	get_maps(t_cube *cube, char *file)
 	cube->lvl->max_len = 0;
 	fd[0] = open(file, O_RDONLY);
 	fd[1] = open(file, O_RDONLY);
+	cube->lvl->c_text = malloc(sizeof(char *) * 4);
 	str = get_next_line(fd[0]);
 	get_next_line(fd[1]);
 	while (str)

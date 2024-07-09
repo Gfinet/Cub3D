@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 21:54:06 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/03 21:54:35 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 21:35:25 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	get_dir(char *str)
 		return (-1000);
 }
 
-char *get_text_dir(char *str)
+char	*get_text_dir(char *str)
 {
-	size_t len;
-	int start;
+	size_t	len;
+	int		start;
 
 	start = 0;
 	while (str[start] == ' ')
@@ -38,12 +38,12 @@ char *get_text_dir(char *str)
 	return (ft_substr(str, start, len));
 }
 
-int check_line(char *str)
+int	check_line(char *str)
 {
-	int len;
-	int i;
-	static int flag = 0;
-	static int count = 0;
+	int			len;
+	int			i;
+	static int	flag = 0;
+	static int	count = 0;
 
 	i = -1;
 	len = (int)ft_strlen(str);
@@ -58,20 +58,20 @@ int check_line(char *str)
 	return (flag + count == 1);
 }
 
-int check_elem(char *file)
+int	check_elem(char *file)
 {
-	int flag;
-	int nb_info;
-	int fd;
-	char *str;
+	int		flag;
+	int		nb_info;
+	int		fd;
+	char	*str;
 
 	fd = open(file, O_RDONLY);
 	str = get_next_line(fd);
 	nb_info = 0;
 	while (str && nb_info < 6)
 	{
-		if (str[0] == 'F' || str[0] == 'C' || str[0] == 'N' ||
-			str[0] == 'E' || str[0] == 'S' || str[0] == 'W')
+		if (str[0] == 'F' || str[0] == 'C' || str[0] == 'N'
+			|| str[0] == 'E' || str[0] == 'S' || str[0] == 'W')
 			nb_info++;
 		free_and_gnl(&str, fd);
 	}

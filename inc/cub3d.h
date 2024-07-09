@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 19:38:49 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 21:47:59 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,11 @@ typedef struct s_maps
 {
 	t_mini_maps mini;
 	char **c_maps;
-	char *no_text;
-	char *so_text;
-	char *we_text;
-	char *ea_text;
+	char **c_text;
+	//char *no_text;
+	// char *so_text;
+	// char *we_text;
+	// char *ea_text;
 	int max_len;
 	int floor[3];
 	int ceiling[3];
@@ -90,7 +91,6 @@ typedef struct s_cube
 	//mlx_image_t	***all_img;
 	t_data		*texture;
 	t_player	*player;
-	t_maps		*maps;
 	t_data		*screen;
 	t_data		*bg;
 	int			frame;
@@ -186,5 +186,6 @@ int	is_not_wall(t_cube *c, int keycode);
 
 
 int new_img(t_cube *cube, t_data *new_img, int width, int height);
+void free_maps(t_cube *cube, int ind);
 
 #endif

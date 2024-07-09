@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:12:12 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/09 19:16:33 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/09 20:36:58 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	check_side_wall(t_cube *c, t_point dir, t_point dir_s, int keycode)
 
 int	check_front_wall(t_cube *c, t_point dir, int keycode)
 {
-	if ((keycode == W || keycode == A) && ((c->maps->c_maps[(int)(c->player->pos.y + dir.y)]
-		[(int)(c->player->pos.x + dir.x)] == '1') || (c->maps->c_maps[(int)
+	if ((keycode == W || keycode == A) && ((c->lvl->c_maps[(int)(c->player->pos.y + dir.y)]
+		[(int)(c->player->pos.x + dir.x)] == '1') || (c->lvl->c_maps[(int)
 		(c->player->pos.y + dir.y / 2)][(int)(c->player->pos.x + dir.x / 2)]
 		== '1')))
 		return (1);
-	else if ((keycode == S || keycode == D) && ((c->maps->c_maps[(int)(c->player->pos.y - dir.y)]
-		[(int)(c->player->pos.x - dir.x)] == '1') || (c->maps->c_maps[(int)
+	else if ((keycode == S || keycode == D) && ((c->lvl->c_maps[(int)(c->player->pos.y - dir.y)]
+		[(int)(c->player->pos.x - dir.x)] == '1') || (c->lvl->c_maps[(int)
 		(c->player->pos.y - dir.y / 2)][(int)(c->player->pos.x - dir.x / 2)]
 		== '1')))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 19:26:48 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 21:42:22 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ int	*get_ind(int i[2], int w_h[2], t_maps *lvl)
 
 void	draw_maps(t_cube *cube)
 {
-	int	i[2];
-	int	w_h[2];
-	t_maps *lvl;
+	int		i[2];
+	int		w_h[2];
+	t_maps	*lvl;
 
 	i[0] = -1;
 	lvl = cube->lvl;
@@ -101,14 +101,10 @@ void	draw_maps(t_cube *cube)
 
 int	make_mini(t_cube *cube, t_maps *lvl)
 {
-	// lvl->mini.maps.img = mlx_new_image(cube->mlx,
-	// 		WIN_WIDTH / 5, WIN_HEIGHT / 5);
-	// lvl->mini.maps.addr = mlx_get_data_addr(lvl->mini.maps.img,
-	// 		&lvl->mini.maps.bits_per_pixel, &lvl->mini.maps.line_length,
-	// 		&lvl->mini.maps.endian);
 	new_img(cube, &(lvl->mini.maps), WIN_WIDTH / 5, WIN_HEIGHT / 5);
 	lvl->mini.witdh = lvl->max_len + 1;
 	lvl->mini.height = lvl->m_height + 2;
 	draw_maps(cube);
+	get_player_pos(cube);
 	return (1);
 }
