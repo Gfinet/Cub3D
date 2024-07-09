@@ -1,7 +1,7 @@
 CC       = GCC
 NAME = cub3D
-CFLAGS   = -Wall -Wextra -Werror #-g -fsanitize=address
-
+CFLAGS   = -Wall -Wextra -Werror -Imlx -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3 -g3 -fsanitize=address
+#FLAGS = -Wall -Wextra -Werror -Imlx -g3 -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3
 
 SRCS     = src/main_cub3d.c		\
 			src/handle_event.c	\
@@ -62,11 +62,12 @@ clean:
 
 fclean: clean
 	@rm -rf libftprintf.a
-#@make -C $(MINI) clean
 	@make -C $(LIBFT) fclean
 	@rm -rf $(NAME)
 	@echo "fclean done"
 	
+fclean_mlx:
+	@make -C $(MINI) clean
 
 bonus : $(BON_OBJ) libftprintf.a libmlx.a
 	@$(CC) $(CFLAGS) $^ -framework OpenGL -framework AppKit -o $(NAME)

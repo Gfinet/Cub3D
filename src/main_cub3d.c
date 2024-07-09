@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/05 01:08:37 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/08 19:30:31 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ static int init_cube(t_cube *cube)
 
 int	main(int argc, char **argv)
 {
-	t_cube cube;
-	t_maps level;
+	t_cube		cube;
+	t_maps		level;
+	t_data		screen;
 	t_player	player ;//= {(t_point){11., 11.}, (t_point){1., -1.}};
 
+	cube = (t_cube){0};
 	cube.lvl = &level;
 	cube.player = &player;
 	if (argc != 2)
@@ -62,6 +64,12 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\nBad maps\n", 15), 0);
 	get_player_pos(&cube);
 	make_background(&cube);
+	printf("ceiling	%i, %i, %i\n", cube.lvl->ceiling[0], cube.lvl->ceiling[1], cube.lvl->ceiling[2]);
+	printf("floor	%i, %i, %i\n", cube.lvl->floor[0], cube.lvl->floor[1], cube.lvl->floor[2] );
+	screen.img = mlx_new_image(cube.mlx, WIN_WIDTH, WIN_HEIGHT);
+	screen.addr = mlx_get_data_addr(screen.img, &screen.bits_per_pixel,
+			&screen.line_length, &screen.endian);
+	cube.screen = &screen;
 	if (!make_mini(&cube, &level))
 		return (write(2, "Error\nAttempt for mini map failed\n", 34), 0);
 	cube.texture = malloc(sizeof(t_data) * 4);
@@ -74,12 +82,13 @@ int	main(int argc, char **argv)
 	cube.texture[2].addr = mlx_get_data_addr(cube.texture[2].img, &cube.texture[2].bits_per_pixel, &cube.texture[2].line_length, &cube.texture[2].endian);
 	cube.texture[3].addr = mlx_get_data_addr(cube.texture[3].img, &cube.texture[3].bits_per_pixel, &cube.texture[3].line_length, &cube.texture[3].endian);
 	printf("%s\n", cube.texture->addr);
-	cube.screen = NULL;
 	cube.maps = &level;
 	cube.player = &player;
+	cube.frame = FRAME;
 	//rcdda(&cube, cube.maps->c_maps, player);
 	draw_doom(&cube);
 	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
+	mlx_key_hook(cube.win, &key_maj, &cube);
 	mlx_hook(cube.win, 2, 0, &key_event, &cube);
 	// mlx_loop_hook(cube.mlx, &key_event, &cube);
 	// mlx_mouse_hook(cube.win, &mouse_event, &cube);

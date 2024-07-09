@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 15:59:35 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 19:26:48 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	draw_mini_background(t_maps *lvl)
 		while (++j < WIN_WIDTH / 5)
 		{
 			if (is_border(i, j))
-				my_mlx_pixel_put(im, j, i, 0x00FFFFFF);
+				my_mlx_pixel_put(im, j, i, 0x55FFFFFF);
 			else
-				my_mlx_pixel_put(im, j, i, 0x000000FF);
+				my_mlx_pixel_put(im, j, i, 0x550000FF);
 		}
 	}
 }
