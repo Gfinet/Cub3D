@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_maps.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/05 00:17:10 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 15:59:35 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,12 @@ void	draw_maps(t_cube *cube)
 
 int	make_mini(t_cube *cube, t_maps *lvl)
 {
-	lvl->mini.maps.img = mlx_new_image(cube->mlx,
-			WIN_WIDTH / 5, WIN_HEIGHT / 5);
-	lvl->mini.maps.addr = mlx_get_data_addr(lvl->mini.maps.img,
-			&lvl->mini.maps.bits_per_pixel, &lvl->mini.maps.line_length,
-			&lvl->mini.maps.endian);
+	// lvl->mini.maps.img = mlx_new_image(cube->mlx,
+	// 		WIN_WIDTH / 5, WIN_HEIGHT / 5);
+	// lvl->mini.maps.addr = mlx_get_data_addr(lvl->mini.maps.img,
+	// 		&lvl->mini.maps.bits_per_pixel, &lvl->mini.maps.line_length,
+	// 		&lvl->mini.maps.endian);
+	new_img(cube, &(lvl->mini.maps), WIN_WIDTH / 5, WIN_HEIGHT / 5);
 	lvl->mini.witdh = lvl->max_len + 1;
 	lvl->mini.height = lvl->m_height + 2;
 	draw_maps(cube);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/05 03:11:03 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 15:58:56 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,7 @@ void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
 void	fill_map_char(t_maps *lvl, char c);
 void	free_and_gnl(char **str, int fd);
 void	rcdda(t_cube *cube, char **map, t_player player);
+
+int new_img(t_cube *cube, t_data *new_img, int width, int height);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 00:07:51 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/04 00:08:11 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 15:58:14 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,14 @@ void free_and_gnl(char **str, int fd)
 {
 	free(*str);
 	*str = get_next_line(fd);
+}
+
+int new_img(t_cube *cube, t_data *new_img, int width, int height)
+{
+	new_img->img = mlx_new_image(cube->mlx, width, height);
+	if (!new_img->img)
+		return (0);
+	new_img->addr = mlx_get_data_addr(new_img->img, &new_img->bits_per_pixel,
+		&new_img->line_length, &new_img->endian);
+	return (1);
 }
