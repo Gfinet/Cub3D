@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 22:21:58 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:40:31 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	main(int argc, char **argv)
 	t_cube		cube;
 	t_maps		level;
 	t_player	player;
+	pthread_t	draw; 
 
 	cube.lvl = &level;
 	cube.player = &player;
@@ -89,7 +90,8 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\nBad textures\n", 19), 0);
 	if (!make_mini(&cube, &level))
 		return (write(2, "Error\nAttempt for mini map failed\n", 34), 0);
-	draw_doom(&cube);
+	pthread_create(&draw, 0, draw_doom, &cube);
+	// draw_doom(&cube);
 	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
 	mlx_key_hook(cube.win, &key_maj, &cube);
 	mlx_hook(cube.win, 2, 0, &key_event, &cube);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 22:25:39 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:41:37 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <pthread.h>
 # define MLX_SYNC_IMAGE_WRITABLE	1
 # define MLX_SYNC_WIN_FLUSH_CMD		1
 # define MLX_SYNC_WIN_CMD_COMPLETED	3
@@ -157,7 +158,7 @@ char	*get_text_dir(char *str);
 int		make_mini(t_cube *cube, t_maps *lvl);
 void	draw_background(t_cube *cube, int floor[3], int ceiling[3]);
 void	draw_mini_background(t_maps *lvl);
-void	draw_doom(t_cube *cube);
+void	*draw_doom(void *cub);
 void	draw_player(t_cube *cube);
 void	draw_maps(t_cube *cube);
 void	draw_player(t_cube *cube);

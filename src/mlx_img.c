@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 22:24:17 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:52:01 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,21 @@ void	draw_player(t_cube *cube)
 	}
 }
 
-void	draw_doom(t_cube *cube)
+void	*draw_doom(void *cub)
 {
-	mlx_clear_window(cube->mlx, cube->win);
-	rcdda(cube, cube->lvl->c_maps, *(cube->player));
-	draw_mini_background(cube->lvl);
-	draw_maps(cube);
-	draw_player(cube);
+	t_cube *cube;
+
+	cube = cub;
+	// while (1)
+	// {
+		mlx_clear_window(cube->mlx, cube->win);
+		rcdda(cube, cube->lvl->c_maps, *(cube->player));
+		draw_mini_background(cube->lvl);
+		draw_maps(cube);
+		draw_player(cube);
+		sleep(1);
+	// }
+	return (cub);
 }
 /*
 */
