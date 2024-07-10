@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:12:12 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/09 22:26:15 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:02:26 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	check_front_wall(t_cube *c, t_point dir, int key)
 int	is_not_wall(t_cube *c, int keycode)
 {
 	t_point	dir;
-	t_point	dir_side;
+	// t_point	dir_side;
 	double	n_x;
 	double	n_y;
 	double	rad;
@@ -71,11 +71,11 @@ int	is_not_wall(t_cube *c, int keycode)
 		dir = (t_point){c->player->dir.x * 0.255, c->player->dir.y * 0.255};
 	else
 		dir = (t_point){n_x * 0.255, n_y * 0.255};
-	if (keycode == W || keycode == S)
-		dir_side = (t_point){n_x * 0.255, n_y * 0.255};
-	else
-		dir_side = (t_point){c->player->dir.x * 0.255, c->player->dir.y
-			* 0.255};
+	// if (keycode == W || keycode == S)
+	// 	dir_side = (t_point){n_x * 0.255, n_y * 0.255};
+	// else
+	// 	dir_side = (t_point){c->player->dir.x * 0.255, c->player->dir.y
+	// 		* 0.255};
 	if (check_front_wall(c, dir, keycode) || check_side_wall(c, dir, keycode))
 		return (0);
 	return (1);

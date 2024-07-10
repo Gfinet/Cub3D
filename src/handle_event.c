@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_event.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 22:30:07 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:01:39 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,6 @@ int	key_maj(int keycode, t_cube *cube)
 
 int	key_event(int keycode, t_cube *cube)
 {
-	int	pressed;
-
-	pressed = 0;
 	if (keycode == ESC)
 		esc_handle(cube);
 	if (keycode == W && is_not_wall(cube, W))
