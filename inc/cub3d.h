@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 21:55:55 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/09 21:58:16 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,5 @@ void	move_up(t_cube *cube, double angle, int frame);
 void	move_down(t_cube *cube, double angle, int frame);
 void	turn(t_cube *cube, double angle, int frame);
 int		is_not_wall(t_cube *c, int keycode);
-
 
 #endif
