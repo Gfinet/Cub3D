@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 21:58:16 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/11 21:48:57 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ typedef struct s_player
 	t_point	pos;
 	t_point	dir;
 	t_point prev_pos;
-	double	jump;
+	int		run;
+	int		move_v;
+	int		move_h;
+	int		turn;
 }	t_player;
 
 typedef struct s_cube
@@ -138,10 +141,11 @@ typedef struct s_drawdata
 //handle_event.c
 int	esc_handle(t_cube *cube);
 int	key_event(int keycode, t_cube *cube);
-int	key_maj(int keycode, t_cube *cube);
+int	key_event_release(int keycode, t_cube *cube);
 int	mouse_event(int mcode, int x, int y, t_cube *cube);
 int	scroll_event(double xdelta, double ydelta, t_cube *cube);
 int	add_event(t_cube *cube);
+int fps(t_cube	*cube);
 
 //parse_maps.c
 int get_maps(t_cube *cube, char *file);
@@ -187,5 +191,6 @@ void	move_up(t_cube *cube, double angle, int frame);
 void	move_down(t_cube *cube, double angle, int frame);
 void	turn(t_cube *cube, double angle, int frame);
 int		is_not_wall(t_cube *c, int keycode);
+void	update_player(t_cube *cube, t_player *player);
 
 #endif

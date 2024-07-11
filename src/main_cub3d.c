@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 21:38:15 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/11 21:55:17 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int argc, char **argv)
 	t_player	player ;//= {(t_point){11., 11.}, (t_point){1., -1.}};
 
 	cube = (t_cube){0};
+	player = (t_player){0};
 	cube.lvl = &level;
 	cube.player = &player;
 	if (argc != 2)
@@ -87,9 +88,10 @@ int	main(int argc, char **argv)
 	cube.frame = FRAME;
 	//rcdda(&cube, cube.maps->c_maps, player);
 	draw_doom(&cube);
+	mlx_loop_hook(cube.mlx, &fps, &cube);
 	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
-	mlx_key_hook(cube.win, &key_maj, &cube);
 	mlx_hook(cube.win, 2, 0, &key_event, &cube);
+	mlx_hook(cube.win, 3, 10, &key_event_release, &cube);
 	// mlx_loop_hook(cube.mlx, &key_event, &cube);
 	// mlx_mouse_hook(cube.win, &mouse_event, &cube);
 	//mlx_scroll_hook(cube.mlx, scroll_event, &cube);

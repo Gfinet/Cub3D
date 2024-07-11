@@ -6,11 +6,28 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:08:53 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/09 16:09:35 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/11 22:03:35 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void	update_player(t_cube *cube, t_player *player)
+{
+	t_point	new_pos;
+
+	player->prev_pos = (t_point){player->pos.x, player->pos.y};
+	new_pos.x = player->pos.x + player->move_v * (player->dir.x / (4 * cube->frame));
+	new_pos.y = player->pos.x + player->move_v * (player->dir.x / (4 * cube->frame));
+	new_pos.x += player->move_h * cos(player->dir.x);
+	new_pos.y += player->move_h * sin(player->dir.y);
+	if (player->turn)
+		turn(cube, 11.25 * player->turn, cube->frame);
+	printf("player pos [%f;%f]\n", cube->player->pos.y, cube->player->pos.x);		
+	cube->player->pos.x = new_pos.x;
+	cube->player->pos.y = new_pos.y;
+	printf("player pos [%f;%f]\n", cube->player->pos.y, cube->player->pos.x);	
+}
 
 void	move_left(t_cube *cube, double angle, int frame)
 {
