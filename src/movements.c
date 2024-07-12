@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:08:53 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/12 20:26:20 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/12 21:21:47 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	update_player(t_cube *cube, t_player *player)
 		cube->player->pos.x = new_pos.x;
 		cube->player->pos.y = new_pos.y;
 	}
+	// printf("new_pos == [%f;%f]\n", cube->player->pos.y, cube->player->pos.x);
 }
 
 // void	move_left(t_cube *cube, double angle, int frame)

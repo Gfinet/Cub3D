@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/12 20:07:47 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/12 21:29:40 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,12 @@ int fps(t_cube	*cube)
 
 	i = 0;
 	if (!cube->player->move_h && !cube->player->move_v && !cube->player->turn)
-		i = cube->frame - 1;
+		i = cube->frame;
 	while (i < cube->frame)
 	{
 		update_player(cube, cube->player);
 		draw_doom(cube);
 		mlx_do_sync(cube->mlx);
-		// usleep(10000 / fps);
 		i++;
 	}
 	return (1);
