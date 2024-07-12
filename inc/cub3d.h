@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/11 21:48:57 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/12 20:06:54 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 #  define WIN_WIDTH 1200 //2400
 # endif
 
-# define FRAME 8
+# define FRAME 4
 # define JUMP_HEIGHT 80
 
 typedef struct s_point
@@ -191,6 +191,7 @@ void	move_up(t_cube *cube, double angle, int frame);
 void	move_down(t_cube *cube, double angle, int frame);
 void	turn(t_cube *cube, double angle, int frame);
 int		is_not_wall(t_cube *c, int keycode);
+int		is_not_wallz(t_cube *c, t_point new_p, t_player *player);
 void	update_player(t_cube *cube, t_player *player);
 
 #endif

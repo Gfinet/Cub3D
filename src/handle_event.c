@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/11 22:00:59 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/12 20:07:47 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,12 @@ int fps(t_cube	*cube)
 	int	i;
 
 	i = 0;
-	printf("ok\n");
-	if (!cube->player->move_h && !cube->player->move_v && !cube->player->move_v)
+	if (!cube->player->move_h && !cube->player->move_v && !cube->player->turn)
 		i = cube->frame - 1;
-	update_player(cube, cube->player);
-	printf("ok2\n");
 	while (i < cube->frame)
 	{
+		update_player(cube, cube->player);
 		draw_doom(cube);
-		printf("ok::%i\n", i);
 		mlx_do_sync(cube->mlx);
 		// usleep(10000 / fps);
 		i++;
@@ -81,14 +78,14 @@ int	key_event(int keycode, t_cube *cube)
 {
 	if (keycode == ESC)
 		esc_handle(cube);
-	if (keycode == W && is_not_wall(cube, W))
+	if (keycode == W)
 		cube->player->move_v = 1;	//fps(cube, 11.25, cube->frame, &move_up);
-	if (keycode == S && is_not_wall(cube, S))
+	if (keycode == S)
 		cube->player->move_v = -1;	//fps(cube, 11.25, cube->frame, &move_down);
-	if (keycode == D && is_not_wall(cube, D))
-		cube->player->move_h = 1;		//fps(cube, 11.25, cube->frame, &move_right);
-	if (keycode == A && is_not_wall(cube, A))
-		cube->player->move_h = -1;	//fps(cube, 11.25, cube->frame, &move_left);
+	if (keycode == D)
+		cube->player->move_h = -1;		//fps(cube, 11.25, cube->frame, &move_right);
+	if (keycode == A)
+		cube->player->move_h = 1;	//fps(cube, 11.25, cube->frame, &move_left);
 	if (keycode == RIGHT || keycode == E)
 		cube->player->turn = -1;	//fps(cube, -11.25, cube->frame, &turn);
 	if (keycode == LEFT || keycode == Q)
