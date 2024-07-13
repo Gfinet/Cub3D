@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/13 16:35:58 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/13 17:52:27 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ typedef struct s_point
 	double	y;
 }	t_point;
 
-typedef struct	s_data {
+typedef struct s_data
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -53,28 +54,27 @@ typedef struct	s_data {
 
 typedef struct s_mini_maps
 {
-	t_data maps;
-	int witdh;
-	int height;
+	t_data	maps;
+	int		witdh;
+	int		height;
 }	t_mini_maps;
 
 typedef struct s_maps
 {
-	t_mini_maps mini;
-	char **c_maps;
-	char **c_text;
-	int max_len;
-	int floor[3];
-	int ceil[3];
-	int m_height;
-
+	t_mini_maps	mini;
+	char		**c_maps;
+	char		**c_text;
+	int			max_len;
+	int			floor[3];
+	int			ceil[3];
+	int			m_height;
 }	t_maps;
 
 typedef struct s_player
 {
 	t_point	pos;
 	t_point	dir;
-	t_point prev_pos;
+	t_point	prev_pos;
 	int		run;
 	int		move_v;
 	int		move_h;
@@ -91,17 +91,14 @@ typedef struct s_cube
 	t_data		*screen;
 	t_data		*bg;
 	int			frame;
-
 }	t_cube;
-
 
 typedef struct s_img
 {
-	void *img;
-	char *path;
-	int witdh;
-	int height;
-	
+	void	*img;
+	char	*path;
+	int		witdh;
+	int		height;
 }	t_img;
 
 typedef struct s_rcdata
@@ -114,7 +111,7 @@ typedef struct s_rcdata
 	t_point			dest;
 	int				side;
 	int				hit;
-	double			cameraX;
+	double			camerx;
 	double			perp_wall_dist;
 }	t_rcdata;
 
@@ -131,26 +128,25 @@ typedef struct s_drawdata
 	double			step_f;
 }	t_drawdata;
 
-
 //handle_event.c
-int	esc_handle(t_cube *cube);
-int	key_event(int keycode, t_cube *cube);
-int	key_event_release(int keycode, t_cube *cube);
-int	mouse_event(int mcode, int x, int y, t_cube *cube);
-int	scroll_event(double xdelta, double ydelta, t_cube *cube);
-int	add_event(t_cube *cube);
-int fps(t_cube	*cube);
+int		esc_handle(t_cube *cube);
+int		key_event(int keycode, t_cube *cube);
+int		key_event_release(int keycode, t_cube *cube);
+int		mouse_event(int mcode, int x, int y, t_cube *cube);
+int		scroll_event(double xdelta, double ydelta, t_cube *cube);
+int		add_event(t_cube *cube);
+int		fps(t_cube	*cube);
 
 //parse_maps.c
-int get_maps(t_cube *cube, char *file);
-void fill_maps(t_maps *lvl, char *str, int fd[2]);
-void set_floor_ceiling(int fl_ce[3], char *str);
-void set_map(t_maps *lvl, char *str, int fd[2]);
+int		get_maps(t_cube *cube, char *file);
+void	fill_maps(t_maps *lvl, char *str, int fd[2]);
+void	set_floor_ceiling(int fl_ce[3], char *str);
+void	set_map(t_maps *lvl, char *str, int fd[2]);
 
 //check_maps.c
-int check_arg(t_cube *cube, char *file);
-int check_map(t_cube *cube);
-int	check_elem(char *file);
+int		check_arg(t_cube *cube, char *file);
+int		check_map(t_cube *cube);
+int		check_elem(char *file);
 
 //background.c
 void	make_background(t_cube *cube);
@@ -166,7 +162,7 @@ void	draw_player(t_cube *cube);
 void	draw_maps(t_cube *cube);
 void	draw_player(t_cube *cube);
 
-void get_player_pos(t_cube *cube);
+void	get_player_pos(t_cube *cube);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
@@ -183,6 +179,6 @@ void	turn(t_cube *cube, double angle, int frame);
 int		is_not_wallz(t_cube *c, t_point new_p, t_player *player);
 void	update_player(t_cube *cube, t_player *player);
 
-int	new_img(t_cube *cube, t_data *new_img, int width, int height);
+int		new_img(t_cube *cube, t_data *new_img, int width, int height);
 void	free_maps(char **maps, int ind);
 #endif

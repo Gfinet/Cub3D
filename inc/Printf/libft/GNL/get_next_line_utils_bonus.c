@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 18:03:06 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/01 20:47:44 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/13 17:47:53 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,3 @@ char	*ft_strchr(const char *str, int c)
 		return (p);
 	return (0);
 }
-
