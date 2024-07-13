@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/12 21:29:40 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/13 15:46:56 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,6 @@ int	esc_handle(t_cube *cube)
 	exit(0);
 	return (0);
 }
-
-// void fps(t_cube	*cube, double angle, int fps, void (*f)(t_cube *, double, int))
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < fps)
-// 	{
-// 		f(cube, angle, fps);
-// 		draw_doom(cube);
-// 		mlx_do_sync(cube->mlx);
-// 		// usleep(10000 / fps);
-// 		i++;
-// 	}
-// }
 
 int fps(t_cube	*cube)
 {

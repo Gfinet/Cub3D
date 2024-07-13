@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/11 21:55:17 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/13 15:41:02 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int	main(int argc, char **argv)
 	cube.texture[1].addr = mlx_get_data_addr(cube.texture[1].img, &cube.texture[1].bits_per_pixel, &cube.texture[1].line_length, &cube.texture[1].endian);
 	cube.texture[2].addr = mlx_get_data_addr(cube.texture[2].img, &cube.texture[2].bits_per_pixel, &cube.texture[2].line_length, &cube.texture[2].endian);
 	cube.texture[3].addr = mlx_get_data_addr(cube.texture[3].img, &cube.texture[3].bits_per_pixel, &cube.texture[3].line_length, &cube.texture[3].endian);
-	printf("%s\n", cube.texture->addr);
 	cube.maps = &level;
 	cube.player = &player;
 	cube.frame = FRAME;

@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/12 20:06:54 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/13 15:35:12 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,12 +185,7 @@ void	set_side_dist_and_step(t_player p, t_rcdata *dt);
 void	calculate_wall_dist(t_rcdata *data, char **map);
 
 //movements
-void	move_left(t_cube *cube, double angle, int frame);
-void	move_right(t_cube *cube, double angle, int frame);
-void	move_up(t_cube *cube, double angle, int frame);
-void	move_down(t_cube *cube, double angle, int frame);
 void	turn(t_cube *cube, double angle, int frame);
-int		is_not_wall(t_cube *c, int keycode);
 int		is_not_wallz(t_cube *c, t_point new_p, t_player *player);
 void	update_player(t_cube *cube, t_player *player);
 
