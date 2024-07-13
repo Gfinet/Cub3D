@@ -6,77 +6,29 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:12:12 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/10 15:02:26 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/13 16:36:25 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	check_side_wall(t_cube *c, t_point dir, int keycode)
+int	is_not_wallz(t_cube *c, t_point new_p, t_player *pl)
 {
-	int	y;
-	int	y0;
-	int	x;
-	int	x0;
-
-	y = c->player->pos.y + (dir.y > 0) * 0.26 - (dir.y < 0) * 0.26;
-	x = c->player->pos.x + (dir.x > 0) * 0.26 - (dir.x < 0) * 0.26;
-	y0 = c->player->pos.y;
-	x0 = c->player->pos.x;
-	if ((keycode == W || keycode == A) && c->lvl->c_maps[y0][x] == '1'
-		&& c->lvl->c_maps[y][x0] == '1')
-		return (1);
-	y = c->player->pos.y + (-1 * dir.y > 0) * 0.26 - (-1 * dir.y < 0) * 0.26;
-	x = c->player->pos.x + (-1 * dir.x > 0) * 0.26 - (-1 * dir.x < 0) * 0.26;
-	if ((keycode == S || keycode == D) && c->lvl->c_maps[y0][x] == '1'
-		&& c->lvl->c_maps[y][x0] == '1')
-		return (1);
-	return (0);
-}
-
-int	check_front_wall(t_cube *c, t_point dir, int key)
-{
-	double	yp;
-	double	ym;
-	double	xm;
-	double	xp;
-
-	yp = (c->player->pos.y + dir.y);
-	xp = (c->player->pos.x + dir.x);
-	ym = (c->player->pos.y - dir.y);
-	xm = c->player->pos.x - dir.x;
-	if ((key == W || key == A) && ((c->lvl->c_maps[(int)yp][(int)xp] == '1')
-		|| (c->lvl->c_maps[(int)(yp - dir.y / 2)][(int)(xp - dir.x / 2)]
-		== '1')))
-		return (1);
-	else if ((key == S || key == D) && ((c->lvl->c_maps[(int)ym][(int)xm]
-			== '1') || (c->lvl->c_maps[(int)(ym + dir.y / 2)][(int)(xm + dir.x
-		/ 2)] == '1')))
-		return (1);
-	return (0);
-}
-
-int	is_not_wall(t_cube *c, int keycode)
-{
-	t_point	dir;
-	// t_point	dir_side;
 	double	n_x;
 	double	n_y;
 	double	rad;
 
 	rad = (90) * (M_PI / 180.0);
-	n_x = (c->player->dir.x * cos(-rad)) - (c->player->dir.y) * sin(-rad);
-	n_y = c->player->dir.x * sin(-rad) + (c->player->dir.y) * cos(-rad);
-	if (keycode == W || keycode == S)
-		dir = (t_point){c->player->dir.x * 0.255, c->player->dir.y * 0.255};
-	else
-		dir = (t_point){n_x * 0.255, n_y * 0.255};
-	// if (keycode == W || keycode == S)
-	// 	dir_side = (t_point){n_x * 0.255, n_y * 0.255};
-	// else
-	// 	dir_side = (t_point){c->player->dir.x * 0.255, c->player->dir.y
-	// 		* 0.255};
-	if (check_front_wall(c, dir, keycode) || check_side_wall(c, dir, keycode))
+	n_x = (pl->dir.x * cos(-rad)) - (pl->dir.y) * sin(-rad);
+	n_y = pl->dir.x * sin(-rad) + (pl->dir.y) * cos(-rad);
+	if (pl->move_v && (c->lvl->c_maps[(int)pl->pos.y][(int)(new_p.x
+			+ (pl->move_v * 0.15 * pl->dir.x))] == '1'
+		|| c->lvl->c_maps[(int)(new_p.y + (pl->move_v * 0.15 * pl->dir.y))]
+		[(int)pl->pos.x] == '1'))
+		return (0);
+	if (pl->move_h && (c->lvl->c_maps[(int)pl->pos.y][(int)(new_p.x
+			+ pl->move_h * 0.15 * n_x)] == '1' || c->lvl->c_maps[(int)(new_p.y
+		+ pl->move_h * 0.15 * n_y)][(int)pl->pos.x] == '1'))
 		return (0);
 	return (1);
 }

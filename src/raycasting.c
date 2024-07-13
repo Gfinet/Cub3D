@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/09 21:55:22 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/12 21:55:55 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,21 @@ static void	calculate_perp_wall_dist(t_rcdata *data)
 static double	fix_texture_pos(t_rcdata dt, t_player pl)
 {
 	double	fix_x;
+	double	garb;
 
 	fix_x = 0;
-	if (fabs(pl.dir.x) > fabs(pl.dir.y) && (dt.side == 0 || dt.side == 2))
-		fix_x = fabs(pl.pos.y - (int)pl.pos.y);
-	else if (fabs(pl.dir.x) < fabs(pl.dir.y))
-		fix_x = fabs(pl.pos.x - (int)pl.pos.x);
+	if (dt.side == 0 || dt.side == 2)
+		fix_x = modf(pl.pos.y, &garb);
+	else
+		fix_x = modf(pl.pos.x, &garb);
 	if ((pl.prev_pos.y != pl.pos.y) && (dt.side == 0 || dt.side == 2))
-		fix_x = fabs(pl.pos.y - (int)pl.pos.y);
+		fix_x = modf(pl.pos.y, &garb);
 	else if ((pl.prev_pos.x != pl.pos.x) && (dt.side == 1 || dt.side == 3))
-		fix_x = fabs(pl.pos.x - (int)pl.pos.x);
+		fix_x = modf(pl.pos.x, &garb);
 	else if ((pl.prev_pos.x != pl.pos.x) && (dt.side == 0 || dt.side == 2))
-		fix_x = fabs(pl.pos.y - (int)pl.pos.y);
+		fix_x = modf(pl.pos.y, &garb);
 	else if ((pl.prev_pos.y != pl.pos.y) && (dt.side == 1 || dt.side == 3))
-		fix_x = fabs(pl.pos.x - (int)pl.pos.x);
+		fix_x = modf(pl.pos.x, &garb);
 	return (fix_x);
 }
 

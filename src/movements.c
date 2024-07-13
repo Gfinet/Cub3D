@@ -6,74 +6,34 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:08:53 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/10 15:14:52 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/13 16:33:43 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	move_left(t_cube *cube, double angle, int frame)
+void	update_player(t_cube *cb, t_player *play)
 {
-	double		n_x;
-	double		n_y;
-	double		rad;
-	t_player	*play;
+	t_point	new_pos;
+	double	n_x;
+	double	n_y;
+	double	rad;
 
-	(void)angle;
-	play = cube->player;
 	rad = (90) * (M_PI / 180.0);
-	play->prev_pos = (t_point){play->pos.x, play->pos.y};
-	n_x = (play->dir.x * cos(-rad)) - (play->dir.y) * sin(-rad);
-	n_y = play->dir.x * sin(-rad) + (play->dir.y) * cos(-rad);
-	play->pos.y += (n_y / (4 * frame));
-	play->pos.x += (n_x / (4 * frame));
-}
-
-void	move_right(t_cube *cube, double angle, int frame)
-{
-	double		n_x;
-	double		n_y;
-	double		rad;
-	t_player	*play;
-
-	(void)angle;
-	play = cube->player;
-	rad = (90) * (M_PI / 180.0);
-	play->prev_pos = (t_point){play->pos.x, play->pos.y};
-	n_x = (play->dir.x * cos(-rad)) - (play->dir.y) * sin(-rad);
-	n_y = play->dir.x * sin(-rad) + (play->dir.y) * cos(-rad);
-	cube->player->pos.y -= (n_y / (4 * frame));
-	cube->player->pos.x -= (n_x / (4 * frame));
-}
-
-void	move_up(t_cube *cube, double angle, int frame)
-{
-	t_player	*play;
-
-	(void)angle;
-	play = cube->player;
-	play->prev_pos = (t_point){play->pos.x, play->pos.y};
-	cube->player->pos.y += (cube->player->dir.y / (4 * frame));
-	cube->player->pos.x += (cube->player->dir.x / (4 * frame));
-	// draw_doom(cube);
-	// usleep(100000);
-	// cube->player->pos.y += (cube->player->dir.y / 8);
-	// cube->player->pos.x += (cube->player->dir.x / 8);
-}
-
-void	move_down(t_cube *cube, double angle, int frame)
-{
-	t_player	*play;
-
-	(void)angle;
-	play = cube->player;
-	play->prev_pos = (t_point){play->pos.x, play->pos.y};
-	cube->player->pos.y -= (cube->player->dir.y / (4 * frame));
-	cube->player->pos.x -= (cube->player->dir.x / (4 * frame));
-	// draw_doom(cube);
-	// usleep(100000);
-	// cube->player->pos.y -= (cube->player->dir.y / 8);
-	// cube->player->pos.x -= (cube->player->dir.x / 8);
+	cb->player->prev_pos = (t_point){cb->player->pos.x, cb->player->pos.y};
+	n_x = (cb->player->dir.x * cos(-rad)) - (cb->player->dir.y) * sin(-rad);
+	n_y = cb->player->dir.x * sin(-rad) + (cb->player->dir.y) * cos(-rad);
+	new_pos.x = play->pos.x + play->move_v * (play->dir.x / (4 * cb->frame));
+	new_pos.y = play->pos.y + play->move_v * (play->dir.y / (4 * cb->frame));
+	new_pos.y += play->move_h * (n_y / (4 * cb->frame));
+	new_pos.x += play->move_h * (n_x / (4 * cb->frame));
+	if (play->turn)
+		turn(cb, 11.25 * play->turn, cb->frame);
+	if (is_not_wallz(cb, new_pos, play))
+	{
+		cb->player->pos.x = new_pos.x;
+		cb->player->pos.y = new_pos.y;
+	}
 }
 
 void	turn(t_cube *cube, double angle, int frame)
@@ -81,12 +41,10 @@ void	turn(t_cube *cube, double angle, int frame)
 	double	n_x;
 	double	n_y;
 	double	rad;
-	
+
 	rad = (angle / frame) * (M_PI / 180.0);
-	// printf("dir.y = %f; dir.x = %f\n", cube->player->dir.y, cube->player->dir.x);
 	n_x = (cube->player->dir.x * cos(-rad)) - (cube->player->dir.y) * sin(-rad);
 	n_y = cube->player->dir.x * sin(-rad) + (cube->player->dir.y) * cos(-rad);
 	cube->player->dir.y = n_y;
 	cube->player->dir.x = n_x;
-	// printf("new >>> dir.y = %f; dir.x = %f\n", cube->player->dir.y, cube->player->dir.x);
 }

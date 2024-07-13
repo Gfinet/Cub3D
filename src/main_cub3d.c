@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 22:21:58 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/13 16:40:12 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	check_format(char *file)
 	return (1);
 }
 
-static int	init_cube(t_cube *cube)
+static int	init_cube(t_cube *cube, t_player *play, t_maps *level)
 {
 	cube->mlx = mlx_init();
 	if (!cube->mlx)
@@ -41,6 +41,8 @@ static int	init_cube(t_cube *cube)
 	cube->bg = malloc(sizeof(t_data));
 	if (!cube->bg)
 		return (free(cube->bg), free(cube->screen), free(cube->texture), 0);
+	cube->lvl = level;
+	cube->player = play;
 	return (1);
 }
 
@@ -74,14 +76,12 @@ int	main(int argc, char **argv)
 	t_maps		level;
 	t_player	player;
 
-	cube.lvl = &level;
-	cube.player = &player;
 	cube.frame = FRAME;
 	if (argc != 2)
 		return (write(2, "Error\nBad Arg\n", 14), 0);
 	if (!check_format(argv[1]))
 		return (write(2, "Error\nBad format\n", 17), 0);
-	if (!init_cube(&cube))
+	if (!init_cube(&cube, &player, &level))
 		return (write(2, "Error\nMalloc error\n", 19), 0);
 	if (!get_maps(&cube, argv[1]))
 		return (write(2, "Error\nBad maps\n", 15), 0);
@@ -90,9 +90,10 @@ int	main(int argc, char **argv)
 	if (!make_mini(&cube, &level))
 		return (write(2, "Error\nAttempt for mini map failed\n", 34), 0);
 	draw_doom(&cube);
+	mlx_loop_hook(cube.mlx, &fps, &cube);
 	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
-	mlx_key_hook(cube.win, &key_maj, &cube);
 	mlx_hook(cube.win, 2, 0, &key_event, &cube);
+	mlx_hook(cube.win, 3, 10, &key_event_release, &cube);
 	mlx_loop(cube.mlx);
 	return (0);
 }

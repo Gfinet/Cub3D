@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 22:25:39 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/13 16:35:58 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 #  define WIN_WIDTH 1200 //2400
 # endif
 
-# define FRAME 8
+# define FRAME 4
 # define JUMP_HEIGHT 80
 
 typedef struct s_point
@@ -75,7 +75,10 @@ typedef struct s_player
 	t_point	pos;
 	t_point	dir;
 	t_point prev_pos;
-	double	jump;
+	int		run;
+	int		move_v;
+	int		move_h;
+	int		turn;
 }	t_player;
 
 typedef struct s_cube
@@ -132,10 +135,11 @@ typedef struct s_drawdata
 //handle_event.c
 int	esc_handle(t_cube *cube);
 int	key_event(int keycode, t_cube *cube);
-int	key_maj(int keycode, t_cube *cube);
+int	key_event_release(int keycode, t_cube *cube);
 int	mouse_event(int mcode, int x, int y, t_cube *cube);
 int	scroll_event(double xdelta, double ydelta, t_cube *cube);
 int	add_event(t_cube *cube);
+int fps(t_cube	*cube);
 
 //parse_maps.c
 int get_maps(t_cube *cube, char *file);
@@ -175,15 +179,10 @@ void	set_side_dist_and_step(t_player p, t_rcdata *dt);
 void	calculate_wall_dist(t_rcdata *data, char **map);
 
 //movements
-void	move_left(t_cube *cube, double angle, int frame);
-void	move_right(t_cube *cube, double angle, int frame);
-void	move_up(t_cube *cube, double angle, int frame);
-void	move_down(t_cube *cube, double angle, int frame);
 void	turn(t_cube *cube, double angle, int frame);
-int		is_not_wall(t_cube *c, int keycode);
+int		is_not_wallz(t_cube *c, t_point new_p, t_player *player);
+void	update_player(t_cube *cube, t_player *player);
 
-
-int new_img(t_cube *cube, t_data *new_img, int width, int height);
-void free_maps(char **maps, int ind);
-
+int	new_img(t_cube *cube, t_data *new_img, int width, int height);
+void	free_maps(char **maps, int ind);
 #endif
