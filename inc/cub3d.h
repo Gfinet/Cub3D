@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/13 17:52:27 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/14 20:43:42 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdatomic.h>
 # define MLX_SYNC_IMAGE_WRITABLE	1
 # define MLX_SYNC_WIN_FLUSH_CMD		1
 # define MLX_SYNC_WIN_CMD_COMPLETED	3
