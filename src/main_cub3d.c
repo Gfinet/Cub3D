@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/13 16:40:12 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/14 21:49:27 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,9 @@ static int	init_cube(t_cube *cube, t_player *play, t_maps *level)
 	cube->win = mlx_new_window(cube->mlx, WIN_WIDTH, WIN_HEIGHT, "DOOM3D");
 	if (!cube->win)
 		return (0);
-	cube->bg = malloc(sizeof(t_data));
-	if (!cube->bg)
-		return (0);
 	cube->screen = malloc(sizeof(t_data));
 	if (!cube->screen)
-		return (free(cube->bg), 0);
-	cube->bg = malloc(sizeof(t_data));
-	if (!cube->bg)
-		return (free(cube->bg), free(cube->screen), free(cube->texture), 0);
+		return (0);
 	cube->lvl = level;
 	cube->player = play;
 	return (1);
@@ -51,9 +45,6 @@ static int	get_textures(t_cube *cube)
 	int		i;
 	t_data	*txt;
 
-	cube->texture = malloc(sizeof(t_data) * 4);
-	if (!cube->texture)
-		return (0);
 	txt = cube->texture;
 	i = -1;
 	while (++i < 4)

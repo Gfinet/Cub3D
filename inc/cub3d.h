@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/13 17:52:27 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/14 21:47:11 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_maps
 {
 	t_mini_maps	mini;
 	char		**c_maps;
-	char		**c_text;
+	char		*c_text[4];
 	int			max_len;
 	int			floor[3];
 	int			ceil[3];
@@ -86,10 +86,9 @@ typedef struct s_cube
 	void		*mlx;
 	void		*win;
 	t_maps		*lvl;
-	t_data		*texture;
+	t_data		texture[4];
 	t_player	*player;
 	t_data		*screen;
-	t_data		*bg;
 	int			frame;
 }	t_cube;
 
@@ -181,4 +180,5 @@ void	update_player(t_cube *cube, t_player *player);
 
 int		new_img(t_cube *cube, t_data *new_img, int width, int height);
 void	free_maps(char **maps, int ind);
+void	free_cube(t_cube *cube);
 #endif
