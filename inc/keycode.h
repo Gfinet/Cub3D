@@ -6,17 +6,17 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 16:47:34 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/07 18:49:06 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/13 17:52:47 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYCODE_H
 # define KEYCODE_H
 
-#define BLUE 0x000000FF
-#define GREEN  0x5500FF00
-#define WHITE 0x00FFFFFF
-#define RED 0x00FF0000
+# define BLUE 0x000000FF
+# define GREEN  0x5500FF00
+# define WHITE 0x00FFFFFF
+# define RED 0x00FF0000
 
 # define ESC 53
 # define W 13
@@ -52,7 +52,6 @@
 # define SEVEN 26
 # define EIGHT 28
 # define NINE 25
-
 
 # define MS_L_CLK 3
 # define MS_R_CLK 2

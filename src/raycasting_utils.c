@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 21:54:19 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/09 21:54:58 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/13 17:52:06 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	set_dda_ray_delta(t_rcdata *data, t_player player, int x)
 {
-	(*data).cameraX = 2 * x / ((double)WIN_WIDTH) - 1;
-	(*data).ray_dir.x = player.dir.x + data->plane.x * (data->cameraX);
-	(*data).ray_dir.y = player.dir.y + data->plane.y * (data->cameraX);
+	(*data).camerx = 2 * x / ((double)WIN_WIDTH) - 1;
+	(*data).ray_dir.x = player.dir.x + data->plane.x * (data->camerx);
+	(*data).ray_dir.y = player.dir.y + data->plane.y * (data->camerx);
 	if (data->ray_dir.x)
 		(*data).delta_dist.x = fabs(1 / data->ray_dir.x);
 	else
