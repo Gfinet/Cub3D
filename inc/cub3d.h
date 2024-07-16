@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/14 20:43:42 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/17 00:32:27 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ typedef struct s_mini_maps
 	int		height;
 }	t_mini_maps;
 
+typedef struct s_weapon
+{
+	t_data	*sprites;
+	char	*name;
+	int		dmg;
+	char	**path;
+}	t_weapon;
+
 typedef struct s_maps
 {
 	t_mini_maps	mini;
@@ -69,6 +77,7 @@ typedef struct s_maps
 	int			floor[3];
 	int			ceil[3];
 	int			m_height;
+	t_weapon	weap;
 }	t_maps;
 
 typedef struct s_player
@@ -162,6 +171,8 @@ void	draw_doom(t_cube *cube);
 void	draw_player(t_cube *cube);
 void	draw_maps(t_cube *cube);
 void	draw_player(t_cube *cube);
+void	draw_weapons(t_cube *cube);
+
 
 void	get_player_pos(t_cube *cube);
 
@@ -169,6 +180,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
 void	fill_map_char(t_maps *lvl, char c);
 void	free_and_gnl(char **str, int fd);
+int		xpm_to_img(t_cube *cube, t_data *new_img, char *name);
 //raycast
 void	rcdda(t_cube *cube, char **map, t_player player);
 void	set_dda_ray_delta(t_rcdata *data, t_player player, int x);
@@ -182,4 +194,8 @@ void	update_player(t_cube *cube, t_player *player);
 
 int		new_img(t_cube *cube, t_data *new_img, int width, int height);
 void	free_maps(char **maps, int ind);
+
+void	set_weapon(t_maps *lvl, char *str);
+int		check_weapon(t_cube *cube, char *str);
+int		get_weapon(t_cube *cube);
 #endif

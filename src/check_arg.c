@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:40:39 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 21:33:50 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/16 23:16:50 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,23 @@ static int	check_texture(t_cube *cube, char *str)
 {
 	t_data	data;
 	size_t	len;
-	int		size[3];
+	int		size[4];
 	char	*tmp;
 
 	size[0] = 5;
+	data.width = 5;
+	data.height = 5;
 	size[1] = 5;
 	size[2] = 0;
-	while (str[size[2]] == ' ')
+	size[3] = 2 - ((str[0] == 'W') && ft_strncmp(str, "WE", 2));
+	if (size[3] == 1)
+		return (check_weapon(cube, &str[1]));
+	while (str[size[2] + size[3]] == ' ')
 		size[2]++;
-	len = ft_strlen(str) - (size[2] + 1);
-	tmp = ft_substr(str, size[2], len);
+	len = ft_strlen(&str[size[3]]) - (size[2] + 1);
+	tmp = ft_substr(&str[size[3]], size[2], len);
 	data.img = mlx_xpm_file_to_image(cube->mlx,
-			tmp, &size[0], &size[1]);
+			tmp, &data.width, &data.height);
 	free(tmp);
 	if (!data.img)
 		return (0);
@@ -37,7 +42,7 @@ static int	check_texture(t_cube *cube, char *str)
 static int	check_all_text(t_cube *cube, char *file)
 {
 	int		fd;
-	int		dir[4];
+	int		dir[5];
 	char	*str;
 
 	fd = open(file, O_RDONLY);
@@ -48,9 +53,10 @@ static int	check_all_text(t_cube *cube, char *file)
 		if (str && ((!ft_strncmp(str, "NO", 2))
 				|| (!ft_strncmp(str, "SO", 2))
 				|| (!ft_strncmp(str, "WE", 2))
+				|| (!ft_strncmp(str, "W", 1))
 				|| (!ft_strncmp(str, "EA", 2))))
 		{
-			if (!check_texture(cube, &str[2]))
+			if (!check_texture(cube, str))
 				return (close(fd), 0);
 			dir[get_dir(str)]++;
 		}

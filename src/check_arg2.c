@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 21:54:06 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 21:35:25 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/16 23:37:09 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	get_dir(char *str)
 		return (2);
 	else if (!ft_strncmp(str, "EA", 2))
 		return (3);
+	else if (!ft_strncmp(str, "W ", 2))
+		return (4);
 	else
 		return (-1000);
 }
@@ -55,7 +57,7 @@ int	check_line(char *str)
 		if (str[i] == 'N' || str[i] == 'S' || str[i] == 'E' || str[i] == 'W')
 			count += 1;
 	}
-	return (flag + count == 1);
+	return (flag + count == 2);
 }
 
 int	check_elem(char *file)
@@ -68,7 +70,7 @@ int	check_elem(char *file)
 	fd = open(file, O_RDONLY);
 	str = get_next_line(fd);
 	nb_info = 0;
-	while (str && nb_info < 6)
+	while (str && nb_info < 7)
 	{
 		if (str[0] == 'F' || str[0] == 'C' || str[0] == 'N'
 			|| str[0] == 'E' || str[0] == 'S' || str[0] == 'W')
