@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/17 18:49:15 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/17 21:41:42 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,25 @@ typedef struct s_player
 	int		turn;
 }	t_player;
 
+typedef struct s_door
+{
+	t_point			coord;
+	struct s_door	*next;
+	int				open;
+	int				on_going;
+}	t_door;
+
 typedef struct s_cube
 {
 	void		*mlx;
 	void		*win;
 	t_maps		*lvl;
 	t_data		*texture;
+	t_data		door_texture[4];
 	t_player	*player;
 	t_data		*screen;
 	t_data		*bg;
+	t_door		*doors;
 	int			frame;
 }	t_cube;
 
