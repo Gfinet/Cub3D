@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/13 18:41:04 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/20 19:24:05 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	get_maps(t_cube *cube, char *file)
 		free_and_gnl(&str, fd[0]);
 		get_next_line(fd[1]);
 	}
-	printf("got map\n");
+	get_all_doors(cube->lvl->c_maps, cube);
 	if (!check_map(cube))
 		return (0);
 	close(fd[0]);

@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 21:54:06 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/13 18:50:45 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/20 20:16:00 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	check_line(char *str)
 	while (++i < len - 1)
 	{
 		if (str[i] != ' ' && str[i] != '1' && str[i] != '2' && str[i] != '0'
-			&& str[i] != 'N' && str[i] != 'S' && str[i] != 'E' && str[i] != 'W')
+			&& str[i] != 'N' && str[i] != 'S' && str[i] != 'E' && str[i] != 'W'
+			&& str[i] != 'D')
 			flag += 1;
 		if (str[i] == 'N' || str[i] == 'S' || str[i] == 'E' || str[i] == 'W')
 			count += 1;

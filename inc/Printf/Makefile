@@ -30,7 +30,7 @@ $(NAME): $(OBJ) libft.a
 
 
 libft.a: 
-	@make -C $(LIBFT)
+	@make -C $(LIBFT) bonus
 	@cp $(LIB) .
 	@mv $(LIB) $(NAME)
 

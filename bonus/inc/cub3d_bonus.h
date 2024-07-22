@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/17 21:41:42 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/22 16:05:12 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../../inc/keycode.h"
 # include "../../inc/Printf/ft_printf.h"
+# include "../../inc/Printf/libft/libft.h"
 # include "../../inc/minilibx/mlx.h"
 # include <math.h>
 
@@ -83,8 +84,8 @@ typedef struct s_player
 
 typedef struct s_door
 {
-	t_point			coord;
 	struct s_door	*next;
+	t_point			coord;
 	int				open;
 	int				on_going;
 }	t_door;
@@ -120,16 +121,21 @@ typedef struct s_rcdata
 	t_point			step;
 	t_point			plane;
 	t_point			dest;
+	t_point			d_dest;
 	t_point			p_dest;
 	int				side;
+	int				d_side;
 	int				hit;
 	double			camerx;
 	double			perp_wall_dist;
 	double			m_perp_wall_dist;
+	double			d_perp_wall_dist;
+	int				door;
 }	t_rcdata;
 
 typedef struct s_drawdata
 {
+	t_data			texture;
 	int				tex_x;
 	int				tex_y;
 	double			tex_pos;
@@ -190,7 +196,8 @@ void	calculate_wall_dist(t_rcdata *data, char **map);
 void	calculate_perp_wall_dist(t_rcdata *data, int mirr);
 void 	draw_mirr_frame(t_data *screen, t_drawdata dt, int x, t_rcdata data);
 void	update_mirror(t_rcdata *data, char **map);
-
+void	pick_texture(t_drawdata *dr, t_rcdata dt, t_cube *cube, int door_text);
+double	fix_texture_pos(t_rcdata dt, t_player pl);
 
 //movements
 void	turn(t_cube *cube, double angle, int frame);
@@ -199,4 +206,13 @@ void	update_player(t_cube *cube, t_player *player);
 
 int		new_img(t_cube *cube, t_data *new_img, int width, int height);
 void	free_maps(char **maps, int ind);
+
+//doors
+t_data	data_img(char *file, t_cube *c);
+void 	load_door_texture(t_cube *cube);
+void	get_all_doors(char **map, t_cube *c);
+void	find_and_open_door(t_door *door, t_player *player);
+t_door	*find_door(t_cube *c, float x, float y);
+void	draw_door(t_data *screen, int x, t_rcdata data, t_cube *c);
+
 #endif

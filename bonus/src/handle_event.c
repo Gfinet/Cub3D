@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/13 18:41:04 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/22 19:24:49 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,16 @@ int	esc_handle(t_cube *cube)
 int	fps(t_cube	*cube)
 {
 	int	i;
+	t_player	*p;
+	t_door		*d;
 
 	i = 0;
+	p = cube->player;
+	d = find_door(cube, p->pos.x + p->dir.x, p->pos.y + p->dir.y);
 	if (!cube->player->move_h && !cube->player->move_v && !cube->player->turn)
 		i = cube->frame;
+	if (d && d->on_going)
+		i = -cube->frame;
 	while (i < cube->frame)
 	{
 		update_player(cube, cube->player);
@@ -40,23 +46,6 @@ int	fps(t_cube	*cube)
 	}
 	return (1);
 }
-
-// int key_maj(int keycode, t_cube *cube)
-// {
-// 	if (keycode == L_SH)
-// 	{
-// 		cube->player->run = 1;
-// 		cube->frame = FRAME / 2;
-// 	}
-// 	// if (keycode == SPACE && !cube->player->jump)
-// 	// 	cube->player->jump = 1;
-// 	// if (cube->player->jump)
-// 	// {
-// 	// 	draw_doom(cube);
-// 	// 	mlx_do_sync(cube->mlx);
-// 	// }
-// 	return (1);
-// }
 
 int	key_event(int keycode, t_cube *cube)
 {
@@ -95,6 +84,9 @@ int	key_event_release(int keycode, t_cube *cube)
 		cube->player->run = 0;
 		cube->frame = FRAME;
 	}
+	if (keycode == F)
+		find_and_open_door(cube->doors, cube->player); //ajouter cdt si dans porte
+	printf("key == %i\n", keycode);
 	return (1);
 }
 
