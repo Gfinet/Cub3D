@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/23 21:42:42 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/23 22:31:53 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_cube
 	t_data		*bg;
 	t_door		*doors;
 	int			frame;
+	int			mouse;
 }	t_cube;
 
 typedef struct s_img

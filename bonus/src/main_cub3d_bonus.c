@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/23 21:44:33 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/23 22:30:47 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	main(int argc, char **argv)
 	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
 	mlx_hook(cube.win, 2, 0, &key_event, &cube);
 	mlx_hook(cube.win, 3, 10, &key_event_release, &cube);
-	mlx_hook(cube.win, 6, 1L<<8, &mouse_event, &cube);
+	mlx_hook(cube.win, 6, 0, &mouse_event, &cube);
 	mlx_loop(cube.mlx);
 	return (0);
 }
