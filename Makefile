@@ -45,7 +45,7 @@ $(NAME): $(OBJ) libftprintf.a $(LIBX)
 	@$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 add:
-	git add src/ inc/ maps/ texture/ Makefile .gitignore
+	git add src/ inc/ maps/ weapon_sprites/ texture/ Makefile .gitignore
 
 $(LIBX):
 	@make -C $(MINI)
