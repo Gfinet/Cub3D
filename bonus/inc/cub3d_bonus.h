@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/22 16:05:12 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/23 21:42:42 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ typedef struct s_drawdata
 int		esc_handle(t_cube *cube);
 int		key_event(int keycode, t_cube *cube);
 int		key_event_release(int keycode, t_cube *cube);
-int		mouse_event(int mcode, int x, int y, t_cube *cube);
+int		mouse_event(int x, int y, t_cube *cube);
 int		scroll_event(double xdelta, double ydelta, t_cube *cube);
 int		add_event(t_cube *cube);
 int		fps(t_cube	*cube);

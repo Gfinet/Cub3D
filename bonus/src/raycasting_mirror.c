@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 18:12:10 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/22 17:10:16 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/23 21:25:34 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_door(t_data *screen, int x, t_rcdata data, t_cube *c)
 	unsigned int	col;
 	t_drawdata		dt;
 
-	dt.line_height = (int)(WIN_HEIGHT / data.d_perp_wall_dist);
+	dt.line_height = (int)(WIN_HEIGHT / (data.d_perp_wall_dist));
 	dt.draw_start = -dt.line_height / 2 + WIN_HEIGHT / 2 + 100;
 	dt.draw_end = dt.line_height / 2 + WIN_HEIGHT / 2 + 100;
 	data.side = data.d_side;
@@ -57,7 +57,7 @@ void	draw_door(t_data *screen, int x, t_rcdata data, t_cube *c)
 		(dt).wall_x = (int)c->player->pos.x + data.d_perp_wall_dist * data.ray_dir.y;
 	else if (data.d_side == 1 || data.d_side == 3)
 		(dt).wall_x = (int)c->player->pos.y + data.d_perp_wall_dist * data.ray_dir.x;
-	(dt).wall_x += fix_texture_pos(data, *c->player);;
+	(dt).wall_x += fix_texture_pos(data, *c->player);
 	(dt).wall_x -= floor((dt.wall_x));
 	(dt).tex_x = (int)((dt.wall_x) * (double)(dt.texture.width));
 	if ((data.d_side == 0 || data.d_side == 2) && data.ray_dir.x > 0)
@@ -73,7 +73,6 @@ void	draw_door(t_data *screen, int x, t_rcdata data, t_cube *c)
 		dt.tex_pos += dt.step_f;
 		col = *((unsigned int *)dt.texture.addr +(int)
 				((dt.texture.height * dt.tex_y + dt.tex_x)));
-		// printf("%x\n", col);
 		if (col)
 			my_mlx_pixel_put(screen, x, dt.draw_start, col);
 	}
@@ -83,7 +82,7 @@ void	update_mirror(t_rcdata *data, char **map)
 {
 	if (map[(int)data->dest.y][(int)data->dest.x] != '2')
 		return ;
-	if (data->hit != 2)
+	if (data->hit == 0 || data->hit == 3)
 	{
 		(*data).p_dest = (t_point){data->dest.x, data->dest.y};
 		(*data).side_dist_m = (t_point){data->side_dist.x, data->side_dist.y};
@@ -91,7 +90,7 @@ void	update_mirror(t_rcdata *data, char **map)
 	}
 	else
 		return ;
-	(*data).hit = 2;
+	(*data).hit += 2;
 	(*data).step.x *= (1 - (data->side == 0 || data->side == 2) * 2);
 	(*data).step.y *= (1 - (data->side == 1 || data->side == 3) * 2);
 }

@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/22 19:24:49 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/23 21:45:54 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	fps(t_cube	*cube)
 		i = cube->frame;
 	if (d && d->on_going)
 		i = -cube->frame;
+	draw_doom(cube);
+	mlx_do_sync(cube->mlx);
 	while (i < cube->frame)
 	{
 		update_player(cube, cube->player);
@@ -90,9 +92,15 @@ int	key_event_release(int keycode, t_cube *cube)
 	return (1);
 }
 
-int	mouse_event(int mcode, int x, int y, t_cube *cube)
+int	mouse_event(int x, int y, t_cube *cube)
 {
-	printf("%d %d %d %p\n", mcode, x, y, cube);
+	printf("%d %d %p\n", x, y, cube);
+	if (x < WIN_WIDTH * 0.33)
+		cube->player->turn = 1;
+	if (x > WIN_WIDTH * 0.66)
+		cube->player->turn = -1;
+	if (x >= WIN_WIDTH * 0.33 && x <= WIN_WIDTH * 0.66)
+		cube->player->turn = 0;
 	return (0);
 }
 

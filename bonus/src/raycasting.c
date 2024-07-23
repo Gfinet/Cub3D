@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/22 21:15:22 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/23 20:57:01 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,31 +61,25 @@ double	fix_texture_pos(t_rcdata dt, t_player pl)
 void	pick_texture(t_drawdata *dr, t_rcdata dt, t_cube *cube, int door_text)
 {
 	t_door	*door;
-	static	int x;
 
 	door = NULL;
-	if (!door_text)
+	if (!door_text && cube->lvl->c_maps[(int)(dt.dest.y - dt.p_dest.y)][(int)(dt.dest.x - dt.p_dest.x)] != 'D')
 		(*dr).texture = cube->texture[dt.side];
+	else if (!door_text && cube->lvl->c_maps[(int)(dt.dest.y - dt.p_dest.y)][(int)(dt.dest.x - dt.p_dest.x)] == 'D')
+		(*dr).texture = cube->door_texture[0];
 	else
 	{
 		door = find_door(cube, dt.d_dest.x, dt.d_dest.y);
 		if (door)
 		{
-			if (door->open == 0 || door->open == 75)
-			{
+			if (door->open == 0 || door->open == 30)
 				door->on_going = 0;
-				x = 0;
-			}
-			if (door->open && door->open != 75)
-				printf("%i\n", door->open / 25);
-			(*dr).texture = cube->door_texture[door->open / 25];
+			(*dr).texture = cube->door_texture[door->open / 10];
 			if (door->on_going)
-			{
 				door->open += door->on_going;
-				x++;
-			}
 		}
 	}
+
 }
 
 static void	get_base_info_draw(t_drawdata *dr, t_rcdata dt, t_player player,
@@ -162,7 +156,7 @@ void	rcdda(t_cube *cb, char **map, t_player player)
 		set_dda_ray_delta(&data, player, x);
 		set_side_dist_and_step(player, &data);
 		calculate_wall_dist(&data, map);
-		if (data.p_dest.x && !drawdata.mirr)
+		if ((data.p_dest.x || data.p_dest.y) && !drawdata.mirr)
 			drawdata.mirr = 1;
 		calculate_perp_wall_dist(&data, 0);
 		get_base_info_draw(&drawdata, data, player, cb);

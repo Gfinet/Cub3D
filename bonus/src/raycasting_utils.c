@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 21:54:19 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/22 16:47:43 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/23 16:53:01 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	set_side_dist_and_step(t_player p, t_rcdata *dt)
 
 void	check_hit_target(t_rcdata *dt, char **map)
 {
-	if (map[(int)dt->dest.y][(int)dt->dest.x] == '1')
+	if (map[(int)dt->dest.y][(int)dt->dest.x] == '1' || (map[(int)dt->dest.y][(int)dt->dest.x] == '2' && (dt->hit == 2 || dt->hit == 5)))
 			(*dt).hit = 1;
 	else if (map[(int)dt->dest.y][(int)dt->dest.x] == 'D')
 	{
@@ -94,8 +94,8 @@ void	calculate_wall_dist(t_rcdata *dt, char **map)
 			else
 				(*dt).side = 1;
 		}
-		update_mirror(dt, map);
 		check_hit_target(dt, map);
+		update_mirror(dt, map);
 	}
 	dt->dest = (t_point){dt->dest.x + dt->p_dest.x, dt->dest.y + dt->p_dest.y};
 }
