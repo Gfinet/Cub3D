@@ -53,8 +53,8 @@ void	ft_putnbr_fd(int n, int fd);
 
 typedef struct s_list
 {
-	void			*content;
 	struct s_list	*next;
+	void			*content;
 }	t_list;
 
 void	ft_lstadd_back(t_list **lst, t_list *ne);

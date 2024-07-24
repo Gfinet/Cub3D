@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_cub3d.c                                       :+:      :+:    :+:   */
+/*   main_cub3d_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 20:00:12 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/24 16:20:43 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../inc/cub3d_bonus.h"
 
 static int	check_format(char *file)
 {
@@ -32,9 +32,16 @@ static int	init_cube(t_cube *cube, t_player *play, t_maps *level)
 	cube->win = mlx_new_window(cube->mlx, WIN_WIDTH, WIN_HEIGHT, "DOOM3D");
 	if (!cube->win)
 		return (0);
+	cube->bg = malloc(sizeof(t_data));
+	if (!cube->bg)
+		return (0);
 	cube->screen = malloc(sizeof(t_data));
 	if (!cube->screen)
-		return (0);
+		return (free(cube->bg), 0);
+	cube->bg = malloc(sizeof(t_data));
+	if (!cube->bg)
+		return (free(cube->bg), free(cube->screen), free(cube->texture), 0);
+	load_door_texture(cube);
 	cube->lvl = level;
 	cube->player = play;
 	return (1);
@@ -45,6 +52,9 @@ static int	get_textures(t_cube *cube)
 	int		i;
 	t_data	*txt;
 
+	cube->texture = malloc(sizeof(t_data) * 4);
+	if (!cube->texture)
+		return (0);
 	txt = cube->texture;
 	i = -1;
 	while (++i < 4)
@@ -59,6 +69,17 @@ static int	get_textures(t_cube *cube)
 	if (!new_img(cube, cube->screen, WIN_WIDTH, WIN_HEIGHT))
 		return (0);
 	return (1);
+}
+
+static void	game_loop_init(t_cube cube)
+{
+	draw_doom(&cube);
+	mlx_loop_hook(cube.mlx, &fps, &cube);
+	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
+	mlx_hook(cube.win, 2, 0, &key_event, &cube);
+	mlx_hook(cube.win, 3, 10, &key_event_release, &cube);
+	mlx_hook(cube.win, 6, 0, &mouse_event, &cube);
+	mlx_loop(cube.mlx);
 }
 
 int	main(int argc, char **argv)
@@ -81,11 +102,6 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\nBad textures\n", 19), 0);
 	if (!make_mini(&cube, &level))
 		return (write(2, "Error\nAttempt for mini map failed\n", 34), 0);
-	draw_doom(&cube);
-	mlx_loop_hook(cube.mlx, &fps, &cube);
-	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
-	mlx_hook(cube.win, 2, 0, &key_event, &cube);
-	mlx_hook(cube.win, 3, 10, &key_event_release, &cube);
-	mlx_loop(cube.mlx);
+	game_loop_init(cube);
 	return (0);
 }

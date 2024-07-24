@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 16:47:34 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/13 17:52:47 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/20 20:17:35 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 
 # define E 14
 # define Q 12
+# define R 15
+# define F 3
 # define T 17
 
 # define C 8

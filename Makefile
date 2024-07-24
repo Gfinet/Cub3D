@@ -1,6 +1,6 @@
 CC       = GCC
 NAME = cub3D
-CFLAGS   = -Wall -Wextra -Werror -Imlx -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3 -g3 -fsanitize=address
+CFLAGS   = -Wall -Wextra -Werror -Imlx -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3 -g -fsanitize=address
 #FLAGS = -Wall -Wextra -Werror -Imlx -g3 -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3
 
 SRCS     = src/main_cub3d.c			\
@@ -15,11 +15,26 @@ SRCS     = src/main_cub3d.c			\
 			src/mlx_img.c 			\
 			src/utils.c 			\
 			src/movements.c 		\
-			src/interaction.c 
+			src/interaction.c
 OBJ      = $(SRCS:.c=.o)
 
-# BON_SRCS = bonus/main_cub3d_bonus.c
-# BON_OBJ  = $(BON_SRCS:.c=.o)
+BON_SRCS = bonus/src/main_cub3d_bonus.c		\
+			bonus/src/handle_event.c		\
+			bonus/src/mini_maps.c 			\
+			bonus/src/parse_maps.c 			\
+			bonus/src/check_maps.c 			\
+			bonus/src/check_arg.c 			\
+			bonus/src/check_arg2.c 			\
+			bonus/src/raycasting.c 			\
+			bonus/src/raycasting_mirror.c 	\
+			bonus/src/raycasting_utils.c 	\
+			bonus/src/mlx_img.c 			\
+			bonus/src/utils.c 				\
+			bonus/src/doors.c 				\
+			bonus/src/movements.c 			\
+			bonus/src/interaction.c
+
+BON_OBJ  = $(BON_SRCS:.c=.o)
 
 LIB      = $(LIBFT)libftprintf.a
 LIBFT    = ./inc/Printf/
@@ -27,8 +42,7 @@ LIBFT    = ./inc/Printf/
 MINI = ./inc/minilibx/
 LIBX = $(MINI)libmlx.a
 
-
-
+INC_BONUS = -I ./bonus/inc -I ./inc -I ./inc/minilibx
 
 .PHONY: all clean fclean re bonus
 
@@ -39,11 +53,15 @@ $(NAME): $(OBJ) libftprintf.a $(LIBX)
 	@$(CC) $(CFLAGS) $^ -framework OpenGL -framework AppKit -o $(NAME)
 	@echo "Cube3d made"
 
+bonus: $(BON_OBJ) libftprintf.a $(LIBX)
+	@$(CC) $(CFLAGS) $(INC_BONUS) $^ -framework OpenGL -framework AppKit -o $(NAME)
+	@echo "Cube3d bonus made"
+
 %.o : %.c
 	@$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 add:
-	git add src/ inc/ maps/ texture/ Makefile .gitignore
+	git add bonus/ src/ inc/ maps/ texture/ Makefile .gitignore
 
 $(LIBX):
 	@make -C $(MINI)
@@ -70,10 +88,6 @@ fclean: clean
 	
 fclean_mlx:
 	@make -C $(MINI) clean
-
-bonus : $(BON_OBJ) libftprintf.a libmlx.a
-	@$(CC) $(CFLAGS) $^ -framework OpenGL -framework AppKit -o $(NAME)
-	@echo "Cube3d bonus made"
 
 re: fclean all
 	@echo "make re done"
