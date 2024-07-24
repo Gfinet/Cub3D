@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 16:44:30 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 19:24:24 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2])
 	else if (lvl->c_maps[w_h[0]][w_h[1]] == '0')
 		my_mlx_pixel_put(&lvl->mini.maps, x, y, GREEN);
 	else if (lvl->c_maps[w_h[0]][w_h[1]] == 'D')
-		my_mlx_pixel_put(&lvl->mini.maps, x, y, 0x55FF0000);
+		my_mlx_pixel_put(&lvl->mini.maps, x, y, 0x55880088);
 	else if (lvl->c_maps[w_h[0]][w_h[1]] == '.'
 		|| lvl->c_maps[w_h[0]][w_h[1]] == 0)
 		my_mlx_pixel_put(&lvl->mini.maps, x, y, BLUE + 0x55000000);
