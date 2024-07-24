@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 00:07:51 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/13 18:41:04 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 22:18:57 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,30 @@ void	free_maps(char **maps, int ind)
 	while (++i <= ind)
 		free(maps[i]);
 	free(maps);
+}
+
+void	free_cube(t_cube *cube)
+{
+	t_door *cur;
+	t_door *next;
+
+	if (cube->lvl)
+	{
+		free_maps(cube->lvl->c_maps, cube->lvl->m_height - 1);
+		free_maps(cube->lvl->c_text, 3);
+	}
+	cur = cube->doors;
+	while (cur)
+	{
+		next = cur->next;
+		free(cur);
+		cur = next;
+	}
+	mlx_destroy_image(cube->mlx, cube->screen->img);
+	free(cube->screen);
+	mlx_destroy_image(cube->mlx, cube->lvl->mini.maps.img);
+	mlx_destroy_image(cube->mlx, cube->texture[0].img);
+	mlx_destroy_image(cube->mlx, cube->texture[1].img);
+	mlx_destroy_image(cube->mlx, cube->texture[2].img);
+	mlx_destroy_image(cube->mlx, cube->texture[3].img);
 }

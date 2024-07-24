@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 16:22:39 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 22:19:48 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ typedef struct s_cube
 	t_data		door_texture[4];
 	t_player	*player;
 	t_data		*screen;
-	t_data		*bg;
 	t_door		*doors;
 	int			frame;
 	int			mouse;
@@ -189,6 +188,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
 void	fill_map_char(t_maps *lvl, char c);
 void	free_and_gnl(char **str, int fd);
+void	free_cube(t_cube *cube);
 //raycast
 void	rcdda(t_cube *cube, char **map, t_player player);
 void	set_dda_ray_delta(t_rcdata *data, t_player player, int x);

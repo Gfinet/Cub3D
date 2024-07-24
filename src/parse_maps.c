@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_maps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/14 20:54:00 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/24 20:53:42 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ void	set_map(t_maps *lvl, char *str, int fd[2])
 	int		i;
 	char	*tmp;
 
-	i = 1;
+	i = 0;
 	tmp = ft_strdup(str);
-	while (str)
+	while (str && ++i)
 	{
 		str = get_next_line(fd[0]);
 		if ((int)ft_strlen(str) > lvl->max_len)
 			lvl->max_len = (int)ft_strlen(str) - (str[ft_strlen(str)] == '\n');
-		i++;
+		free(str);
 	}
 	lvl->c_maps = malloc(sizeof(char *) * (i));
 	cpy_line(lvl, tmp, 0);
 	free(tmp);
-	str = get_next_line(fd[1]);
+	free_and_gnl(&str, fd[1]);
 	i = 1;
 	while (str)
 	{
@@ -104,6 +104,7 @@ int	get_maps(t_cube *cube, char *file)
 {
 	int		fd[2];
 	char	*str;
+	char	*str2;
 
 	if (!check_arg(cube, file))
 		return (0);
@@ -111,12 +112,12 @@ int	get_maps(t_cube *cube, char *file)
 	fd[0] = open(file, O_RDONLY);
 	fd[1] = open(file, O_RDONLY);
 	str = get_next_line(fd[0]);
-	get_next_line(fd[1]);
+	str2 = get_next_line(fd[1]);
 	while (str)
 	{
 		fill_maps(cube->lvl, str, fd);
 		free_and_gnl(&str, fd[0]);
-		get_next_line(fd[1]);
+		free_and_gnl(&str2, fd[1]);
 	}
 	printf("got map\n");
 	if (!check_map(cube))

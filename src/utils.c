@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 00:07:51 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/14 21:46:05 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/24 21:14:24 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,4 @@ void	free_cube(t_cube *cube)
 	mlx_destroy_image(cube->mlx, cube->texture[1].img);
 	mlx_destroy_image(cube->mlx, cube->texture[2].img);
 	mlx_destroy_image(cube->mlx, cube->texture[3].img);
-	free(cube->mlx);
 }

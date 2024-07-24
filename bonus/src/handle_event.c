@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_event.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 16:45:09 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 20:09:51 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	esc_handle(t_cube *cube)
 		mlx_clear_window(cube->mlx, cube->win);
 		mlx_destroy_window(cube->mlx, cube->win);
 	}
+	free_cube(cube);
 	system("leaks cub3D");
 	exit(0);
 	return (0);

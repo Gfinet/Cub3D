@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/14 21:47:11 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/24 21:11:10 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@
 
 # define FRAME 4
 # define JUMP_HEIGHT 80
+
+typedef struct s_mlx
+{
+	void		*appid;
+	void		*win_list;
+	void		*img_list;
+	void		(*loop_hook)(void *);
+	void		*loop_hook_data;
+	void		*loop_timer;
+	void		*font;
+	int			main_loop_active;
+}	t_mlx;
 
 typedef struct s_point
 {
@@ -91,14 +103,6 @@ typedef struct s_cube
 	t_data		*screen;
 	int			frame;
 }	t_cube;
-
-typedef struct s_img
-{
-	void	*img;
-	char	*path;
-	int		witdh;
-	int		height;
-}	t_img;
 
 typedef struct s_rcdata
 {
