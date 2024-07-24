@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 00:07:51 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 22:18:57 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/24 22:22:12 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	free_maps(char **maps, int ind)
 
 void	free_cube(t_cube *cube)
 {
-	t_door *cur;
-	t_door *next;
+	t_door	*cur;
+	t_door	*next;
 
 	if (cube->lvl)
 	{
