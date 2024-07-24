@@ -62,7 +62,7 @@ bonus: $(BON_OBJ) libftprintf.a $(LIBX)
 	@$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 add:
-	git add bonus/ src/ inc/ maps/ texture/ bonus/ Makefile .gitignore
+	git add bonus/ src/ inc/ maps/ texture/ Makefile .gitignore
 
 $(LIBX):
 	@make -C $(MINI)

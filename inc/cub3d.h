@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 23:12:49 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/24 23:18:16 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,27 +146,30 @@ void	set_map(t_maps *lvl, char *str, int fd[2]);
 
 //check_maps.c
 int		check_map(t_cube *cube);
-int		check_elem(char *file);
 
 //check_arg
 int		check_arg(t_cube *cube, char *file);
-
-int		get_dir(char *str);
+int		check_elem(char *file);
+int		check_line(char *str);
 char	*get_text_dir(char *str);
+int		get_dir(char *str);
 
-int		make_mini(t_cube *cube, t_maps *lvl);
+//interations
+int		is_not_wallz(t_cube *c, t_point new_p, t_player *player);
+
+//mini_maps
 void	draw_mini_background(t_maps *lvl);
-void	draw_doom(t_cube *cube);
-void	draw_player(t_cube *cube);
+int		*get_ind(int i[2], int w_h[2], t_maps *lvl);
 void	draw_maps(t_cube *cube);
-void	draw_player(t_cube *cube);
+int		make_mini(t_cube *cube, t_maps *lvl);
 
+//mlx_img
 void	get_player_pos(t_cube *cube);
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
 void	fill_map_char(t_maps *lvl, char c);
-void	free_and_gnl(char **str, int fd);
+void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
+void	draw_player(t_cube *cube);
+void	draw_doom(t_cube *cube);
+
 //raycast
 void	rcdda(t_cube *cube, char **map, t_player player);
 void	set_dda_ray_delta(t_rcdata *data, t_player player, int x);
@@ -175,10 +178,13 @@ void	calculate_wall_dist(t_rcdata *data, char **map);
 
 //movements
 void	turn(t_cube *cube, double angle, int frame);
-int		is_not_wallz(t_cube *c, t_point new_p, t_player *player);
 void	update_player(t_cube *cube, t_player *player);
 
+//utils
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	free_and_gnl(char **str, int fd);
 int		new_img(t_cube *cube, t_data *new_img, int width, int height);
 void	free_maps(char **maps, int ind);
 void	free_cube(t_cube *cube);
+
 #endif
