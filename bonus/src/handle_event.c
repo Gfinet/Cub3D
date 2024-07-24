@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 20:09:51 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/24 22:29:48 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,24 +110,3 @@ int	mouse_event(int x, int y, t_cube *cube)
 	mlx_mouse_move(cube->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	return (0);
 }
-
-//void scroll_event(double xdelta, double ydelta, t_cube *cube)
-// {
-// 	// y : "puissance du scroll"
-// 	// x : swipe vers gauche/droite ?
-// 	t_cube *cube;
-
-// 	cube = param;
-// 	printf("x : %f, y : %f\n", xdelta, ydelta);
-// }
-
-// void add_event(t_cube *cube)
-// {
-// 	t_cube *cube;
-
-// 	cube = param;
-// 	printf("add_event\n");
-// }
-
-// if (jump > 0.5)
-// while (jump > 0 && jump <= 0.5)

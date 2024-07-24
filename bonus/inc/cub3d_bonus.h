@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 22:19:48 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/24 23:09:14 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,12 +151,10 @@ typedef struct s_drawdata
 
 //handle_event.c
 int		esc_handle(t_cube *cube);
+int		fps(t_cube	*cube);
 int		key_event(int keycode, t_cube *cube);
 int		key_event_release(int keycode, t_cube *cube);
 int		mouse_event(int x, int y, t_cube *cube);
-int		scroll_event(double xdelta, double ydelta, t_cube *cube);
-int		add_event(t_cube *cube);
-int		fps(t_cube	*cube);
 
 //parse_maps.c
 int		get_maps(t_cube *cube, char *file);
@@ -165,55 +163,71 @@ void	set_floor_ceiling(int fl_ce[3], char *str);
 void	set_map(t_maps *lvl, char *str, int fd[2]);
 
 //check_maps.c
-int		check_arg(t_cube *cube, char *file);
 int		check_map(t_cube *cube);
 int		check_elem(char *file);
-
-//background.c
-void	make_background(t_cube *cube);
-
-int		get_dir(char *str);
-char	*get_text_dir(char *str);
-
-int		make_mini(t_cube *cube, t_maps *lvl);
-void	draw_mini_background(t_maps *lvl);
-void	draw_doom(t_cube *cube);
-void	draw_player(t_cube *cube);
-void	draw_maps(t_cube *cube);
-void	draw_player(t_cube *cube);
-
-void	get_player_pos(t_cube *cube);
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
-void	fill_map_char(t_maps *lvl, char c);
-void	free_and_gnl(char **str, int fd);
-void	free_cube(t_cube *cube);
-//raycast
-void	rcdda(t_cube *cube, char **map, t_player player);
-void	set_dda_ray_delta(t_rcdata *data, t_player player, int x);
-void	set_side_dist_and_step(t_player p, t_rcdata *dt);
-void	calculate_wall_dist(t_rcdata *data, char **map);
-void	calculate_perp_wall_dist(t_rcdata *data, int mirr);
-void	draw_mirr_frame(t_data *screen, t_drawdata dt, int x, t_rcdata data);
-void	update_mirror(t_rcdata *data, char **map);
-void	pick_texture(t_drawdata *dr, t_rcdata dt, t_cube *cube, int door_text);
-double	fix_texture_pos(t_rcdata dt, t_player pl);
-
-//movements
-void	turn(t_cube *cube, double angle, int frame);
-int		is_not_wallz(t_cube *c, t_point new_p, t_player *player);
-void	update_player(t_cube *cube, t_player *player);
-
-int		new_img(t_cube *cube, t_data *new_img, int width, int height);
-void	free_maps(char **maps, int ind);
 
 //doors
 t_data	data_img(char *file, t_cube *c);
 void	load_door_texture(t_cube *cube);
+t_door	*init_new_door(int x, int y);
 void	get_all_doors(char **map, t_cube *c);
-void	find_and_open_door(t_door *door, t_player *player);
 t_door	*find_door(t_cube *c, float x, float y);
+
+//check_arg
+int		check_arg(t_cube *cube, char *file);
+int		check_elem(char *file);
+int		check_line(char *str);
+char	*get_text_dir(char *str);
+int		get_dir(char *str);
+
+//interations
+void	find_and_open_door(t_door *door, t_player *player);
+int		is_not_wallz(t_cube *c, t_point new_p, t_player *player);
+
+//mini_maps
+void	draw_mini_background(t_maps *lvl);
+int		*get_ind(int i[2], int w_h[2], t_maps *lvl);
+void	draw_maps(t_cube *cube);
+int		make_mini(t_cube *cube, t_maps *lvl);
+
+//mlx_img
+void	get_player_pos(t_cube *cube);
+void	fill_map_char(t_maps *lvl, char c);
+void	draw_mini_pixel(t_maps *lvl, int w_h[2], int i[2]);
+void	draw_player(t_cube *cube);
+void	draw_doom(t_cube *cube);
+
+//movements
+void	update_player(t_cube *cube, t_player *player);
+void	turn(t_cube *cube, double angle, int frame);
+
+//raycast
+void	calculate_perp_wall_dist(t_rcdata *data, int mirr);
+double	fix_texture_pos(t_rcdata dt, t_player pl);
+void	rcdda(t_cube *cube, char **map, t_player player);
+
+void	draw_mirr_frame(t_data *screen, t_drawdata dt, int x, t_rcdata data);
+void	get_door_draw_data(t_drawdata *dt, t_rcdata data, t_cube *c);
 void	draw_door(t_data *screen, int x, t_rcdata data, t_cube *c);
+void	update_mirror(t_rcdata *data, char **map);
+
+void	pick_texture(t_drawdata *dr, t_rcdata dt, t_cube *cube, int door_text);
+void	set_dda_ray_delta(t_rcdata *data, t_player player, int x);
+void	set_side_dist_and_step(t_player p, t_rcdata *dt);
+void	check_hit_target(t_rcdata *dt, char **map);
+void	calculate_wall_dist(t_rcdata *data, char **map);
+
+//parse_maps
+void	set_map(t_maps *lvl, char *str, int fd[2]);
+void	set_floor_ceiling(int fl_ce[3], char *str);
+void	fill_maps(t_maps *lvl, char *str, int fd[2]);
+int		get_maps(t_cube *cube, char *file);
+
+//utils.c
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	free_and_gnl(char **str, int fd);
+int		new_img(t_cube *cube, t_data *new_img, int width, int height);
+void	free_maps(char **maps, int ind);
+void	free_cube(t_cube *cube);
 
 #endif

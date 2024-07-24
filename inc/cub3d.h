@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 21:11:10 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/24 23:12:49 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,6 @@ int		esc_handle(t_cube *cube);
 int		key_event(int keycode, t_cube *cube);
 int		key_event_release(int keycode, t_cube *cube);
 int		mouse_event(int mcode, int x, int y, t_cube *cube);
-int		scroll_event(double xdelta, double ydelta, t_cube *cube);
-int		add_event(t_cube *cube);
 int		fps(t_cube	*cube);
 
 //parse_maps.c
@@ -147,18 +145,16 @@ void	set_floor_ceiling(int fl_ce[3], char *str);
 void	set_map(t_maps *lvl, char *str, int fd[2]);
 
 //check_maps.c
-int		check_arg(t_cube *cube, char *file);
 int		check_map(t_cube *cube);
 int		check_elem(char *file);
 
-//background.c
-void	make_background(t_cube *cube);
+//check_arg
+int		check_arg(t_cube *cube, char *file);
 
 int		get_dir(char *str);
 char	*get_text_dir(char *str);
 
 int		make_mini(t_cube *cube, t_maps *lvl);
-void	draw_background(t_cube *cube, int floor[3], int ceiling[3]);
 void	draw_mini_background(t_maps *lvl);
 void	draw_doom(t_cube *cube);
 void	draw_player(t_cube *cube);

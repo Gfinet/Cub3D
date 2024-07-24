@@ -17,6 +17,7 @@ SRCS     = src/main_cub3d.c			\
 			src/movements.c 		\
 			src/interaction.c
 OBJ      = $(SRCS:.c=.o)
+OBJDIR = obj/
 
 BON_SRCS = bonus/src/main_cub3d_bonus.c		\
 			bonus/src/handle_event.c		\
@@ -61,7 +62,7 @@ bonus: $(BON_OBJ) libftprintf.a $(LIBX)
 	@$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 add:
-	git add bonus/ src/ inc/ maps/ texture/ Makefile .gitignore
+	git add bonus/ src/ inc/ maps/ texture/ bonus/ Makefile .gitignore
 
 $(LIBX):
 	@make -C $(MINI)
