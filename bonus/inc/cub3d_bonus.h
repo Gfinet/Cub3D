@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 16:22:39 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 20:25:33 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
 # define MLX_SYNC_WIN_CMD_COMPLETED	3
 
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 640 //1280
+#  define WIN_HEIGHT 641 //1280
 # endif
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH 1200 //2400
+#  define WIN_WIDTH 1201 //2400
 # endif
 
 # define FRAME 4

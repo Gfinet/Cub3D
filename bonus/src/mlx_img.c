@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 19:24:24 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 20:18:50 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	get_player_pos(t_cube *cube)
 			|| m[i[0]][i[1]] == 'E' || m[i[0]][i[1]] == 'W')
 			{
 				c = m[i[0]][i[1]];
-				cube->player->pos = (t_point){i[1], i[0]};
+				cube->player->pos = (t_point){i[1] + 0.2, i[0] + 0.2};
 				break ;
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/24 16:30:53 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 20:24:15 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	get_base_info_draw(t_drawdata *dr, t_rcdata dt, t_player player,
 		(*dr).draw_start = 0;
 	(*dr).draw_end = dr->line_height / 2 + WIN_HEIGHT / 2 + dr->pitch;
 	if (dr->draw_end >= WIN_HEIGHT)
-		(*dr).draw_end = WIN_HEIGHT - 1;
+		(*dr).draw_end = WIN_HEIGHT;
 	if (dt.side == 0 || dt.side == 2)
 		(*dr).wall_x = (int)player.pos.x + dt.perp_wall_dist * dt.ray_dir.y;
 	else if (dt.side == 1 || dt.side == 3)
