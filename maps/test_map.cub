@@ -1,9 +1,10 @@
-NO ./texture/minecraft(1).xpm
+
+F 80,10,10
 SO ./texture/nicpimp.xpm
+NO ./texture/minecraft(1).xpm
 WE ./texture/eagle.xpm
 EA ./texture/nounours(1).xpm
 
-F 80,10,10
 C 40,40,40
 
         1111111111111111111111111
