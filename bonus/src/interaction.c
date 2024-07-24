@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:12:12 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/24 16:26:20 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 23:27:19 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ void	find_and_open_door(t_door *door, t_player *pl)
 				door->open = 1;
 				door->on_going = 1;
 			}
-			else if (door->open == 30)
+			else if (door->open == 2)
 			{
-				door->open = 29;
+				door->open = 1;
 				door->on_going = -1;
 			}
+			else
+				door->open += door->on_going;
 			return ;
 		}
 		door = door->next;
@@ -50,7 +52,7 @@ static int	impassable(char **map, t_cube *cb, int x, int y)
 	if (map[y][x] == 'D')
 	{
 		door = find_door(cb, x, y);
-		if (door->open != 30)
+		if (door->open != 2)
 			return (1);
 	}
 	return (0);

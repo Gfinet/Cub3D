@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 20:30:38 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 23:29:14 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int	fps(t_cube	*cube)
 	if (!cube->player->move_h && !cube->player->move_v && !cube->player->turn)
 		i = cube->frame;
 	if (d && d->on_going)
-		i = -cube->frame;
+	{
+		draw_doom(cube);
+		mlx_do_sync(cube->mlx);
+	}
 	while (i < cube->frame)
 	{
 		update_player(cube, cube->player);
@@ -73,6 +76,8 @@ int	key_event(int keycode, t_cube *cube)
 		cube->player->run = 1;
 		cube->frame = FRAME / 2;
 	}
+	if (keycode == F)
+		find_and_open_door(cube->doors, cube->player);
 	return (1);
 }
 

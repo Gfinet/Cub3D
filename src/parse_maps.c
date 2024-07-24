@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_maps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 22:24:33 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/24 21:14:49 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int	get_maps(t_cube *cube, char *file)
 	fd[0] = open(file, O_RDONLY);
 	fd[1] = open(file, O_RDONLY);
 	cube->lvl->c_text = malloc(sizeof(char *) * 4);
+	if (!cube->lvl->c_text)
+		return (close(fd[0]), close(fd[1]), 0);
 	str = get_next_line(fd[0]);
 	get_next_line(fd[1]);
 	while (str)

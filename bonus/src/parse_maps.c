@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/20 19:24:05 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 20:53:05 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,17 @@ void	set_map(t_maps *lvl, char *str, int fd[2])
 	int		i;
 	char	*tmp;
 
-	i = 1;
+	i = 0;
 	tmp = ft_strdup(str);
-	while (str)
+	while (str && ++i)
 	{
 		str = get_next_line(fd[0]);
 		if ((int)ft_strlen(str) > lvl->max_len)
 			lvl->max_len = (int)ft_strlen(str) - (str[ft_strlen(str)] == '\n');
-		i++;
 	}
 	lvl->c_maps = malloc(sizeof(char *) * (i));
+	if (!lvl->c_maps)
+		return ;
 	cpy_line(lvl, tmp, 0);
 	free(tmp);
 	str = get_next_line(fd[1]);
@@ -111,6 +112,8 @@ int	get_maps(t_cube *cube, char *file)
 	fd[0] = open(file, O_RDONLY);
 	fd[1] = open(file, O_RDONLY);
 	cube->lvl->c_text = malloc(sizeof(char *) * 4);
+	if (!cube->lvl->c_text)
+		return (close(fd[0]), close(fd[1]), 0);
 	str = get_next_line(fd[0]);
 	get_next_line(fd[1]);
 	while (str)
