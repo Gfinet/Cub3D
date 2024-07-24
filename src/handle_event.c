@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 20:49:00 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/24 23:19:36 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	esc_handle(t_cube *cube)
 		mlx_destroy_window(cube->mlx, cube->win);
 	}
 	free_cube(cube);
-	system("leaks cub3D");
 	exit(0);
 	return (0);
 }
