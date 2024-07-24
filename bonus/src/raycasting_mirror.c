@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 18:12:10 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/23 21:25:34 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 16:46:13 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	draw_mirr_frame(t_data *screen, t_drawdata dt, int x, t_rcdata data)
 	int			*tab;
 	int			i;
 
+	if (!dt.mirr)
+		return ;
 	ds[1] = dt.draw_start;
 	de[1] = dt.draw_end;
 	dt.line_height = (int)(WIN_HEIGHT / data.m_perp_wall_dist);
@@ -39,26 +41,33 @@ void	draw_mirr_frame(t_data *screen, t_drawdata dt, int x, t_rcdata data)
 	}
 }
 
+void	get_door_draw_data(t_drawdata *dt, t_rcdata data, t_cube *c)
+{
+	(*dt).line_height = (int)(WIN_HEIGHT / (data.d_perp_wall_dist));
+	(*dt).draw_start = -dt->line_height / 2 + WIN_HEIGHT / 2 + 100;
+	(*dt).draw_end = dt->line_height / 2 + WIN_HEIGHT / 2 + 100;
+	data.side = data.d_side;
+	pick_texture(dt, data, c, 1);
+	if (dt->draw_start < 0)
+		(*dt).draw_start = 0;
+	if (dt->draw_end >= WIN_HEIGHT)
+		(*dt).draw_end = WIN_HEIGHT - 1;
+	if (data.d_side == 0 || data.d_side == 2)
+		(*dt).wall_x = (int)c->player->pos.x + data.d_perp_wall_dist
+			* data.ray_dir.y;
+	else if (data.d_side == 1 || data.d_side == 3)
+		(*dt).wall_x = (int)c->player->pos.y + data.d_perp_wall_dist
+			* data.ray_dir.x;
+	(*dt).wall_x += fix_texture_pos(data, *c->player);
+	(*dt).wall_x -= floor((dt->wall_x));
+}
+
 void	draw_door(t_data *screen, int x, t_rcdata data, t_cube *c)
 {
 	unsigned int	col;
 	t_drawdata		dt;
 
-	dt.line_height = (int)(WIN_HEIGHT / (data.d_perp_wall_dist));
-	dt.draw_start = -dt.line_height / 2 + WIN_HEIGHT / 2 + 100;
-	dt.draw_end = dt.line_height / 2 + WIN_HEIGHT / 2 + 100;
-	data.side = data.d_side;
-	pick_texture(&dt, data, c, 1);
-	if (dt.draw_start < 0)
-		(dt).draw_start = 0;
-	if (dt.draw_end >= WIN_HEIGHT)
-		(dt).draw_end = WIN_HEIGHT - 1;
-	if (data.d_side == 0 || data.d_side == 2)
-		(dt).wall_x = (int)c->player->pos.x + data.d_perp_wall_dist * data.ray_dir.y;
-	else if (data.d_side == 1 || data.d_side == 3)
-		(dt).wall_x = (int)c->player->pos.y + data.d_perp_wall_dist * data.ray_dir.x;
-	(dt).wall_x += fix_texture_pos(data, *c->player);
-	(dt).wall_x -= floor((dt.wall_x));
+	get_door_draw_data(&dt, data, c);
 	(dt).tex_x = (int)((dt.wall_x) * (double)(dt.texture.width));
 	if ((data.d_side == 0 || data.d_side == 2) && data.ray_dir.x > 0)
 		(dt).tex_x = dt.texture.width - dt.tex_x - 1;

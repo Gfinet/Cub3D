@@ -6,14 +6,41 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 21:54:19 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/23 16:53:01 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 16:36:25 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d_bonus.h"
 
+void	pick_texture(t_drawdata *dr, t_rcdata dt, t_cube *cube, int door_text)
+{
+	t_door	*door;
+
+	door = NULL;
+	if (!door_text && cube->lvl->c_maps[(int)(dt.dest.y - dt.p_dest.y)]
+			[(int)(dt.dest.x - dt.p_dest.x)] != 'D')
+		(*dr).texture = cube->texture[dt.side];
+	else if (!door_text && cube->lvl->c_maps[(int)(dt.dest.y - dt.p_dest.y)]
+			[(int)(dt.dest.x - dt.p_dest.x)] == 'D')
+		(*dr).texture = cube->door_texture[0];
+	else
+	{
+		door = find_door(cube, dt.d_dest.x, dt.d_dest.y);
+		if (door)
+		{
+			if (door->open == 0 || door->open == 30)
+				door->on_going = 0;
+			(*dr).texture = cube->door_texture[door->open / 10];
+			if (door->on_going)
+				door->open += door->on_going;
+		}
+	}
+}
+
 void	set_dda_ray_delta(t_rcdata *data, t_player player, int x)
 {
+	(*data).p_dest = (t_point){0};
+	(*data).door = 0;
 	(*data).camerx = 2 * x / ((double)WIN_WIDTH) - 1;
 	(*data).ray_dir.x = player.dir.x + data->plane.x * (data->camerx);
 	(*data).ray_dir.y = player.dir.y + data->plane.y * (data->camerx);
@@ -55,8 +82,10 @@ void	set_side_dist_and_step(t_player p, t_rcdata *dt)
 
 void	check_hit_target(t_rcdata *dt, char **map)
 {
-	if (map[(int)dt->dest.y][(int)dt->dest.x] == '1' || (map[(int)dt->dest.y][(int)dt->dest.x] == '2' && (dt->hit == 2 || dt->hit == 5)))
-			(*dt).hit = 1;
+	if (map[(int)dt->dest.y][(int)dt->dest.x] == '1'
+		|| (map[(int)dt->dest.y][(int)dt->dest.x] == '2'
+		&& (dt->hit == 2 || dt->hit == 5)))
+		(*dt).hit = 1;
 	else if (map[(int)dt->dest.y][(int)dt->dest.x] == 'D')
 	{
 		if (dt->hit != 3)

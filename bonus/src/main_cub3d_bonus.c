@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/23 22:30:47 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 16:20:43 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,17 @@ static int	get_textures(t_cube *cube)
 	return (1);
 }
 
+static void	game_loop_init(t_cube cube)
+{
+	draw_doom(&cube);
+	mlx_loop_hook(cube.mlx, &fps, &cube);
+	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
+	mlx_hook(cube.win, 2, 0, &key_event, &cube);
+	mlx_hook(cube.win, 3, 10, &key_event_release, &cube);
+	mlx_hook(cube.win, 6, 0, &mouse_event, &cube);
+	mlx_loop(cube.mlx);
+}
+
 int	main(int argc, char **argv)
 {
 	t_cube		cube;
@@ -91,12 +102,6 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\nBad textures\n", 19), 0);
 	if (!make_mini(&cube, &level))
 		return (write(2, "Error\nAttempt for mini map failed\n", 34), 0);
-	draw_doom(&cube);
-	mlx_loop_hook(cube.mlx, &fps, &cube);
-	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
-	mlx_hook(cube.win, 2, 0, &key_event, &cube);
-	mlx_hook(cube.win, 3, 10, &key_event_release, &cube);
-	mlx_hook(cube.win, 6, 0, &mouse_event, &cube);
-	mlx_loop(cube.mlx);
+	game_loop_init(cube);
 	return (0);
 }

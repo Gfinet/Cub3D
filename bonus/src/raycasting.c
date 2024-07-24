@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/23 20:57:01 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 16:30:53 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,35 +58,11 @@ double	fix_texture_pos(t_rcdata dt, t_player pl)
 	return (fix_x);
 }
 
-void	pick_texture(t_drawdata *dr, t_rcdata dt, t_cube *cube, int door_text)
-{
-	t_door	*door;
-
-	door = NULL;
-	if (!door_text && cube->lvl->c_maps[(int)(dt.dest.y - dt.p_dest.y)][(int)(dt.dest.x - dt.p_dest.x)] != 'D')
-		(*dr).texture = cube->texture[dt.side];
-	else if (!door_text && cube->lvl->c_maps[(int)(dt.dest.y - dt.p_dest.y)][(int)(dt.dest.x - dt.p_dest.x)] == 'D')
-		(*dr).texture = cube->door_texture[0];
-	else
-	{
-		door = find_door(cube, dt.d_dest.x, dt.d_dest.y);
-		if (door)
-		{
-			if (door->open == 0 || door->open == 30)
-				door->on_going = 0;
-			(*dr).texture = cube->door_texture[door->open / 10];
-			if (door->on_going)
-				door->open += door->on_going;
-		}
-	}
-
-}
-
 static void	get_base_info_draw(t_drawdata *dr, t_rcdata dt, t_player player,
 		t_cube *cube)
 {
 	double	fix_x;
-	
+
 	pick_texture(dr, dt, cube, 0);
 	fix_x = fix_texture_pos(dt, player);
 	(*dr).line_height = (int)(WIN_HEIGHT / dt.perp_wall_dist);
@@ -151,8 +127,6 @@ void	rcdda(t_cube *cb, char **map, t_player player)
 	while (++x < WIN_WIDTH)
 	{
 		drawdata.mirr = 0;
-		data.p_dest = (t_point){0};
-		data.door = 0;
 		set_dda_ray_delta(&data, player, x);
 		set_side_dist_and_step(player, &data);
 		calculate_wall_dist(&data, map);
@@ -161,8 +135,7 @@ void	rcdda(t_cube *cb, char **map, t_player player)
 		calculate_perp_wall_dist(&data, 0);
 		get_base_info_draw(&drawdata, data, player, cb);
 		draw_xwall(cb->screen, &drawdata, cb, x);
-		if (drawdata.mirr)
-			draw_mirr_frame(cb->screen, drawdata, x, data);
+		draw_mirr_frame(cb->screen, drawdata, x, data);
 		if (data.door)
 			draw_door(cb->screen, x, data, cb);
 	}

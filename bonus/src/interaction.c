@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:12:12 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/23 20:50:37 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 16:26:20 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	find_and_open_door(t_door *door, t_player *pl)
 	{
 		pos = door->coord;
 		if (((int)pos.x <= (int)fmax(pl->pos.x + pl->dir.x, pl->pos.x)
-			&& (int)pos.x >= (int)fmin(pl->pos.x + pl->dir.x, pl->pos.x))
+				&& (int)pos.x >= (int)fmin(pl->pos.x + pl->dir.x, pl->pos.x))
 			&& ((int)pos.y <= (int)fmax(pl->pos.y + pl->dir.y, pl->pos.y)
-			&& (int)pos.y >= (int)fmin(pl->pos.y + pl->dir.y, pl->pos.y))
+				&& (int)pos.y >= (int)fmin(pl->pos.y + pl->dir.y, pl->pos.y))
 			&& !((int)pl->pos.x == (int)pos.x && (int)pl->pos.y == (int)pos.y))
 		{
 			if (door->open == 0)

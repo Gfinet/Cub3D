@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/23 22:31:53 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/24 16:22:39 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ void	set_dda_ray_delta(t_rcdata *data, t_player player, int x);
 void	set_side_dist_and_step(t_player p, t_rcdata *dt);
 void	calculate_wall_dist(t_rcdata *data, char **map);
 void	calculate_perp_wall_dist(t_rcdata *data, int mirr);
-void 	draw_mirr_frame(t_data *screen, t_drawdata dt, int x, t_rcdata data);
+void	draw_mirr_frame(t_data *screen, t_drawdata dt, int x, t_rcdata data);
 void	update_mirror(t_rcdata *data, char **map);
 void	pick_texture(t_drawdata *dr, t_rcdata dt, t_cube *cube, int door_text);
 double	fix_texture_pos(t_rcdata dt, t_player pl);
@@ -210,7 +210,7 @@ void	free_maps(char **maps, int ind);
 
 //doors
 t_data	data_img(char *file, t_cube *c);
-void 	load_door_texture(t_cube *cube);
+void	load_door_texture(t_cube *cube);
 void	get_all_doors(char **map, t_cube *c);
 void	find_and_open_door(t_door *door, t_player *player);
 t_door	*find_door(t_cube *c, float x, float y);
