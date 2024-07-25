@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 14:33:56 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 16:42:43 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	init_cube(t_cube *cube, t_player *play, t_maps *level)
 	load_door_texture(cube);
 	cube->lvl = level;
 	cube->player = play;
+	mlx_mouse_hide();
 	return (1);
 }
 
@@ -58,15 +59,16 @@ static int	get_textures(t_cube *cube)
 	return (1);
 }
 
-static void	game_loop_init(t_cube cube)
+static void	game_loop_init(t_cube *cube)
 {
-	draw_doom(&cube);
-	mlx_loop_hook(cube.mlx, &fps, &cube);
-	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
-	mlx_hook(cube.win, 2, 0, &key_event, &cube);
-	mlx_hook(cube.win, 3, 10, &key_event_release, &cube);
-	mlx_hook(cube.win, 6, 0, &mouse_event, &cube);
-	mlx_loop(cube.mlx);
+	draw_doom(cube);
+	mlx_loop_hook(cube->mlx, &fps, cube);
+	mlx_hook(cube->win, 17, 0, &esc_handle, cube);
+	mlx_hook(cube->win, 2, 0, &key_event, cube);
+	mlx_hook(cube->win, 3, 10, &key_event_release, cube);
+	mlx_hook(cube->win, 6, 0, &mouse_event, cube);
+	mlx_mouse_hook(cube->win, &mouse_other_event, cube);
+	mlx_loop(cube->mlx);
 }
 
 int	main(int argc, char **argv)
@@ -77,7 +79,8 @@ int	main(int argc, char **argv)
 
 	cube.frame = FRAME;
 	player = (t_player){0};
-	level.weap = (t_weapon){0};
+	level.weap = 0;
+	level.nb_weap = 0;
 	if (argc != 2)
 		return (write(2, "Error\nBad Arg\n", 14), 0);
 	if (!check_format(argv[1]))
@@ -90,6 +93,6 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\nBad textures\n", 19), 0);
 	if (!make_mini(&cube, &level))
 		return (write(2, "Error\nAttempt for mini map failed\n", 34), 0);
-	game_loop_init(cube);
+	game_loop_init(&cube);
 	return (0);
 }

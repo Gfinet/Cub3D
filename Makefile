@@ -1,6 +1,6 @@
 CC       = GCC
 NAME = cub3D
-CFLAGS   = -Wall -Wextra -Werror -Imlx -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3 #-g -fsanitize=address
+CFLAGS   = -Wall -Wextra -Werror -Imlx -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3 -g -fsanitize=address
 #FLAGS = -Wall -Wextra -Werror -Imlx -g3 -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3
 
 SRCS     = src/main_cub3d.c			\
@@ -21,6 +21,7 @@ OBJDIR = obj/
 
 BON_SRCS = bonus/src/main_cub3d_bonus.c		\
 			bonus/src/handle_event.c		\
+			bonus/src/handle_event2.c		\
 			bonus/src/mini_maps.c 			\
 			bonus/src/parse_maps.c 			\
 			bonus/src/check_maps.c 			\

@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 23:19:39 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 16:38:35 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	mouse_event(int x, int y, t_cube *cube)
 {
 	cube->mouse = 1;
 	(void)y;
-	mlx_mouse_hide();
 	mlx_mouse_move(cube->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	if (x >= WIN_WIDTH * 0.5 && x <= WIN_WIDTH * 0.5)
 		cube->player->turn = 0;

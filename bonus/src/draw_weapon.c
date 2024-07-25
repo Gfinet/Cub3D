@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 00:26:20 by Gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 14:50:53 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 16:08:15 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 void	draw_weapons(t_cube *cube)
 {
 	int			n_w_h[3];
+	int			u_w;
 	static int	i = 1;
 	static int	fps = 0;
 	t_weapon	*weap;
 
-	weap = &cube->lvl->weap;
-	n_w_h[0] = (WIN_WIDTH - weap->sprites[i].width) / 2;
-	n_w_h[1] = WIN_HEIGHT - weap->sprites[i].height;
-	while (weap->path[n_w_h[2]] != 0)
+	weap = cube->lvl->weap;
+	u_w = cube->player->use_weap;
+	n_w_h[0] = (WIN_WIDTH - weap[u_w].sprites[i].width) / 2;
+	n_w_h[1] = WIN_HEIGHT - weap[u_w].sprites[i].height;
+	while (weap[u_w].path[n_w_h[2]] != 0)
 		n_w_h[2]++;
 	mlx_put_image_to_window(cube->mlx, cube->win,
-		weap->sprites[i].img, n_w_h[0], n_w_h[1]);
+		weap[u_w].sprites[i].img, n_w_h[0], n_w_h[1]);
 	fps++;
 	if (fps == cube->frame)
 		i++;

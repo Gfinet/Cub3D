@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:10:01 by Gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 15:03:13 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 16:39:53 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,46 @@
 int	get_weapon(t_cube *cube)
 {
 	int			i;
+	int			j;
 	size_t		len;
 	t_weapon	*weap;
 
-	weap = &cube->lvl->weap;
-	len = ft_strlen((char *)weap->path);
+	weap = cube->lvl->weap;
 	i = -1;
-	weap->sprites = malloc(sizeof(t_data) * len);
-	weap->sprites[0].width = 10;
-	weap->sprites[0].height = 17;
-	while (weap->path[++i])
+	while (++i < cube->lvl->nb_weap)
 	{
-		xpm_to_img(cube, &weap->sprites[i], weap->path[i]);
-		if (!weap->sprites[i].img)
-			return (0);
+		len = 0;
+		while (weap[i].path[len])
+			len++;
+		weap[i].sprites = malloc(sizeof(t_data) * len);
+		weap[i].sprites[0].width = 10;
+		weap[i].sprites[0].height = 17;
+		j = -1;
+		while (weap[i].path[++j])
+		{
+			printf("%s\n", weap[i].path[j]);
+			xpm_to_img(cube, &weap[i].sprites[j], weap[i].path[j]);
+			if (!weap[i].sprites[j].img)
+				return (0);
+		}
+		weap->dmg = 50;
 	}
-	weap->dmg = 50;
 	return (1);
 }
 
 void	set_weapon(t_maps *lvl, char *str)
 {
-	char	*tmp;
-	char	**lst;
-	size_t	len;
+	static int	i = 0;
+	char		*tmp;
+	char		**lst;
+	size_t		len;
 
+	if (!lvl->weap)
+	{
+		lvl->weap = malloc(lvl->nb_weap * sizeof(t_weapon));
+		if (!lvl->weap)
+			return ;
+	}
 	lst = ft_split(str, ' ');
 	len = 0;
 	while (lst[len] != 0)
@@ -48,7 +63,8 @@ void	set_weapon(t_maps *lvl, char *str)
 	free(lst[len - 1]);
 	lst[len - 1] = tmp;
 	lst[len] = 0;
-	lvl->weap.path = lst;
+	lvl->weap[i].path = lst;
+	i++;
 }
 
 int	check_weapon(t_cube *cube, char *str)
@@ -77,5 +93,5 @@ int	check_weapon(t_cube *cube, char *str)
 		if (!data.img)
 			return (0);
 	}
-	return (free_maps(lst, i_len[1]), 1);
+	return (free_maps(lst, i_len[1]), cube->lvl->nb_weap++, 1);
 }

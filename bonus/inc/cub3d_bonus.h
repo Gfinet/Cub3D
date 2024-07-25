@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 14:16:30 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 16:42:53 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ typedef struct s_maps
 	int			floor[3];
 	int			ceil[3];
 	int			m_height;
-	t_weapon	weap;
+	int			nb_weap;
+	t_weapon	*weap;
 }	t_maps;
 
 typedef struct s_player
@@ -89,6 +90,7 @@ typedef struct s_player
 	int		move_v;
 	int		move_h;
 	int		turn;
+	int		use_weap;
 }	t_player;
 
 typedef struct s_door
@@ -164,6 +166,7 @@ int		fps(t_cube	*cube);
 int		key_event(int keycode, t_cube *cube);
 int		key_event_release(int keycode, t_cube *cube);
 int		mouse_event(int x, int y, t_cube *cube);
+int		mouse_other_event(int butt, int x, int y, t_cube *cube);
 
 //parse_maps.c
 int		get_maps(t_cube *cube, char *file);
