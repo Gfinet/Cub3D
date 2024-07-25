@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 21:54:19 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/24 23:32:16 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/25 13:42:47 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	pick_texture(t_drawdata *dr, t_rcdata dt, t_cube *cube, int door_text)
 			if (door->open == 0 || door->open == 2)
 				door->on_going = 0;
 			(*dr).texture = cube->door_texture[door->open];
-			// if (door->on_going)
-			// 	door->open += door->on_going;
 		}
 	}
 }

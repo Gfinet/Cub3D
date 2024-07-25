@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 23:29:14 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/25 13:47:06 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	fps(t_cube	*cube)
 	t_player	*p;
 	t_door		*d;
 
-	i = 0;
+	i = -1;
 	p = cube->player;
 	d = find_door(cube, p->pos.x + p->dir.x, p->pos.y + p->dir.y);
 	if (!cube->player->move_h && !cube->player->move_v && !cube->player->turn)
@@ -40,18 +40,16 @@ int	fps(t_cube	*cube)
 		draw_doom(cube);
 		mlx_do_sync(cube->mlx);
 	}
-	while (i < cube->frame)
+	while (++i < cube->frame)
 	{
 		update_player(cube, cube->player);
 		draw_doom(cube);
 		mlx_do_sync(cube->mlx);
-		i++;
 	}
 	if (cube->mouse)
-	{
-		cube->mouse = 0;
 		cube->player->turn = 0;
-	}
+	if (cube->mouse)
+		cube->mouse = 0;
 	return (1);
 }
 

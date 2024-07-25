@@ -6,11 +6,22 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:12:12 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/24 23:27:19 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/25 13:55:10 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d_bonus.h"
+
+static int	is_in_door_range(t_player *pl, t_point pos)
+{
+	if (((int)pos.x <= (int)fmax(pl->pos.x + pl->dir.x, pl->pos.x)
+			&& (int)pos.x >= (int)fmin(pl->pos.x + pl->dir.x, pl->pos.x))
+		&& ((int)pos.y <= (int)fmax(pl->pos.y + pl->dir.y, pl->pos.y)
+			&& (int)pos.y >= (int)fmin(pl->pos.y + pl->dir.y, pl->pos.y))
+		&& !((int)pl->pos.x == (int)pos.x && (int)pl->pos.y == (int)pos.y))
+		return (1);
+	return (0);
+}
 
 void	find_and_open_door(t_door *door, t_player *pl)
 {
@@ -19,11 +30,7 @@ void	find_and_open_door(t_door *door, t_player *pl)
 	while (door)
 	{
 		pos = door->coord;
-		if (((int)pos.x <= (int)fmax(pl->pos.x + pl->dir.x, pl->pos.x)
-				&& (int)pos.x >= (int)fmin(pl->pos.x + pl->dir.x, pl->pos.x))
-			&& ((int)pos.y <= (int)fmax(pl->pos.y + pl->dir.y, pl->pos.y)
-				&& (int)pos.y >= (int)fmin(pl->pos.y + pl->dir.y, pl->pos.y))
-			&& !((int)pl->pos.x == (int)pos.x && (int)pl->pos.y == (int)pos.y))
+		if (is_in_door_range(pl, pos))
 		{
 			if (door->open == 0)
 			{

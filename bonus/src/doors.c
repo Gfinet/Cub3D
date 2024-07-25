@@ -6,7 +6,7 @@
 /*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:17:19 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/24 23:33:27 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/25 13:44:12 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,14 @@ t_data	data_img(char *file, t_cube *c)
 void	load_door_texture(t_cube *cube)
 {
 	(*cube).door_texture[0] = data_img("./texture/door_closed.xpm", cube);
-		if (!cube->texture[0].img)
-			esc_handle(cube);
-	// (*cube).door_texture[1] = data_img("./texture/door_half_closed.xpm", cube);
-	// 	if (!cube->texture[1].img)
-	// 		esc_handle(cube);
+	if (!cube->texture[0].img)
+		esc_handle(cube);
 	(*cube).door_texture[1] = data_img("./texture/door_half_opened.xpm", cube);
-		if (!cube->texture[1].img)
-			esc_handle(cube);
+	if (!cube->texture[1].img)
+		esc_handle(cube);
 	(*cube).door_texture[2] = data_img("./texture/door_open.xpm", cube);
-		if (!cube->texture[2].img)
-			esc_handle(cube);
+	if (!cube->texture[2].img)
+		esc_handle(cube);
 }
 
 t_door	*init_new_door(int x, int y)
@@ -67,6 +64,7 @@ void	get_all_doors(char **map, t_cube *c)
 	{
 		x = -1;
 		while (++x < c->lvl->max_len)
+		{
 			if (map[y][x] == 'D')
 			{
 				door = init_new_door(x, y);
@@ -74,6 +72,7 @@ void	get_all_doors(char **map, t_cube *c)
 					esc_handle(c);
 				ft_lstadd_back((t_list **)&c->doors, (t_list *)door);
 			}
+		}
 	}
 }
 
