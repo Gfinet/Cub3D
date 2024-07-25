@@ -1,6 +1,6 @@
 CC       = GCC
 NAME = cub3D
-CFLAGS   = -Wall -Wextra -Werror -Imlx -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3 #-g -fsanitize=address
+CFLAGS   = -Wall -Wextra -Werror -Imlx -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3 -g -fsanitize=address
 #FLAGS = -Wall -Wextra -Werror -Imlx -g3 -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3
 
 SRCS     = src/main_cub3d.c			\
@@ -15,8 +15,6 @@ SRCS     = src/main_cub3d.c			\
 			src/mlx_img.c 			\
 			src/utils.c 			\
 			src/movements.c 		\
-			src/parse_weapon.c 		\
-			src/draw_weapon.c 		\
 			src/interaction.c
 OBJ      = $(SRCS:.c=.o)
 OBJDIR = obj/
@@ -35,6 +33,8 @@ BON_SRCS = bonus/src/main_cub3d_bonus.c		\
 			bonus/src/utils.c 				\
 			bonus/src/doors.c 				\
 			bonus/src/movements.c 			\
+			bonus/src/parse_weapon.c 		\
+			bonus/src/draw_weapon.c 		\
 			bonus/src/interaction.c
 
 BON_OBJ  = $(BON_SRCS:.c=.o)

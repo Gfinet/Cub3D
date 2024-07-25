@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 21:54:06 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/20 20:16:00 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/25 14:06:55 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	get_dir(char *str)
 		return (2);
 	else if (!ft_strncmp(str, "EA", 2))
 		return (3);
+	else if (!ft_strncmp(str, "G ", 2))
+		return (4);
 	else
 		return (-1000);
 }
@@ -51,7 +53,7 @@ int	check_line(char *str)
 	{
 		if (str[i] != ' ' && str[i] != '1' && str[i] != '2' && str[i] != '0'
 			&& str[i] != 'N' && str[i] != 'S' && str[i] != 'E' && str[i] != 'W'
-			&& str[i] != 'D')
+			&& str[i] != 'D' && str[i] != 'G')
 			flag += 1;
 		if (str[i] == 'N' || str[i] == 'S' || str[i] == 'E' || str[i] == 'W')
 			count += 1;

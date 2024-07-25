@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 23:09:14 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 14:08:06 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ typedef struct s_cube
 	void		*mlx;
 	void		*win;
 	t_maps		*lvl;
-	t_data		*texture;
+	t_data		texture[4];
 	t_data		door_texture[4];
 	t_player	*player;
 	t_data		*screen;

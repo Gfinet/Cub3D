@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:40:39 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/13 18:41:04 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/25 14:06:03 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ static int	check_texture(t_cube *cube, char *str)
 	size[0] = 5;
 	size[1] = 5;
 	size[2] = 0;
-	while (str[size[2]] == ' ')
+	if (str[0] == 'G')
+		return (check_weapon(cube, &str[1]));
+	while (str[size[2] + 2] == ' ')
 		size[2]++;
-	len = ft_strlen(str) - (size[2] + 1);
-	tmp = ft_substr(str, size[2], len);
+	len = ft_strlen(&str[2]) - (size[2] + 1);
+	tmp = ft_substr(&str[2], size[2], len);
 	data.img = mlx_xpm_file_to_image(cube->mlx,
 			tmp, &size[0], &size[1]);
 	free(tmp);
@@ -37,7 +39,7 @@ static int	check_texture(t_cube *cube, char *str)
 static int	check_all_text(t_cube *cube, char *file)
 {
 	int		fd;
-	int		dir[4];
+	int		dir[5];
 	char	*str;
 
 	fd = open(file, O_RDONLY);
@@ -48,9 +50,10 @@ static int	check_all_text(t_cube *cube, char *file)
 		if (str && ((!ft_strncmp(str, "NO", 2))
 				|| (!ft_strncmp(str, "SO", 2))
 				|| (!ft_strncmp(str, "WE", 2))
+				|| (!ft_strncmp(str, "G ", 2))
 				|| (!ft_strncmp(str, "EA", 2))))
 		{
-			if (!check_texture(cube, &str[2]))
+			if (!check_texture(cube, str))
 				return (close(fd), 0);
 			dir[get_dir(str)]++;
 		}

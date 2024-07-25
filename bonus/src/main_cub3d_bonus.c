@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 22:19:32 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 14:07:52 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,13 @@ static int	get_textures(t_cube *cube)
 	int		i;
 	t_data	*txt;
 
-	cube->texture = malloc(sizeof(t_data) * 4);
-	if (!cube->texture)
-		return (0);
 	txt = cube->texture;
 	i = -1;
 	while (++i < 4)
-	{
-		txt[i].img = mlx_xpm_file_to_image(cube->mlx, cube->lvl->c_text[i],
-				&txt[i].width, &txt[i].height);
-		if (!txt[i].img)
+		if (!xpm_to_img(cube, &txt[i], cube->lvl->c_text[i]))
 			return (-i);
-		txt[i].addr = mlx_get_data_addr(txt[i].img, &txt[i].bits_per_pixel,
-				&txt[i].line_length, &txt[i].endian);
-	}
+	if (!get_weapon(cube))
+		return (0);
 	if (!new_img(cube, cube->screen, WIN_WIDTH, WIN_HEIGHT))
 		return (0);
 	return (1);
