@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 14:04:39 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 14:48:39 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int	get_maps(t_cube *cube, char *file)
 		free_and_gnl(&str, fd[0]);
 		free_and_gnl(&str2, fd[1]);
 	}
+	printf("DOOM1\n");
 	get_all_doors(cube->lvl->c_maps, cube);
 	if (!check_map(cube))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 14:08:06 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 14:16:30 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ typedef struct s_mini_maps
 	int		height;
 }	t_mini_maps;
 
+typedef struct s_weapon
+{
+	t_data	*sprites;
+	char	*name;
+	int		dmg;
+	char	**path;
+}	t_weapon;
+
 typedef struct s_maps
 {
 	t_mini_maps	mini;
@@ -69,6 +77,7 @@ typedef struct s_maps
 	int			floor[3];
 	int			ceil[3];
 	int			m_height;
+	t_weapon	weap;
 }	t_maps;
 
 typedef struct s_player
@@ -230,4 +239,12 @@ int		new_img(t_cube *cube, t_data *new_img, int width, int height);
 void	free_maps(char **maps, int ind);
 void	free_cube(t_cube *cube);
 
+//parse_weapon
+int		get_weapon(t_cube *cube);
+void	set_weapon(t_maps *lvl, char *str);
+int		check_weapon(t_cube *cube, char *str);
+
+//draw_weapon
+int		xpm_to_img(t_cube *cube, t_data *new_img, char *name);
+void	draw_weapons(t_cube *cube);
 #endif

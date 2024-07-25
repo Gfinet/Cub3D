@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 14:07:52 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 14:33:56 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	main(int argc, char **argv)
 
 	cube.frame = FRAME;
 	player = (t_player){0};
+	level.weap = (t_weapon){0};
 	if (argc != 2)
 		return (write(2, "Error\nBad Arg\n", 14), 0);
 	if (!check_format(argv[1]))

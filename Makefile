@@ -1,6 +1,6 @@
 CC       = GCC
 NAME = cub3D
-CFLAGS   = -Wall -Wextra -Werror -Imlx -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3 -g -fsanitize=address
+CFLAGS   = -Wall -Wextra -Werror -Imlx -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3 #-g -fsanitize=address
 #FLAGS = -Wall -Wextra -Werror -Imlx -g3 -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3
 
 SRCS     = src/main_cub3d.c			\
@@ -64,7 +64,7 @@ bonus: $(BON_OBJ) libftprintf.a $(LIBX)
 	@$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 add:
-	git add bonus/ src/ inc/ maps/ texture/ Makefile .gitignore
+	git add bonus/ src/ inc/ maps/ texture/ weapon_sprites/ Makefile .gitignore
 
 $(LIBX):
 	@make -C $(MINI)

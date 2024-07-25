@@ -6,15 +6,15 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 00:26:20 by Gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 13:42:11 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 14:50:53 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../inc/cub3d_bonus.h"
 
 void	draw_weapons(t_cube *cube)
 {
-	int			n_w_h[2];
+	int			n_w_h[3];
 	static int	i = 1;
 	static int	fps = 0;
 	t_weapon	*weap;
@@ -22,12 +22,14 @@ void	draw_weapons(t_cube *cube)
 	weap = &cube->lvl->weap;
 	n_w_h[0] = (WIN_WIDTH - weap->sprites[i].width) / 2;
 	n_w_h[1] = WIN_HEIGHT - weap->sprites[i].height;
+	while (weap->path[n_w_h[2]] != 0)
+		n_w_h[2]++;
 	mlx_put_image_to_window(cube->mlx, cube->win,
 		weap->sprites[i].img, n_w_h[0], n_w_h[1]);
 	fps++;
 	if (fps == cube->frame)
 		i++;
-	i %= ((int)ft_strlen((char *)weap->path) - 1);
+	i %= (n_w_h[2] - 1);
 	fps %= cube->frame;
 }
 

@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 14:09:43 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 14:23:08 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	fill_map_char(t_maps *lvl, char c)
 		{
 			ch = lvl->c_maps[i][j];
 			if ((ch != '0' && ch != '1' && ch != '2' && ch != 'D'
-					&& ch != 'N' && ch != 'S' && ch != 'E' && ch != 'W')
+					&& ch != 'N' && ch != 'S' && ch != 'E'
+					&& ch != 'W' && ch != 'G')
 				|| (j > (int)len && j < lvl->max_len - 1))
 				lvl->c_maps[i][j] = c;
 			if (j == lvl->max_len - 1)

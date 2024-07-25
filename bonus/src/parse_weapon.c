@@ -6,11 +6,11 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:10:01 by Gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 13:59:20 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 14:49:07 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../inc/cub3d_bonus.h"
 
 int	get_weapon(t_cube *cube)
 {
@@ -41,7 +41,9 @@ void	set_weapon(t_maps *lvl, char *str)
 	size_t	len;
 
 	lst = ft_split(str, ' ');
-	len = ft_strlen((char *)lst);
+	len = 0;
+	while (lst[len] != 0)
+		len++;
 	tmp = ft_substr(lst[len - 1], 0, ft_strlen(lst[len - 1]) - 1);
 	free(lst[len - 1]);
 	lst[len - 1] = tmp;
@@ -58,8 +60,10 @@ int	check_weapon(t_cube *cube, char *str)
 	t_data	data;
 
 	(void)cube;
-	lst = ft_split(str, ' ');
-	len = ft_strlen((char *)lst);
+	len = 0;
+	lst = ft_split(&str[1], ' ');
+	while (lst[len] != 0)
+		len++;
 	if (len == 1)
 		return (free_maps(lst, len), 0);
 	tmp = ft_substr(lst[len - 1], 0, ft_strlen(lst[len - 1]) - 1);

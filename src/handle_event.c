@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_event.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/13 16:42:08 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 14:25:52 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	esc_handle(t_cube *cube)
 		mlx_clear_window(cube->mlx, cube->win);
 		mlx_destroy_window(cube->mlx, cube->win);
 	}
-	system("leaks cub3D");
+	free_cube(cube);
 	exit(0);
 	return (0);
 }
@@ -40,23 +40,6 @@ int	fps(t_cube	*cube)
 	}
 	return (1);
 }
-
-// int key_maj(int keycode, t_cube *cube)
-// {
-// 	if (keycode == L_SH)
-// 	{
-// 		cube->player->run = 1;
-// 		cube->frame = FRAME / 2;
-// 	}
-// 	// if (keycode == SPACE && !cube->player->jump)
-// 	// 	cube->player->jump = 1;
-// 	// if (cube->player->jump)
-// 	// {
-// 	// 	draw_doom(cube);
-// 	// 	mlx_do_sync(cube->mlx);
-// 	// }
-// 	return (1);
-// }
 
 int	key_event(int keycode, t_cube *cube)
 {
@@ -97,30 +80,3 @@ int	key_event_release(int keycode, t_cube *cube)
 	}
 	return (1);
 }
-
-int	mouse_event(int mcode, int x, int y, t_cube *cube)
-{
-	printf("%d %d %d %p\n", mcode, x, y, cube);
-	return (0);
-}
-
-//void scroll_event(double xdelta, double ydelta, t_cube *cube)
-// {
-// 	// y : "puissance du scroll"
-// 	// x : swipe vers gauche/droite ?
-// 	t_cube *cube;
-
-// 	cube = param;
-// 	printf("x : %f, y : %f\n", xdelta, ydelta);
-// }
-
-// void add_event(t_cube *cube)
-// {
-// 	t_cube *cube;
-
-// 	cube = param;
-// 	printf("add_event\n");
-// }
-
-// if (jump > 0.5)
-// while (jump > 0 && jump <= 0.5)
