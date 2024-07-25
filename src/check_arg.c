@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:40:39 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/16 23:16:50 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 12:53:57 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ static int	check_texture(t_cube *cube, char *str)
 	size[1] = 5;
 	size[2] = 0;
 	size[3] = 2 - ((str[0] == 'W') && ft_strncmp(str, "WE", 2));
-	if (size[3] == 1)
+	if (str[0] == 'G')
 		return (check_weapon(cube, &str[1]));
 	while (str[size[2] + size[3]] == ' ')
 		size[2]++;
-	len = ft_strlen(&str[size[3]]) - (size[2] + 1);
-	tmp = ft_substr(&str[size[3]], size[2], len);
+	len = ft_strlen(&str[2]) - (size[2] + 1);
+	tmp = ft_substr(&str[2], size[2], len);
 	data.img = mlx_xpm_file_to_image(cube->mlx,
 			tmp, &data.width, &data.height);
 	free(tmp);
@@ -53,7 +53,7 @@ static int	check_all_text(t_cube *cube, char *file)
 		if (str && ((!ft_strncmp(str, "NO", 2))
 				|| (!ft_strncmp(str, "SO", 2))
 				|| (!ft_strncmp(str, "WE", 2))
-				|| (!ft_strncmp(str, "W", 1))
+				|| (!ft_strncmp(str, "G", 1))
 				|| (!ft_strncmp(str, "EA", 2))))
 		{
 			if (!check_texture(cube, str))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 00:07:51 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/17 00:07:03 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 13:24:36 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	free_and_gnl(char **str, int fd)
 	*str = get_next_line(fd);
 }
 
-int xpm_to_img(t_cube *cube, t_data *new_img, char *name)
+int	xpm_to_img(t_cube *cube, t_data *new_img, char *name)
 {
 	new_img->img = mlx_xpm_file_to_image(cube->mlx, name,
-		&new_img->width, &new_img->height);
+			&new_img->width, &new_img->height);
 	if (!new_img->img)
 		return (0);
 	new_img->addr = mlx_get_data_addr(new_img->img, &new_img->bits_per_pixel,

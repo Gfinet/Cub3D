@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_weapon.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:10:01 by Gfinet            #+#    #+#             */
-/*   Updated: 2024/07/17 00:43:31 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 13:24:15 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int get_weapon(t_cube *cube)
+int	get_weapon(t_cube *cube)
 {
 	int			i;
 	size_t		len;
@@ -29,23 +29,23 @@ int get_weapon(t_cube *cube)
 		xpm_to_img(cube, &weap->sprites[i], weap->path[i]);
 		if (!weap->sprites[i].img)
 			return (0);
-		printf("%d : %s\n", i, weap->path[i]);
 	}
 	weap->dmg = 50;
 	return (1);
 }
 
-void set_weapon(t_maps *lvl, char *str)
+void	set_weapon(t_maps *lvl, char *str)
 {
 	char	*tmp;
 	char	**lst;
 	size_t	len;
 
 	lst = ft_split(str, ' ');
-	len = ft_strlen((char *)lst) - 2;
+	len = ft_strlen((char *)lst);
 	tmp = ft_substr(lst[len - 1], 0, ft_strlen(lst[len - 1]) - 1);
 	free(lst[len - 1]);
 	lst[len - 1] = tmp;
+	lst[len] = 0;
 	lvl->weap.path = lst;
 }
 
@@ -59,24 +59,21 @@ int	check_weapon(t_cube *cube, char *str)
 
 	(void)cube;
 	lst = ft_split(str, ' ');
-	len = ft_strlen((char *)lst) - 2;
+	len = ft_strlen((char *)lst);
 	if (len == 1)
 		return (free_maps(lst, len), 0);
 	tmp = ft_substr(lst[len - 1], 0, ft_strlen(lst[len - 1]) - 1);
 	free(lst[len - 1]);
 	lst[len - 1] = tmp;
-	// i = -1;
-	// while (++i < (int)len)
-	// 	printf("%d : %s\n", i, lst[i]);
 	i = -1;
 	while (++i < (int)len)
 	{
 		data.width = 100;
 		data.height = 170;
-		data.img = mlx_xpm_file_to_image(cube->mlx, lst[i], &data.width, &data.height);
+		data.img = mlx_xpm_file_to_image(cube->mlx, lst[i],
+				&data.width, &data.height);
 		if (!data.img)
 			return (0);
 	}
-	printf("len %zu\n", len);
 	return (free_maps(lst, len), 1);
 }

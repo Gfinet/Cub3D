@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/17 00:28:00 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 13:23:07 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	fill_map_char(t_maps *lvl, char c)
 		{
 			ch = lvl->c_maps[i][j];
 			if ((ch != '0' && ch != '1'
-					&& ch != 'N' && ch != 'S' && ch != 'E' && ch != 'W')
+					&& ch != 'N' && ch != 'S' && ch != 'E'
+					&& ch != 'W' && ch != 'G')
 				|| (j > (int)len && j < lvl->max_len - 1))
 				lvl->c_maps[i][j] = c;
 			if (j == lvl->max_len - 1)

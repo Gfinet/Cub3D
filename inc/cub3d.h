@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 18:10:02 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 13:24:57 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ typedef struct s_player
 	t_point	pos;
 	t_point	dir;
 	t_point	prev_pos;
-	int		shoot;
 	int		run;
 	int		move_v;
 	int		move_h;
 	int		turn;
+	int		shoot;
 }	t_player;
 
 typedef struct s_cube
@@ -174,7 +174,6 @@ void	draw_player(t_cube *cube);
 void	draw_maps(t_cube *cube);
 void	draw_player(t_cube *cube);
 void	draw_weapons(t_cube *cube);
-
 
 void	get_player_pos(t_cube *cube);
 

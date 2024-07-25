@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 18:10:17 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 13:22:46 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ static int	get_textures(t_cube *cube)
 	i = -1;
 	while (++i < 4)
 		if (!xpm_to_img(cube, &txt[i], cube->lvl->c_text[i]))
-			return (-i);
+			return (printf("yolo\n"), -i);
 	if (!get_weapon(cube))
-		return (0);
+		return (printf("ylo\n"), 0);
 	if (!new_img(cube, cube->screen, WIN_WIDTH, WIN_HEIGHT))
 		return (0);
 	return (1);
@@ -73,6 +73,7 @@ int	main(int argc, char **argv)
 	t_player	player;
 
 	cube.frame = FRAME;
+	player = (t_player){0};
 	if (argc != 2)
 		return (write(2, "Error\nBad Arg\n", 14), 0);
 	if (!check_format(argv[1]))
@@ -90,7 +91,6 @@ int	main(int argc, char **argv)
 	mlx_hook(cube.win, 17, 0, &esc_handle, &cube);
 	mlx_hook(cube.win, 2, 0, &key_event, &cube);
 	mlx_hook(cube.win, 3, 10, &key_event_release, &cube);
-	//mlx_hook(cube.win, 5, 0, &mouse_event, &cube);
 	mlx_mouse_hook(cube.win, &click_event, &cube);
 	mlx_loop(cube.mlx);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_maps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/16 21:15:35 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 12:51:32 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	fill_maps(t_maps *lvl, char *str, int fd[2])
 		set_floor_ceiling(lvl->ceil, &str[1]);
 	else if (str[0] == '\n')
 		return ;
-	else if (str[0] == 'W')
+	else if (str[0] == 'G')
 		set_weapon(lvl, &str[1]);
 	else
 		set_map(lvl, str, fd);
@@ -107,6 +107,7 @@ int	get_maps(t_cube *cube, char *file)
 	int		fd[2];
 	char	*str;
 
+	printf("yolo\n");
 	if (!check_arg(cube, file))
 		return (0);
 	cube->lvl->max_len = 0;
