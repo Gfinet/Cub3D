@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 13:33:25 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 22:24:33 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ void	set_map(t_maps *lvl, char *str, int fd[2])
 	int		i;
 	char	*tmp;
 
-	i = 0;
+	i = 1;
 	tmp = ft_strdup(str);
-	while (str && ++i)
+	while (str)
 	{
 		str = get_next_line(fd[0]);
 		if ((int)ft_strlen(str) > lvl->max_len)
 			lvl->max_len = (int)ft_strlen(str) - (str[ft_strlen(str)] == '\n');
-		free(str);
+		i++;
 	}
 	lvl->c_maps = malloc(sizeof(char *) * (i));
 	cpy_line(lvl, tmp, 0);
 	free(tmp);
-	free_and_gnl(&str, fd[1]);
+	str = get_next_line(fd[1]);
 	i = 1;
 	while (str)
 	{
@@ -96,8 +96,6 @@ void	fill_maps(t_maps *lvl, char *str, int fd[2])
 		set_floor_ceiling(lvl->ceil, &str[1]);
 	else if (str[0] == '\n')
 		return ;
-	else if (str[0] == 'G')
-		set_weapon(lvl, &str[1]);
 	else
 		set_map(lvl, str, fd);
 }
@@ -106,20 +104,20 @@ int	get_maps(t_cube *cube, char *file)
 {
 	int		fd[2];
 	char	*str;
-	char	*str2;
 
 	if (!check_arg(cube, file))
 		return (0);
 	cube->lvl->max_len = 0;
 	fd[0] = open(file, O_RDONLY);
 	fd[1] = open(file, O_RDONLY);
+	cube->lvl->c_text = malloc(sizeof(char *) * 4);
 	str = get_next_line(fd[0]);
-	str2 = get_next_line(fd[1]);
+	get_next_line(fd[1]);
 	while (str)
 	{
 		fill_maps(cube->lvl, str, fd);
 		free_and_gnl(&str, fd[0]);
-		free_and_gnl(&str2, fd[1]);
+		get_next_line(fd[1]);
 	}
 	printf("got map\n");
 	if (!check_map(cube))

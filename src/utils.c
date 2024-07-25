@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 00:07:51 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 21:14:24 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/09 22:25:23 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,4 @@ void	free_maps(char **maps, int ind)
 	while (++i <= ind)
 		free(maps[i]);
 	free(maps);
-}
-
-void	free_cube(t_cube *cube)
-{
-	if (cube->lvl)
-		free_maps(cube->lvl->c_maps, cube->lvl->m_height - 1);
-	mlx_destroy_image(cube->mlx, cube->screen->img);
-	free(cube->screen);
-	mlx_destroy_image(cube->mlx, cube->lvl->mini.maps.img);
-	mlx_destroy_image(cube->mlx, cube->texture[0].img);
-	mlx_destroy_image(cube->mlx, cube->texture[1].img);
-	mlx_destroy_image(cube->mlx, cube->texture[2].img);
-	mlx_destroy_image(cube->mlx, cube->texture[3].img);
 }

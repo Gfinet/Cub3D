@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 13:38:04 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/15 16:39:06 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,15 @@ static int	init_cube(t_cube *cube, t_player *play, t_maps *level)
 	cube->win = mlx_new_window(cube->mlx, WIN_WIDTH, WIN_HEIGHT, "DOOM3D");
 	if (!cube->win)
 		return (0);
+	cube->bg = malloc(sizeof(t_data));
+	if (!cube->bg)
+		return (0);
 	cube->screen = malloc(sizeof(t_data));
 	if (!cube->screen)
-		return (0);
+		return (free(cube->bg), 0);
+	cube->bg = malloc(sizeof(t_data));
+	if (!cube->bg)
+		return (free(cube->bg), free(cube->screen), free(cube->texture), 0);
 	cube->lvl = level;
 	cube->player = play;
 	return (1);
@@ -45,13 +51,20 @@ static int	get_textures(t_cube *cube)
 	int		i;
 	t_data	*txt;
 
+	cube->texture = malloc(sizeof(t_data) * 4);
+	if (!cube->texture)
+		return (0);
 	txt = cube->texture;
 	i = -1;
 	while (++i < 4)
-		if (!xpm_to_img(cube, &txt[i], cube->lvl->c_text[i]))
+	{
+		txt[i].img = mlx_xpm_file_to_image(cube->mlx, cube->lvl->c_text[i],
+				&txt[i].width, &txt[i].height);
+		if (!txt[i].img)
 			return (-i);
-	if (!get_weapon(cube))
-		return (0);
+		txt[i].addr = mlx_get_data_addr(txt[i].img, &txt[i].bits_per_pixel,
+				&txt[i].line_length, &txt[i].endian);
+	}
 	if (!new_img(cube, cube->screen, WIN_WIDTH, WIN_HEIGHT))
 		return (0);
 	return (1);
