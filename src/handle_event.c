@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/13 16:44:23 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/24 18:10:36 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	key_event(int keycode, t_cube *cube)
 		cube->player->run = 1;
 		cube->frame = FRAME / 2;
 	}
+	if (keycode == MS_L_CLK)
+		printf("push mouse\n");
 	return (1);
 }
 
@@ -78,11 +80,21 @@ int	key_event_release(int keycode, t_cube *cube)
 		cube->player->run = 0;
 		cube->frame = FRAME;
 	}
+	if (keycode == MS_L_CLK)
+		printf("relesease mouse\n");
 	return (1);
 }
 
 int	mouse_event(int mcode, int x, int y, t_cube *cube)
 {
-	printf("%d %d %d %p\n", mcode, x, y, cube);
+	printf("%d/%d/%d/%p\n", mcode, x, y, cube);
 	return (0);
+}
+
+int click_event(int butt, int x, int y, t_cube *cube)
+{
+	printf("%d/%d/%d/%p\n", butt, x, y, cube);
+	if (butt == 1)
+		cube->player->shoot = 1;
+	return (1);
 }
