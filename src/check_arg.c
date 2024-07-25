@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:40:39 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 21:33:50 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 13:30:37 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static int	check_texture(t_cube *cube, char *str)
 	size[0] = 5;
 	size[1] = 5;
 	size[2] = 0;
+	if (str[0] == 'G')
+		return (check_weapon(cube, &str[1]));
 	while (str[size[2]] == ' ')
 		size[2]++;
 	len = ft_strlen(str) - (size[2] + 1);
@@ -48,14 +50,14 @@ static int	check_all_text(t_cube *cube, char *file)
 		if (str && ((!ft_strncmp(str, "NO", 2))
 				|| (!ft_strncmp(str, "SO", 2))
 				|| (!ft_strncmp(str, "WE", 2))
+				|| (!ft_strncmp(str, "G", 1))
 				|| (!ft_strncmp(str, "EA", 2))))
 		{
 			if (!check_texture(cube, &str[2]))
 				return (close(fd), 0);
 			dir[get_dir(str)]++;
 		}
-		free(str);
-		str = get_next_line(fd);
+		free_and_gnl(&str, fd);
 	}
 	if (!dir[0] || !dir[1] || !dir[2] || !dir[3])
 		return (close(fd), 0);

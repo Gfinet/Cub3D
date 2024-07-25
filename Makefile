@@ -15,6 +15,8 @@ SRCS     = src/main_cub3d.c			\
 			src/mlx_img.c 			\
 			src/utils.c 			\
 			src/movements.c 		\
+			src/parse_weapon.c 		\
+			src/draw_weapon.c 		\
 			src/interaction.c
 OBJ      = $(SRCS:.c=.o)
 OBJDIR = obj/
