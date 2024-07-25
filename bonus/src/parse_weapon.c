@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:10:01 by Gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 14:49:07 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/25 15:03:13 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,31 +53,29 @@ void	set_weapon(t_maps *lvl, char *str)
 
 int	check_weapon(t_cube *cube, char *str)
 {
-	int		i;
+	int		i_len[2];
 	char	*tmp;
 	char	**lst;
-	size_t	len;
 	t_data	data;
 
-	(void)cube;
-	len = 0;
+	i_len[1] = 0;
 	lst = ft_split(&str[1], ' ');
-	while (lst[len] != 0)
-		len++;
-	if (len == 1)
-		return (free_maps(lst, len), 0);
-	tmp = ft_substr(lst[len - 1], 0, ft_strlen(lst[len - 1]) - 1);
-	free(lst[len - 1]);
-	lst[len - 1] = tmp;
-	i = -1;
-	while (++i < (int)len)
+	while (lst[i_len[1]] != 0)
+		i_len[1]++;
+	if (i_len[1] == 1)
+		return (free_maps(lst, i_len[1]), 0);
+	tmp = ft_substr(lst[i_len[1] - 1], 0, ft_strlen(lst[i_len[1] - 1]) - 1);
+	free(lst[i_len[1] - 1]);
+	lst[i_len[1] - 1] = tmp;
+	i_len[0] = -1;
+	while (++i_len[0] < i_len[1])
 	{
 		data.width = 100;
 		data.height = 170;
-		data.img = mlx_xpm_file_to_image(cube->mlx, lst[i],
+		data.img = mlx_xpm_file_to_image(cube->mlx, lst[i_len[0]],
 				&data.width, &data.height);
 		if (!data.img)
 			return (0);
 	}
-	return (free_maps(lst, len), 1);
+	return (free_maps(lst, i_len[1]), 1);
 }
