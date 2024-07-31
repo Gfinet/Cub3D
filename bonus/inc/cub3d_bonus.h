@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 16:42:53 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/31 17:13:27 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define MLX_SYNC_IMAGE_WRITABLE	1
 # define MLX_SYNC_WIN_FLUSH_CMD		1
 # define MLX_SYNC_WIN_CMD_COMPLETED	3
+# define MAX_LIFE 100
 
 # ifndef WIN_HEIGHT
 #  define WIN_HEIGHT 640 //1280
@@ -33,7 +34,7 @@
 #  define WIN_WIDTH 1200 //2400
 # endif
 
-# define FRAME 4
+# define FRAME 4 //12
 # define JUMP_HEIGHT 80
 
 typedef struct s_point
@@ -86,11 +87,14 @@ typedef struct s_player
 	t_point	pos;
 	t_point	dir;
 	t_point	prev_pos;
+	t_data	life;
+	int		shoot;
 	int		run;
 	int		move_v;
 	int		move_h;
 	int		turn;
 	int		use_weap;
+	int		hp;
 }	t_player;
 
 typedef struct s_door
@@ -166,7 +170,9 @@ int		fps(t_cube	*cube);
 int		key_event(int keycode, t_cube *cube);
 int		key_event_release(int keycode, t_cube *cube);
 int		mouse_event(int x, int y, t_cube *cube);
-int		mouse_other_event(int butt, int x, int y, t_cube *cube);
+int		mouse_press_event(int keycode, int x, int y, t_cube *cube);
+int		mouse_rel_event(int keycode, int x, int y, t_cube *cube);
+void	set_use_weapon(int key, t_cube *cube);
 
 //parse_maps.c
 int		get_maps(t_cube *cube, char *file);
@@ -249,5 +255,9 @@ int		check_weapon(t_cube *cube, char *str);
 
 //draw_weapon
 int		xpm_to_img(t_cube *cube, t_data *new_img, char *name);
-void	draw_weapons(t_cube *cube);
+void	draw_weapons(t_cube *cube, int fre);
+
+//life
+int		set_life(t_cube *cube);
+void	draw_life(t_cube *cube);
 #endif

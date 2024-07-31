@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_maps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 20:53:42 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/29 13:32:06 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	cpy_line(t_maps *lvl, char *str, int ind)
 
 	lvl->c_maps[ind] = malloc(sizeof(char) * lvl->max_len + 2);
 	if (!lvl->c_maps[ind])
-		return (free_maps(lvl->c_maps, ind), 0);
+		return (free_maps(lvl->c_maps, ind, 1), 0);
 	len = ft_strlen(str);
 	len -= str[len - 1] == '\n';
 	ft_strlcpy(lvl->c_maps[ind], str, len + 2);

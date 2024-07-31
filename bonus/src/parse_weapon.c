@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_weapon.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:10:01 by Gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 16:39:53 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/31 17:16:34 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	get_weapon(t_cube *cube)
 		j = -1;
 		while (weap[i].path[++j])
 		{
-			printf("%s\n", weap[i].path[j]);
 			xpm_to_img(cube, &weap[i].sprites[j], weap[i].path[j]);
 			if (!weap[i].sprites[j].img)
 				return (0);

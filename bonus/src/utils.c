@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 00:07:51 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 22:22:12 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/28 19:52:57 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ void	free_cube(t_cube *cube)
 	mlx_destroy_image(cube->mlx, cube->texture[1].img);
 	mlx_destroy_image(cube->mlx, cube->texture[2].img);
 	mlx_destroy_image(cube->mlx, cube->texture[3].img);
+	draw_weapons(cube, 1);
 }

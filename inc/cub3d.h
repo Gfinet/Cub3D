@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 14:16:04 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/29 13:31:47 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ void	update_player(t_cube *cube, t_player *player);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	free_and_gnl(char **str, int fd);
 int		new_img(t_cube *cube, t_data *new_img, int width, int height);
-void	free_maps(char **maps, int ind);
+void	free_maps(char **maps, int ind, int f);
 void	free_cube(t_cube *cube);
 
 #endif

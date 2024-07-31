@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_cub3d_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 16:42:43 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/31 17:14:33 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,13 @@ static int	get_textures(t_cube *cube)
 static void	game_loop_init(t_cube *cube)
 {
 	draw_doom(cube);
-	mlx_loop_hook(cube->mlx, &fps, cube);
 	mlx_hook(cube->win, 17, 0, &esc_handle, cube);
 	mlx_hook(cube->win, 2, 0, &key_event, cube);
 	mlx_hook(cube->win, 3, 10, &key_event_release, cube);
 	mlx_hook(cube->win, 6, 0, &mouse_event, cube);
-	mlx_mouse_hook(cube->win, &mouse_other_event, cube);
+	mlx_hook(cube->win, 4, (1L << 2), &mouse_press_event, cube);
+	mlx_hook(cube->win, 5, (1L << 3), &mouse_rel_event, cube);
+	mlx_loop_hook(cube->mlx, &fps, cube);
 	mlx_loop(cube->mlx);
 }
 
@@ -93,6 +94,8 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\nBad textures\n", 19), 0);
 	if (!make_mini(&cube, &level))
 		return (write(2, "Error\nAttempt for mini map failed\n", 34), 0);
+	if (!set_life(&cube))
+		return (write(2, "Error\nAttempt for life map failed\n", 34), 0);
 	game_loop_init(&cube);
 	return (0);
 }

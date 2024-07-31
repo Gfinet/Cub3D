@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 21:54:06 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/09 21:35:25 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/31 17:13:03 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,12 @@ int	check_elem(char *file)
 		free_and_gnl(&str, fd);
 	}
 	return (free(str), flag);
+}
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }

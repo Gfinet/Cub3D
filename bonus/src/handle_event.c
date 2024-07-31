@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_event.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 16:38:35 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/31 17:14:59 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	fps(t_cube	*cube)
 	i = 0;
 	p = cube->player;
 	d = find_door(cube, p->pos.x + p->dir.x, p->pos.y + p->dir.y);
-	if (!cube->player->move_h && !cube->player->move_v && !cube->player->turn)
+	if (!cube->player->move_h && !cube->player->move_v
+		&& !cube->player->turn && !cube->player->shoot)
 		i = cube->frame;
 	if (d && d->on_going)
 		i = -cube->frame;
@@ -73,6 +74,8 @@ int	key_event(int keycode, t_cube *cube)
 		cube->player->run = 1;
 		cube->frame = FRAME / 2;
 	}
+	if (keycode > 17 && keycode < 29 && keycode != 24 && keycode != 27)
+		set_use_weapon(keycode, cube);
 	return (1);
 }
 
@@ -96,6 +99,7 @@ int	key_event_release(int keycode, t_cube *cube)
 
 int	mouse_event(int x, int y, t_cube *cube)
 {
+	mlx_mouse_hide();
 	cube->mouse = 1;
 	(void)y;
 	mlx_mouse_move(cube->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);

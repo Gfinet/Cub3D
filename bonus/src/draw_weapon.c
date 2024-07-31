@@ -3,36 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   draw_weapon.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 00:26:20 by Gfinet            #+#    #+#             */
-/*   Updated: 2024/07/25 16:08:15 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/31 17:13:59 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d_bonus.h"
 
-void	draw_weapons(t_cube *cube)
+static void	set_i(int **i, int nb)
 {
-	int			n_w_h[3];
+	int	x;
+
+	x = -1;
+	*i = malloc(nb * sizeof(int));
+	while (++x < nb)
+		(*i)[x] = 0;
+}
+
+void	put_weapon(t_cube *cube, int *i)
+{
+	int			w;
+	int			h;
 	int			u_w;
-	static int	i = 1;
+	t_weapon	*weap;
+
+	u_w = cube->player->use_weap;
+	weap = cube->lvl->weap;
+	if (cube->player->shoot == 1)
+	{
+		w = (WIN_WIDTH - weap[u_w].sprites[i[u_w]].width) / 2;
+		h = WIN_HEIGHT - weap[u_w].sprites[i[u_w]].height;
+		mlx_put_image_to_window(cube->mlx, cube->win,
+			weap[u_w].sprites[i[u_w]].img, w, h);
+	}
+	else
+	{
+		w = (WIN_WIDTH - weap[u_w].sprites[0].width) / 2;
+		h = WIN_HEIGHT - weap[u_w].sprites[0].height;
+		mlx_put_image_to_window(cube->mlx, cube->win,
+			weap[u_w].sprites[0].img, w, h);
+	}
+}
+
+void	draw_weapons(t_cube *cube, int fre)
+{
+	int			n;
+	int			u_w;
+	static int	*i = 0;
 	static int	fps = 0;
 	t_weapon	*weap;
 
+	if (i == 0)
+		set_i(&i, cube->lvl->nb_weap);
 	weap = cube->lvl->weap;
 	u_w = cube->player->use_weap;
-	n_w_h[0] = (WIN_WIDTH - weap[u_w].sprites[i].width) / 2;
-	n_w_h[1] = WIN_HEIGHT - weap[u_w].sprites[i].height;
-	while (weap[u_w].path[n_w_h[2]] != 0)
-		n_w_h[2]++;
-	mlx_put_image_to_window(cube->mlx, cube->win,
-		weap[u_w].sprites[i].img, n_w_h[0], n_w_h[1]);
+	n = 0;
+	while (weap[u_w].path[n] != 0)
+		n++;
+	if (!fre)
+		put_weapon(cube, i);
 	fps++;
-	if (fps == cube->frame)
-		i++;
-	i %= (n_w_h[2] - 1);
-	fps %= cube->frame;
+	if (fps - 1 == (cube->frame / (1 + cube->player->run)) / 4)
+		i[u_w]++;
+	i[u_w] %= (n - 1);
+	fps %= cube->frame + cube->frame * cube->player->run;
+	if (fre)
+		free(i);
 }
 
 int	xpm_to_img(t_cube *cube, t_data *new_img, char *name)

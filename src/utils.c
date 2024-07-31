@@ -3,27 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 00:07:51 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/24 21:14:24 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/31 17:12:58 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
-
 void	free_and_gnl(char **str, int fd)
 {
 	free(*str);
 	*str = get_next_line(fd);
+}
+
+int	xpm_to_img(t_cube *cube, t_data *new_img, char *name)
+{
+	new_img->img = mlx_xpm_file_to_image(cube->mlx, name,
+			&new_img->width, &new_img->height);
+	if (!new_img->img)
+		return (0);
+	new_img->addr = mlx_get_data_addr(new_img->img, &new_img->bits_per_pixel,
+			&new_img->line_length, &new_img->endian);
+	return (1);
 }
 
 int	new_img(t_cube *cube, t_data *new_img, int width, int height)
@@ -36,20 +39,24 @@ int	new_img(t_cube *cube, t_data *new_img, int width, int height)
 	return (1);
 }
 
-void	free_maps(char **maps, int ind)
+void	free_maps(char **maps, int ind, int f)
 {
 	int	i;
 
 	i = -1;
 	while (++i <= ind)
 		free(maps[i]);
-	free(maps);
+	if (f)
+		free(maps);
 }
 
 void	free_cube(t_cube *cube)
 {
 	if (cube->lvl)
-		free_maps(cube->lvl->c_maps, cube->lvl->m_height - 1);
+	{
+		free_maps(cube->lvl->c_maps, cube->lvl->m_height - 1, 1);
+		free_maps(cube->lvl->c_text, 3, 0);
+	}
 	mlx_destroy_image(cube->mlx, cube->screen->img);
 	free(cube->screen);
 	mlx_destroy_image(cube->mlx, cube->lvl->mini.maps.img);

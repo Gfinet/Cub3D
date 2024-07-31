@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keycode.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 16:47:34 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/20 20:17:35 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/07/29 13:22:42 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 # define EIGHT 28
 # define NINE 25
 
-# define MS_L_CLK 3
+# define MS_L_CLK 1
 # define MS_R_CLK 2
 # define MS_SCR_CLK 3
 # define MS_DW 4

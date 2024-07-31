@@ -33,6 +33,7 @@ BON_SRCS = bonus/src/main_cub3d_bonus.c		\
 			bonus/src/mlx_img.c 			\
 			bonus/src/utils.c 				\
 			bonus/src/doors.c 				\
+			bonus/src/life.c 				\
 			bonus/src/movements.c 			\
 			bonus/src/parse_weapon.c 		\
 			bonus/src/draw_weapon.c 		\
