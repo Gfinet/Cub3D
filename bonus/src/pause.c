@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:36:42 by Gfinet            #+#    #+#             */
-/*   Updated: 2024/08/02 17:30:49 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/02 19:53:25 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,11 @@
 
 int	init_pause_screen(t_cube *cube)
 {
-	//int		it[2];
 	t_pause	*sc;
 
 	sc = &cube->pause_sc;
 	sc->title.width = WIN_WIDTH;
 	sc->title.height = WIN_HEIGHT;
-	// if (!new_img(cube, &sc->bg, WIN_WIDTH, WIN_HEIGHT))
-	// 	return (0);
-	//it[0] = -1;
-	// while (++it[0] < WIN_HEIGHT)
-	// {
-	// 	it[1] = -1;
-	// 	while (++it[1] < WIN_WIDTH)
-	// 		my_mlx_pixel_put(&sc->bg, it[1], it[0], 0x00000000);
-	// }
 	if (!xpm_to_img(cube, &sc->bg, "./bonus/pause/bg.xpm"))
 		return (0);
 	if (!xpm_to_img(cube, &sc->title, "./bonus/pause/pause-cafe.xpm"))
