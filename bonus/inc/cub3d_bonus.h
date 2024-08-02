@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/02 17:12:55 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/02 18:07:31 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,7 @@ int		get_dir(char *str);
 //interations
 void	find_and_open_door(t_door *door, t_player *player);
 int		is_not_wallz(t_cube *c, t_point new_p, t_player *player);
+void	slide_wall(t_cube *cube, t_point n, t_player *p);
 
 //mini_maps
 void	draw_mini_background(t_maps *lvl);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:12:12 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/24 16:26:20 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/08/02 19:40:55 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	impassable(char **map, t_cube *cb, int x, int y)
 	return (0);
 }
 
-int	is_not_wallz(t_cube *c, t_point n, t_player *p)
+int	is_not_wall(t_cube *c, t_point n, t_player *p)
 {
 	double	n_x;
 	double	n_y;
@@ -78,4 +78,25 @@ int	is_not_wallz(t_cube *c, t_point n, t_player *p)
 			|| impassable(map, c, n.x, n.y)))
 		return (0);
 	return (1);
+}
+
+int	is_not_wallz(t_cube *c, t_point n, t_player *p)
+{
+	char	**map;
+
+	map = c->lvl->c_maps;
+	return (!(impassable(map, c, n.x, p->pos.y)
+			|| impassable(map, c, p->pos.x, n.y)
+			|| impassable(map, c, n.x, n.y)));
+}
+
+void slide_wall(t_cube *c, t_point n, t_player *p)
+{
+	char	**map;
+
+	map = c->lvl->c_maps;
+	if (!impassable(map, c, n.x, p->pos.y))
+		p->pos.x = n.x;
+	if (!impassable(map, c, p->pos.x, n.y))
+		p->pos.y = n.y;
 }
