@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/31 17:13:27 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/02 17:12:55 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,22 @@ typedef struct s_door
 	int				on_going;
 }	t_door;
 
+typedef struct s_pause
+{
+	t_data	bg;
+	t_data	title;
+	t_data	resume;
+	t_data	quit;
+	t_data	arrow;
+	int		choice;
+}	t_pause;
+
 typedef struct s_cube
 {
 	void		*mlx;
 	void		*win;
 	t_maps		*lvl;
+	t_pause		pause_sc;
 	t_data		texture[4];
 	t_data		door_texture[4];
 	t_player	*player;
@@ -117,6 +128,7 @@ typedef struct s_cube
 	t_door		*doors;
 	int			frame;
 	int			mouse;
+	int			pause;
 }	t_cube;
 
 typedef struct s_img
@@ -260,4 +272,9 @@ void	draw_weapons(t_cube *cube, int fre);
 //life
 int		set_life(t_cube *cube);
 void	draw_life(t_cube *cube);
+
+//pause
+void	pause_screen(t_cube *cube);
+int		init_pause_screen(t_cube *cube);
+int		choose_pause(int keycode, t_cube *cube);
 #endif

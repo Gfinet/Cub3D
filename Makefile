@@ -37,6 +37,7 @@ BON_SRCS = bonus/src/main_cub3d_bonus.c		\
 			bonus/src/movements.c 			\
 			bonus/src/parse_weapon.c 		\
 			bonus/src/draw_weapon.c 		\
+			bonus/src/pause.c 				\
 			bonus/src/interaction.c
 
 BON_OBJ  = $(BON_SRCS:.c=.o)

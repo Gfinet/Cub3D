@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 16:47:34 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/29 13:22:42 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/02 14:46:53 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define RIGHT 124
 # define DW 125
 # define UP 126
+# define ENTER 36
 # define L_SH 257
 # define R_SH 258
 # define V 9

@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/31 17:14:59 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/02 17:15:32 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ int	fps(t_cube	*cube)
 
 	i = 0;
 	p = cube->player;
+	if (cube->pause)
+		pause_screen(cube);
 	d = find_door(cube, p->pos.x + p->dir.x, p->pos.y + p->dir.y);
-	if (!cube->player->move_h && !cube->player->move_v
-		&& !cube->player->turn && !cube->player->shoot)
+	if (!p->move_h && !p->move_v && !p->turn && !p->shoot)
 		i = cube->frame;
 	if (d && d->on_going)
 		i = -cube->frame;
-	while (i < cube->frame)
+	while (i++ < cube->frame)
 	{
-		update_player(cube, cube->player);
+		update_player(cube, p);
 		draw_doom(cube);
 		mlx_do_sync(cube->mlx);
-		i++;
 	}
 	if (cube->mouse)
 	{
@@ -55,8 +55,10 @@ int	fps(t_cube	*cube)
 
 int	key_event(int keycode, t_cube *cube)
 {
+	if (cube->pause)
+		return (choose_pause(keycode, cube));
 	if (keycode == ESC)
-		esc_handle(cube);
+		cube->pause = !cube->pause;
 	if (keycode == W)
 		cube->player->move_v = 1;
 	if (keycode == S)
@@ -99,6 +101,8 @@ int	key_event_release(int keycode, t_cube *cube)
 
 int	mouse_event(int x, int y, t_cube *cube)
 {
+	if (cube->pause)
+		return (1);
 	mlx_mouse_hide();
 	cube->mouse = 1;
 	(void)y;

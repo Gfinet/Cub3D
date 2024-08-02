@@ -3,8 +3,8 @@ SO ./texture/nicpimp.xpm
 WE ./texture/eagle.xpm
 EA ./texture/nounours(1).xpm
 
-G ./weapon_sprites/machinegun.xpm ./weapon_sprites/machinegun2.xpm ./weapon_sprites/chaingun.xpm
-G ./weapon_sprites/gun.xpm ./weapon_sprites/gun2.xpm ./weapon_sprites/gun3.xpm ./weapon_sprites/gun4.xpm ./weapon_sprites/gun5.xpm ./weapon_sprites/handgun.xpm
+G ./bonus/weapon_sprites/machinegun.xpm ./bonus/weapon_sprites/machinegun2.xpm ./bonus/weapon_sprites/chaingun.xpm
+G ./bonus/weapon_sprites/gun.xpm ./bonus/weapon_sprites/gun2.xpm ./weapon_sprites/bonus/gun3.xpm ./weapon_sprites/gun4.xpm ./bonus/weapon_sprites/gun5.xpm ./bonus/weapon_sprites/handgun.xpm
 
 F 80,10,10
 C 40,40,40

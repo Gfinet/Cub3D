@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/31 16:20:10 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/31 17:38:52 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	draw_doom(t_cube *cube)
 	draw_mini_background(cube->lvl);
 	draw_maps(cube);
 	draw_player(cube);
-	draw_weapons(cube, 0);
+	if (cube->lvl->weap)
+		draw_weapons(cube, 0);
 	draw_life(cube);
 }

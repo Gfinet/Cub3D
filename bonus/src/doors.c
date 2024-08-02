@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doors.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:17:19 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/25 14:28:00 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/07/31 17:59:16 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_data	data_img(char *file, t_cube *c)
 
 void	load_door_texture(t_cube *cube)
 {
-	(*cube).door_texture[0] = data_img("./texture/door_closed.xpm", cube);
-	(*cube).door_texture[1] = data_img("./texture/door_half_closed.xpm", cube);
-	(*cube).door_texture[2] = data_img("./texture/door_half_opened.xpm", cube);
-	(*cube).door_texture[3] = data_img("./texture/door_open.xpm", cube);
+	cube->door_texture[0] = data_img("./texture/door_closed.xpm", cube);
+	cube->door_texture[1] = data_img("./texture/door_half_closed.xpm", cube);
+	cube->door_texture[2] = data_img("./texture/door_half_opened.xpm", cube);
+	cube->door_texture[3] = data_img("./texture/door_open.xpm", cube);
 }
 
 t_door	*init_new_door(int x, int y)

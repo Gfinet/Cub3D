@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:36:22 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/31 17:17:20 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/02 16:21:37 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	mouse_press_event(int butt, int x, int y, t_cube *cube)
 {
 	(void)y;
 	(void)x;
+	if (cube->pause)
+		return (1);
 	if (butt == MS_DW && cube->player->use_weap)
 		cube->player->use_weap--;
 	else if (butt == MS_DW && !cube->player->use_weap)

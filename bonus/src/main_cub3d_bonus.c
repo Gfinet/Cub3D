@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/31 17:14:33 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/02 17:13:39 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ int	main(int argc, char **argv)
 
 	cube.frame = FRAME;
 	player = (t_player){0};
-	level.weap = 0;
-	level.nb_weap = 0;
+	level = (t_maps){0};
 	if (argc != 2)
 		return (write(2, "Error\nBad Arg\n", 14), 0);
 	if (!check_format(argv[1]))
@@ -95,7 +94,9 @@ int	main(int argc, char **argv)
 	if (!make_mini(&cube, &level))
 		return (write(2, "Error\nAttempt for mini map failed\n", 34), 0);
 	if (!set_life(&cube))
-		return (write(2, "Error\nAttempt for life map failed\n", 34), 0);
+		return (write(2, "Error\nAttempt for life failed\n", 30), 0);
+	if (!init_pause_screen(&cube))
+		return (write(2, "Error\nAttempt for pause screen failed\n", 38), 0);
 	game_loop_init(&cube);
 	return (0);
 }
