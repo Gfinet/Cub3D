@@ -6,11 +6,24 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:40:39 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/02 19:54:04 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/04 19:21:05 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+int	in_char_lst(char c)
+{
+	int		i;
+	char	*lst;
+
+	lst = LST_CHAR;
+	i = -1;
+	while (++i < (int)ft_strlen(lst))
+		if (lst[i] == c)
+			return (1);
+	return (0);
+}
 
 static int	check_surrounding(t_cube *cube, int x, int y, char c)
 {

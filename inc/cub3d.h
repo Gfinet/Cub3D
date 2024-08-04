@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/29 13:31:47 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/04 19:21:19 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 
 # define FRAME 4
 # define JUMP_HEIGHT 80
+# define LST_CHAR "012NSEW"
 
 typedef struct s_mlx
 {
@@ -146,6 +147,7 @@ void	set_map(t_maps *lvl, char *str, int fd[2]);
 
 //check_maps.c
 int		check_map(t_cube *cube);
+int		in_char_lst(char c);
 
 //check_arg
 int		check_arg(t_cube *cube, char *file);

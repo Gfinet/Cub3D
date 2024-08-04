@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/02 20:27:50 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/04 19:19:00 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,20 @@
 
 # define FRAME 4 //12
 # define JUMP_HEIGHT 80
+# define LST_CHAR "012NSEWDGT"
 
 typedef struct s_point
 {
 	double	x;
 	double	y;
 }	t_point;
+
+typedef struct s_mirr
+{
+	int	x;
+	int	y;
+	int	state;
+}	t_mirr;
 
 typedef struct s_data
 {
@@ -72,6 +80,7 @@ typedef struct s_weapon
 typedef struct s_maps
 {
 	t_mini_maps	mini;
+	t_mirr		*mirr;
 	char		**c_maps;
 	char		**c_text;
 	int			max_len;
@@ -79,6 +88,7 @@ typedef struct s_maps
 	int			ceil[3];
 	int			m_height;
 	int			nb_weap;
+	int			nb_mirr;
 	t_weapon	*weap;
 }	t_maps;
 
@@ -195,6 +205,7 @@ void	set_map(t_maps *lvl, char *str, int fd[2]);
 //check_maps.c
 int		check_map(t_cube *cube);
 int		check_elem(char *file);
+int		in_char_lst(char c);
 
 //doors
 t_data	data_img(char *file, t_cube *c);
@@ -277,4 +288,10 @@ void	draw_life(t_cube *cube);
 void	pause_screen(t_cube *cube);
 int		init_pause_screen(t_cube *cube);
 int		choose_pause(int keycode, t_cube *cube);
+
+//broken_mirror
+void	set_mirr(t_maps *lvl);
+int		count_mirr(char *line);
+t_mirr	*find_mirr(t_cube *cube, int x, int y);
+int		get_mirr_state(t_mirr *mirr);
 #endif
