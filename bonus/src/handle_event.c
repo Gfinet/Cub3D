@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/02 20:26:28 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/06 21:28:59 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,9 @@ int	fps(t_cube	*cube)
 	if (cube->pause)
 		pause_screen(cube);
 	d = find_door(cube, p->pos.x + p->dir.x, p->pos.y + p->dir.y);
-	if (!p->move_h && !p->move_v && !p->turn && !p->shoot)
-		i = cube->frame;
 	if (d && d->on_going)
 		i = -cube->frame;
-	while (i++ < cube->frame)
+	while (i++ < cube->frame && !cube->pause)
 	{
 		update_player(cube, p);
 		draw_doom(cube);
