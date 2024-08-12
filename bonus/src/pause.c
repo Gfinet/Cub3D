@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pause.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:36:42 by Gfinet            #+#    #+#             */
-/*   Updated: 2024/08/02 19:53:25 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/12 14:56:51 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	init_pause_screen(t_cube *cube)
 	t_pause	*sc;
 
 	sc = &cube->pause_sc;
+	*sc = (t_pause){0};
 	sc->title.width = WIN_WIDTH;
 	sc->title.height = WIN_HEIGHT;
 	if (!xpm_to_img(cube, &sc->bg, "./bonus/pause/bg.xpm"))
