@@ -6,15 +6,14 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:08:53 by lvodak            #+#    #+#             */
-/*   Updated: 2024/08/12 15:11:56 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/12 15:18:16 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static int	impassable(char **map, t_cube *cb, int x, int y)
+static int	impassable(char **map, int x, int y)
 {
-	(void)cb;
 	if (map[y][x] == '1' || map[y][x] == '2')
 		return (1);
 	return (0);
@@ -37,9 +36,9 @@ void	update_player(t_cube *cb, t_player *play)
 	new_pos.x += play->move_h * (n_x / (4 * cb->frame));
 	if (play->turn)
 		turn(cb, 11.25 * play->turn, cb->frame);
-	if (!impassable(cb->lvl->c_maps, cb, new_pos.x, play->pos.y))
+	if (!impassable(cb->lvl->c_maps, new_pos.x, play->pos.y))
 		cb->player->pos.x = new_pos.x;
-	if (!impassable(cb->lvl->c_maps, cb, play->pos.x, new_pos.y))
+	if (!impassable(cb->lvl->c_maps, play->pos.x, new_pos.y))
 		cb->player->pos.y = new_pos.y;
 }
 
