@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:08:53 by lvodak            #+#    #+#             */
-/*   Updated: 2024/08/12 16:53:55 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/12 17:14:12 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	turn(t_cube *cube, double angle, int frame)
 	double		rad;
 	t_player	*play;
 
-	
 	(void)frame;
 	play = cube->player;
 	angle = play->angle;
@@ -69,7 +68,7 @@ void	turn(t_cube *cube, double angle, int frame)
 	else if (cube->s_mouse)
 		rad = (angle) / (2 * M_PI * 180.0);
 	else
-		rad = (20 * angle / cube->m_sensi ) / (M_PI * 180.0);
+		rad = (20 * angle / cube->m_sensi) / (M_PI * 180.0);
 	n_x = (cube->player->dir.x * cos(-rad)) - (cube->player->dir.y) * sin(-rad);
 	n_y = cube->player->dir.x * sin(-rad) + (cube->player->dir.y) * cos(-rad);
 	cube->player->dir.y = n_y;
