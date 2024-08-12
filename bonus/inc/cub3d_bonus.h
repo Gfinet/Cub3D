@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/04 19:19:00 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/12 16:49:25 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_player
 	int		turn;
 	int		use_weap;
 	int		hp;
+	double	angle;
 }	t_player;
 
 typedef struct s_door
@@ -139,6 +140,8 @@ typedef struct s_cube
 	int			frame;
 	int			mouse;
 	int			pause;
+	int			m_sensi;
+	int			s_mouse;
 }	t_cube;
 
 typedef struct s_img
@@ -246,6 +249,7 @@ void	turn(t_cube *cube, double angle, int frame);
 void	calculate_perp_wall_dist(t_rcdata *data, int mirr);
 double	fix_texture_pos(t_rcdata dt, t_player pl);
 void	rcdda(t_cube *cube, char **map, t_player player);
+void	set_angle(t_cube *cube, int x, int y);
 
 void	draw_mirr_frame(t_data *screen, t_drawdata dt, int x, t_rcdata data);
 void	get_door_draw_data(t_drawdata *dt, t_rcdata data, t_cube *c);

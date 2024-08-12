@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_cub3d_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/02 17:13:39 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/12 16:49:46 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static int	init_cube(t_cube *cube, t_player *play, t_maps *level)
 	load_door_texture(cube);
 	cube->lvl = level;
 	cube->player = play;
+	cube->m_sensi = 10;
+	cube->s_mouse = 1;
 	mlx_mouse_hide();
 	return (1);
 }

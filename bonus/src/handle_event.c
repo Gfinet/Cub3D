@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 21:04:25 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/12 15:01:56 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/12 16:50:08 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	key_event(int keycode, t_cube *cube)
 		cube->player->run = 1;
 		cube->frame = FRAME / 2;
 	}
+	set_angle(cube, 0, 0);
 	if (keycode > 17 && keycode < 29 && keycode != 24 && keycode != 27)
 		set_use_weapon(keycode, cube);
 	return (1);
@@ -92,6 +93,10 @@ int	key_event_release(int keycode, t_cube *cube)
 		cube->player->run = 0;
 		cube->frame = FRAME;
 	}
+	if (keycode == P && cube->m_sensi > 1)
+		cube->m_sensi--;
+	if (keycode == O && cube->m_sensi < 10)
+		cube->m_sensi++;
 	if (keycode == F)
 		find_and_open_door(cube->doors, cube->player);
 	return (1);
@@ -99,18 +104,18 @@ int	key_event_release(int keycode, t_cube *cube)
 
 int	mouse_event(int x, int y, t_cube *cube)
 {
+	(void)y;
 	if (cube->pause)
 		return (1);
 	mlx_mouse_hide();
 	cube->mouse = 1;
-	(void)y;
-	mlx_mouse_move(cube->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	if (x >= WIN_WIDTH * 0.5 && x <= WIN_WIDTH * 0.5)
 		cube->player->turn = 0;
 	if (x < WIN_WIDTH * 0.5)
-		cube->player->turn = 1;
+		cube->player->turn = 2;
 	if (x > WIN_WIDTH * 0.5)
-		cube->player->turn = -1;
+		cube->player->turn = -2;
+	set_angle(cube, x, y);
 	mlx_mouse_move(cube->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	return (0);
 }

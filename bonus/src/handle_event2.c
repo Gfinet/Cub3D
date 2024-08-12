@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_event2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:36:22 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/02 16:21:37 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/12 16:50:56 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	mouse_press_event(int butt, int x, int y, t_cube *cube)
 		cube->player->use_weap = 0;
 	if (butt == MS_L_CLK)
 		cube->player->shoot = 1;
+	if (butt == MS_SCR_CLK)
+		cube->s_mouse = !cube->s_mouse;
 	return (1);
 }
 
