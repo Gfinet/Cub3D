@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_maps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:40:39 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/04 19:21:05 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/17 18:01:03 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	check_map(t_cube *cube)
 	int	j;
 
 	i = -1;
+	if ((cube->lvl->m_height < 3 || cube->lvl->max_len < 3))
+		return (0);
 	while (++i < cube->lvl->m_height)
 	{
 		j = -1;
