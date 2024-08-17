@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/12 16:49:25 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/17 20:13:49 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,6 +292,7 @@ void	draw_life(t_cube *cube);
 void	pause_screen(t_cube *cube);
 int		init_pause_screen(t_cube *cube);
 int		choose_pause(int keycode, t_cube *cube);
+void	free_text(t_cube *cube);
 
 //broken_mirror
 void	set_mirr(t_maps *lvl);

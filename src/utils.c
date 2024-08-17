@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 00:07:51 by gfinet            #+#    #+#             */
-/*   Updated: 2024/07/31 17:12:58 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/17 20:11:22 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,17 @@ void	free_cube(t_cube *cube)
 		free_maps(cube->lvl->c_maps, cube->lvl->m_height - 1, 1);
 		free_maps(cube->lvl->c_text, 3, 0);
 	}
-	mlx_destroy_image(cube->mlx, cube->screen->img);
+	if (cube->screen && cube->screen->img)
+		mlx_destroy_image(cube->mlx, cube->screen->img);
 	free(cube->screen);
-	mlx_destroy_image(cube->mlx, cube->lvl->mini.maps.img);
-	mlx_destroy_image(cube->mlx, cube->texture[0].img);
-	mlx_destroy_image(cube->mlx, cube->texture[1].img);
-	mlx_destroy_image(cube->mlx, cube->texture[2].img);
-	mlx_destroy_image(cube->mlx, cube->texture[3].img);
+	if (cube->lvl && cube->lvl->mini.maps.img)
+		mlx_destroy_image(cube->mlx, cube->lvl->mini.maps.img);
+	if (cube->texture[0].img)
+		mlx_destroy_image(cube->mlx, cube->texture[0].img);
+	if (cube->texture[1].img)
+		mlx_destroy_image(cube->mlx, cube->texture[1].img);
+	if (cube->texture[2].img)
+		mlx_destroy_image(cube->mlx, cube->texture[2].img);
+	if (cube->texture[3].img)
+		mlx_destroy_image(cube->mlx, cube->texture[3].img);
 }

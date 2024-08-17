@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:36:42 by Gfinet            #+#    #+#             */
-/*   Updated: 2024/08/12 14:56:51 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/17 20:20:43 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,19 @@ int	choose_pause(int keycode, t_cube *cube)
 	return (1);
 }
 
-void	game_over(t_cube *cube)
+void	free_text(t_cube *cube)
 {
-	mlx_string_put(cube->mlx, cube->win, 0, 0, 0x00FF0000, "GAME OVER");
+	if (cube->screen && cube->screen->img)
+		mlx_destroy_image(cube->mlx, cube->screen->img);
+	free(cube->screen);
+	if (cube->lvl->mini.maps.img)
+		mlx_destroy_image(cube->mlx, cube->lvl->mini.maps.img);
+	if (cube->texture[0].img)
+		mlx_destroy_image(cube->mlx, cube->texture[0].img);
+	if (cube->texture[1].img)
+		mlx_destroy_image(cube->mlx, cube->texture[1].img);
+	if (cube->texture[2].img)
+		mlx_destroy_image(cube->mlx, cube->texture[2].img);
+	if (cube->texture[3].img)
+		mlx_destroy_image(cube->mlx, cube->texture[3].img);
 }

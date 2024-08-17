@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_maps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/04 19:13:31 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/17 20:47:33 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ int	get_maps(t_cube *cube, char *file)
 	get_all_doors(cube->lvl->c_maps, cube);
 	if (!check_map(cube))
 		return (0);
-	printf("yolo\n");
 	close(fd[0]);
 	close(fd[1]);
 	return (1);

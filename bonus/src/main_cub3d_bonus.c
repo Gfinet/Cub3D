@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/12 16:49:46 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/17 20:45:38 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ static int	check_format(char *file)
 
 static int	init_cube(t_cube *cube, t_player *play, t_maps *level)
 {
+	*cube = (t_cube){0};
+	*play = (t_player){0};
+	*level = (t_maps){0};
+	cube->frame = FRAME;
 	cube->mlx = mlx_init();
 	if (!cube->mlx)
 		return (0);
@@ -35,6 +39,7 @@ static int	init_cube(t_cube *cube, t_player *play, t_maps *level)
 	cube->screen = malloc(sizeof(t_data));
 	if (!cube->screen)
 		return (0);
+	*(cube->screen) = (t_data){0};
 	load_door_texture(cube);
 	cube->lvl = level;
 	cube->player = play;
@@ -80,25 +85,22 @@ int	main(int argc, char **argv)
 	t_maps		level;
 	t_player	player;
 
-	cube.frame = FRAME;
-	player = (t_player){0};
-	level = (t_maps){0};
 	if (argc != 2)
-		return (write(2, "Error\nBad Arg\n", 14), 0);
+		return (write(2, ERROR_ARG, 14), free_cube(&cube), 0);
 	if (!check_format(argv[1]))
-		return (write(2, "Error\nBad format\n", 17), 0);
+		return (write(2, ERROR_FRM, 17), free_cube(&cube), 0);
 	if (!init_cube(&cube, &player, &level))
-		return (write(2, "Error\nMalloc error\n", 19), 0);
+		return (write(2, ERROR_MAL, 19), free_cube(&cube), 0);
 	if (!get_maps(&cube, argv[1]))
-		return (write(2, "Error\nBad maps\n", 15), 0);
+		return (write(2, ERROR_MAP, 15), free_cube(&cube), 0);
 	if (!get_textures(&cube))
-		return (write(2, "Error\nBad textures\n", 19), 0);
+		return (write(2, ERROR_TXT, 19), free_cube(&cube), 0);
 	if (!make_mini(&cube, &level))
-		return (write(2, "Error\nAttempt for mini map failed\n", 34), 0);
+		return (write(2, ERROR_MMP, 34), free_cube(&cube), 0);
 	if (!set_life(&cube))
-		return (write(2, "Error\nAttempt for life failed\n", 30), 0);
+		return (write(2, ERROR_HP, 30), free_cube(&cube), 0);
 	if (!init_pause_screen(&cube))
-		return (write(2, "Error\nAttempt for pause screen failed\n", 38), 0);
+		return (write(2, ERROR_PSC, 38), free_cube(&cube), 0);
 	game_loop_init(&cube);
 	return (0);
 }

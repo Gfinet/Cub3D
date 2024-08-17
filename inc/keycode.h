@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 16:47:34 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/12 16:46:13 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/17 20:45:34 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@
 # define GREEN  0x5500FF00
 # define WHITE 0x00FFFFFF
 # define RED 0x00FF0000
+
+# define ERROR_ARG "Error\nBad Arg\n"
+# define ERROR_FRM "Error\nBad format\n"
+# define ERROR_MAL "Error\nMalloc error\n"
+# define ERROR_MAP "Error\nBad maps\n"
+# define ERROR_TXT "Error\nBad textures\n"
+# define ERROR_MMP "Error\nAttempt for mini map failed\n"
+# define ERROR_HP "Error\nAttempt for life failed\n"
+# define ERROR_PSC "Error\nAttempt for pause screen failed\n"
 
 # define ESC 53
 # define W 13
