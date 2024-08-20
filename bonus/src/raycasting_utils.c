@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 21:54:19 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/31 22:00:32 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/20 16:04:26 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,12 @@ void	check_hit_target(t_rcdata *dt, char **map)
 	{
 		if (dt->hit != 3)
 		{
-			(*dt).hit = 3;
 			calculate_perp_wall_dist(dt, 2);
 			(*dt).d_side = dt->side;
 			(*dt).d_dest = (t_point){dt->dest.x, dt->dest.y};
 			(*dt).door = 1;
 		}
-		else
-			(*dt).hit = 3;
+		(*dt).hit = 3;
 	}
 }
 

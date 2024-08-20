@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:08:02 by lvodak            #+#    #+#             */
-/*   Updated: 2024/07/12 21:55:55 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/08/20 16:05:47 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,9 @@
 
 static void	calculate_perp_wall_dist(t_rcdata *data)
 {
-	if (data->side == 0)
+	if (data->side == 0 || data->side == 2)
 		(*data).perp_wall_dist = (data->side_dist.x - data->delta_dist.x);
-	else if (data->side == 2)
-		(*data).perp_wall_dist = (data->side_dist.x - data->delta_dist.x);
-	else if (data->side == 1)
-		(*data).perp_wall_dist = (data->side_dist.y - data->delta_dist.y);
-	else if (data->side == 3)
+	else if (data->side == 1 || data->side == 3)
 		(*data).perp_wall_dist = (data->side_dist.y - data->delta_dist.y);
 }
 
@@ -122,8 +118,5 @@ void	rcdda(t_cube *cube, char **map, t_player player)
 		drawdata.tex_num = data.side;
 		draw_xwall(cube->screen, &drawdata, cube, x);
 	}
-	cube->screen->addr = mlx_get_data_addr(cube->screen->img,
-			&cube->screen->bits_per_pixel, &cube->screen->line_length,
-			&cube->screen->endian);
 	mlx_put_image_to_window(cube->mlx, cube->win, cube->screen->img, 0, 0);
 }
