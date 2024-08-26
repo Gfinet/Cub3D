@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_cub3d_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/17 20:45:38 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/26 18:17:41 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ int	main(int argc, char **argv)
 	t_player	player;
 
 	if (argc != 2)
-		return (write(2, ERROR_ARG, 14), free_cube(&cube), 0);
+		return (write(2, ERROR_ARG, 14), 0);
 	if (!check_format(argv[1]))
-		return (write(2, ERROR_FRM, 17), free_cube(&cube), 0);
+		return (write(2, ERROR_FRM, 17), 0);
 	if (!init_cube(&cube, &player, &level))
 		return (write(2, ERROR_MAL, 19), free_cube(&cube), 0);
 	if (!get_maps(&cube, argv[1]))

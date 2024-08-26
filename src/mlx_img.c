@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/04 19:22:12 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/26 17:59:48 by lvodak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	get_player_pos(t_cube *cube)
 			|| m[i[0]][i[1]] == 'E' || m[i[0]][i[1]] == 'W')
 			{
 				c = m[i[0]][i[1]];
-				cube->player->pos = (t_point){i[1], i[0]};
+				cube->player->pos = (t_point){i[1] + 0.1, i[0] + 0.1};
 				break ;
 			}
 		}
