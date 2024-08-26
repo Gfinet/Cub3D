@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/17 20:07:02 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/26 18:37:03 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void	set_map(t_maps *lvl, char *str, int fd[2]);
 
 //check_maps.c
 int		check_map(t_cube *cube);
-int		in_char_lst(char c);
+int		in_char_lst(char c, char *lst);
 
 //check_arg
 int		check_arg(t_cube *cube, char *file);

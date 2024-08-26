@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 21:54:06 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/04 19:24:46 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/26 18:36:37 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_line(char *str)
 	len = (int)ft_strlen(str);
 	while (++i < len - 1)
 	{
-		if (str[i] != ' ' && !in_char_lst(str[i]))
+		if (str[i] != ' ' && !in_char_lst(str[i], LST_CHAR))
 			flag += 1;
 		if (str[i] == 'N' || str[i] == 'S' || str[i] == 'E' || str[i] == 'W')
 			count += 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:03:11 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/26 18:00:32 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/08/26 18:38:59 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	fill_map_char(t_maps *lvl, char c)
 		while (++j < lvl->max_len)
 		{
 			ch = lvl->c_maps[i][j];
-			if (!in_char_lst(ch) || (j > (int)len && j < lvl->max_len - 1))
+			if (!in_char_lst(ch, LST_CHAR)
+				|| (j > (int)len && j < lvl->max_len - 1))
 				lvl->c_maps[i][j] = c;
 			if (j == lvl->max_len - 1)
 				lvl->c_maps[i][j] = 0;

@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   check_maps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:40:39 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/26 18:26:40 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/08/26 18:37:35 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d_bonus.h"
 
-int	in_char_lst(char c)
+int	in_char_lst(char c, char *lst)
 {
 	int		i;
-	char	*lst;
 
-	lst = LST_CHAR;
 	i = -1;
 	while (++i < (int)ft_strlen(lst))
 		if (lst[i] == c)
@@ -58,7 +56,7 @@ int	check_map(t_cube *cube)
 		j = -1;
 		while (++j < cube->lvl->max_len)
 		{
-			if (cube->lvl->c_maps[i][j] == '0')
+			if (in_char_lst(cube->lvl->c_maps[i][j], "0NSWEG"))
 				if (!check_surrounding(cube, i, j, '.'))
 					return (0);
 		}
