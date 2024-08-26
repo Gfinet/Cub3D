@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/17 20:46:57 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/26 17:52:24 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int argc, char **argv)
 	t_player	player;
 
 	if (argc != 2)
-		return (write(2, ERROR_ARG, 14), free_cube(&cube), 0);
+		return (write(2, ERROR_ARG, 14), 0);
 	if (!check_format(argv[1]))
 		return (write(2, ERROR_FRM, 17), free_cube(&cube), 0);
 	if (!init_cube(&cube, &player, &level))
