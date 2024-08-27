@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_cub3d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/26 18:17:50 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/08/27 18:29:33 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static int	check_format(char *file)
 {
 	size_t	i;
 
-	i = 0;
-	while (file && i < ft_strlen(file) && file[i] != '.')
-		i++;
-	if (ft_strncmp(&file[i], ".cub", 5))
+	i = ft_strlen(file);
+	while (file && i  && file[i] != '.')
+		i--;
+	if (!file || ft_strncmp(&file[i], ".cub", 5))
 		return (0);
 	return (1);
 }
