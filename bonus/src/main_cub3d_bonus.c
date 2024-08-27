@@ -6,7 +6,7 @@
 /*   By: Gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:40:12 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/27 18:30:05 by Gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/28 00:53:58 by Gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_format(char *file)
 	size_t	i;
 
 	i = ft_strlen(file);
-	while (file && i  && file[i] != '.')
+	while (file && i && file[i] != '.')
 		i--;
 	if (!file || ft_strncmp(&file[i], ".cub", 5))
 		return (0);
