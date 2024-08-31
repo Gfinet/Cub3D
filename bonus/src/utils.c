@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvodak <lvodak@student.s19.be>             +#+  +:+       +#+        */
+/*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 00:07:51 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/26 18:12:42 by lvodak           ###   ########.fr       */
+/*   Updated: 2024/08/31 17:38:41 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,7 @@ void	free_cube(t_cube *cube)
 	t_door	*next;
 
 	if (cube->lvl)
-	{
 		free_maps(cube->lvl->c_maps, cube->lvl->m_height - 1);
-		if (cube->lvl->c_text)
-			free_maps(cube->lvl->c_text, 3);
-	}
 	cur = cube->doors;
 	while (cur)
 	{

@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 00:07:51 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/17 20:11:22 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/31 17:38:19 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ void	free_maps(char **maps, int ind, int f)
 void	free_cube(t_cube *cube)
 {
 	if (cube->lvl)
-	{
 		free_maps(cube->lvl->c_maps, cube->lvl->m_height - 1, 1);
-		free_maps(cube->lvl->c_text, 3, 0);
-	}
 	if (cube->screen && cube->screen->img)
 		mlx_destroy_image(cube->mlx, cube->screen->img);
 	free(cube->screen);

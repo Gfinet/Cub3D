@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/31 17:20:13 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/31 17:38:46 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,22 +110,22 @@ int	get_maps(t_cube *cube, char *file)
 
 	if (!check_arg(cube, file))
 		return (0);
-	cube->lvl->max_len = 0;
 	fd[0] = open(file, O_RDONLY);
 	fd[1] = open(file, O_RDONLY);
-	cube->lvl->c_text = malloc(sizeof(char *) * 4);
 	str = get_next_line(fd[0]);
 	str2 = get_next_line(fd[1]);
-	while (str)
+	while (str && str2)
 	{
 		fill_maps(cube->lvl, str, fd);
 		free_and_gnl(&str, fd[0]);
 		free_and_gnl(&str2, fd[1]);
 	}
+	if ((str && !str2))
+		return (free(str), 0);
+	else if ((!str && str2))
+		return (free(str2), 0);
 	get_all_doors(cube->lvl->c_maps, cube);
 	if (!check_map(cube))
 		return (0);
-	close(fd[0]);
-	close(fd[1]);
-	return (1);
+	return (close(fd[0]), close(fd[1]), 1);
 }

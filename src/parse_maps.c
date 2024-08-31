@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/31 17:31:06 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/31 17:36:17 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int	get_maps(t_cube *cube, char *file)
 
 	if (!check_arg(cube, file))
 		return (0);
-	cube->lvl->max_len = 0;
 	fd[0] = open(file, O_RDONLY);
 	fd[1] = open(file, O_RDONLY);
 	str = get_next_line(fd[0]);
@@ -119,12 +118,12 @@ int	get_maps(t_cube *cube, char *file)
 		free_and_gnl(&str, fd[0]);
 		free_and_gnl(&str2, fd[1]);
 	}
-	if ((str && !str2) || (!str && str2))
-		return (0);
+	if ((str && !str2))
+		return (free(str), 0);
+	else if ((!str && str2))
+		return (free(str2), 0);
 	printf("got map\n");
 	if (!check_map(cube))
 		return (0);
-	close(fd[0]);
-	close(fd[1]);
-	return (1);
+	return (close(fd[0]), close(fd[1]), 1);
 }

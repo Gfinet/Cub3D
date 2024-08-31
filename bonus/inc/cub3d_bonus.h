@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:41:55 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/26 18:36:30 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/31 17:38:53 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_maps
 	t_mini_maps	mini;
 	t_mirr		*mirr;
 	char		**c_maps;
-	char		**c_text;
+	char		*c_text[4];
 	int			max_len;
 	int			floor[3];
 	int			ceil[3];
