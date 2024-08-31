@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 21:54:06 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/26 20:19:34 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/31 17:19:56 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	get_dir(char *str)
 {
-	if (!ft_strncmp(str, "NO", 2))
+	if (!ft_strncmp(str, "EA", 2))
 		return (0);
-	else if (!ft_strncmp(str, "EA", 2))
-		return (1);
 	else if (!ft_strncmp(str, "SO", 2))
-		return (2);
+		return (1);
 	else if (!ft_strncmp(str, "WE", 2))
+		return (2);
+	else if (!ft_strncmp(str, "NO", 2))
 		return (3);
 	else if (!ft_strncmp(str, "G ", 2))
 		return (4);
