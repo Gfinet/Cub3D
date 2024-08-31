@@ -6,7 +6,7 @@
 /*   By: gfinet <gfinet@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:05:21 by gfinet            #+#    #+#             */
-/*   Updated: 2024/08/17 18:02:26 by gfinet           ###   ########.fr       */
+/*   Updated: 2024/08/26 20:34:24 by gfinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ void	fill_maps(t_maps *lvl, char *str, int fd[2])
 		return ;
 	if (!ft_strncmp("NO", str, 2))
 		lvl->c_text[0] = get_text_dir(&str[2]);
-	else if (!ft_strncmp("SO", str, 2))
-		lvl->c_text[1] = get_text_dir(&str[2]);
-	else if (!ft_strncmp("WE", str, 2))
-		lvl->c_text[2] = get_text_dir(&str[2]);
 	else if (!ft_strncmp("EA", str, 2))
+		lvl->c_text[1] = get_text_dir(&str[2]);
+	else if (!ft_strncmp("SO", str, 2))
+		lvl->c_text[2] = get_text_dir(&str[2]);
+	else if (!ft_strncmp("WE", str, 2))
 		lvl->c_text[3] = get_text_dir(&str[2]);
 	else if (str[0] == 'F')
 		set_floor_ceiling(lvl->floor, &str[1]);
@@ -113,12 +113,14 @@ int	get_maps(t_cube *cube, char *file)
 	fd[1] = open(file, O_RDONLY);
 	str = get_next_line(fd[0]);
 	str2 = get_next_line(fd[1]);
-	while (str)
+	while (str && str2)
 	{
 		fill_maps(cube->lvl, str, fd);
 		free_and_gnl(&str, fd[0]);
 		free_and_gnl(&str2, fd[1]);
 	}
+	if ((str && !str2) || (!str && str2))
+	return (0);
 	printf("got map\n");
 	if (!check_map(cube))
 		return (0);
